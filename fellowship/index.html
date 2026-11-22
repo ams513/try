@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="description" content="Stark Fellowship, by Stark: an offline, encrypted app for running a congregation or community group of any faith or none. Directory of households and members, teams and rotas, check-in, giving records with year-end statements, care visits and help requests. Everything stays on this computer.">
+<meta name="color-scheme" content="dark light">
+<title>Stark Fellowship</title><link rel="canonical" href="https://starkforall.com/try/fellowship/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Fellowship"><meta property="og:description" content="Stark Fellowship, by Stark: an offline, encrypted app for running a congregation or community group of any faith or none. Directory of households and members, teams and rotas, check-in, giving records with year-end statements, care visits and help requests. Everything stays on this computer."><meta property="og:url" content="https://starkforall.com/try/fellowship/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Fellowship"><meta name="twitter:description" content="Stark Fellowship, by Stark: an offline, encrypted app for running a congregation or community group of any faith or none. Directory of households and members, teams and rotas, check-in, giving records with year-end statements, care visits and help requests. Everything stays on this computer."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
+<link rel="stylesheet" href="css/app.css?v=1.2.0-4f70d6a1">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.2.0-aa9884f5">
+</head>
+<body class="locked">
+<header class="topbar">
+  <a class="brand" href="#/home" aria-label="Stark Fellowship home">
+    <span class="brand-mark" id="brand-mark"></span>
+    <span class="brand-text"><span class="brand-name">Stark Fellowship</span><span class="brand-by"><span class="stark-wm" role="img" aria-label="Stark"></span></span></span>
+  </a>
+  <span class="chip trial-chip" id="trial-badge" hidden>Free trial</span>
+  <a class="btn small primary" id="trial-buy" href="#" target="_blank" rel="noopener noreferrer" hidden>Own it forever: buy on Gumroad</a>
+  <span class="chip who" id="who" hidden></span>
+  <div class="tools" id="topbar-tools" hidden>
+    <span class="chip" id="save-state"></span>
+    <button type="button" class="btn small" id="cmd-btn" aria-keyshortcuts="Control+K Meta+K" title="Search people and pages, or ask a question (Ctrl K)">Search or ask <kbd>Ctrl K</kbd></button>
+    <button type="button" class="btn small" id="pass-btn">Passphrase</button>
+    <button type="button" class="btn small" id="signout-btn">Sign out</button>
+  </div>
+  <button type="button" class="btn small ghost" id="theme-btn" aria-label="Switch light or dark theme">Theme</button>
+</header>
+<nav class="mainnav" id="nav" aria-label="Main" hidden></nav>
+<main id="main" tabindex="-1"></main>
+<footer class="footer"><p><strong>Stark Fellowship 1.2.0, by Stark.</strong> For communities of every faith and none. Works offline. Encrypted on this computer. No account, no cloud, no payments, no messaging, no tracking.</p>
+<p class="feedback-row"><button type="button" class="btn small ghost" id="feedback-btn">Send feedback</button> <span class="muted">Opens your email app. Nothing is sent until you press send there.</span></p></footer>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden><span class="toast-msg"></span><button type="button" class="toast-x" aria-label="Dismiss message">×</button></div>
+<div id="toast-bad" class="toast bad" role="alert" hidden><span class="toast-msg"></span><button type="button" class="toast-x" aria-label="Dismiss problem message">×</button></div>
+<div id="print-root" aria-hidden="true"></div>
+<noscript><p class="banner">Stark Fellowship needs JavaScript to encrypt your records on this computer.</p></noscript>
+<script src="js/trial_stub.js?v=1.2.0-9a58acb0"></script>
+<script src="js/core.js?v=1.2.0-188b2043"></script>
+<script src="js/books.js?v=1.2.0-a534e9a4"></script>
+<script src="js/community.js?v=1.2.0-5799a53b"></script>
+<script src="js/labels.js?v=1.2.0-b8afb31d"></script>
+<script src="js/trial_on.js?v=1.2.0-85bd2d9f"></script>
+<script src="js/edition.js?v=1.2.0-28f3b676"></script>
+<script src="js/demo.js?v=1.2.0-1d72bf04"></script>
+<script src="js/ui.js?v=1.2.0-9378c500"></script>
+<script src="js/app.js?v=1.2.0-f16cf607"></script>
+<script src="js/views_people.js?v=1.2.0-353a5827"></script>
+<script src="js/views_teams.js?v=1.2.0-c93044c7"></script>
+<script src="js/views_money.js?v=1.2.0-62034f3d"></script>
+<script src="js/views_care.js?v=1.2.0-490b099b"></script>
+<script src="js/trial_glue.js?v=1.2.0-140ea052"></script>
+<script src="js/i18n.js?v=1.2.0-d13a9bc6" data-app="stark-fellowship" data-anchor="#theme-btn"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' data: blob:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="description" content="Stark Math: an offline maths and science tutor with Madeline, a rule-based teacher who explains, hints and spots common mistakes. No accounts, no network.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#16201c">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Stark Math</title><link rel="canonical" href="https://starkforall.com/try/math/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Math"><meta property="og:description" content="Stark Math: an offline maths and science tutor with Madeline, a rule-based teacher who explains, hints and spots common mistakes. No accounts, no network."><meta property="og:url" content="https://starkforall.com/try/math/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Math"><meta name="twitter:description" content="Stark Math: an offline maths and science tutor with Madeline, a rule-based teacher who explains, hints and spots common mistakes. No accounts, no network."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
+<link rel="stylesheet" href="css/app.css?v=1.4.0-3e9d6710">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.4.0-aa9884f5">
+</head>
+<body>
+<button type="button" class="skip-link" id="skip-link">Skip to content</button>
+<header class="topbar">
+  <a class="brand" href="#/home" aria-label="Stark Math home">
+    <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64" width="34" height="34"><rect width="64" height="64" rx="14" fill="var(--tile)"/><rect x="5" y="5" width="54" height="54" rx="11" fill="none" stroke="var(--accent)" stroke-width="2" opacity=".7"/><path d="M20 32h24M32 20v24M23.5 23.5l17 17" stroke="var(--lichen)" stroke-width="4.5" stroke-linecap="round" fill="none"/></svg></span>
+    <span class="brand-text"><span class="brand-name">Stark Math</span><span class="brand-by"><span class="stark-wm" role="img" aria-label="Stark"></span></span></span>
+  </a>
+  <nav class="mainnav" aria-label="Main">
+    <a href="#/home" data-nav="home"><span class="nav-label">Home</span></a>
+    <a href="#/learn" data-nav="learn"><span class="nav-label">Learn</span></a>
+    <a href="#/practice" data-nav="practice"><span class="nav-label">Practice</span></a>
+    <a href="#/study" data-nav="study"><span class="nav-label">Study</span></a>
+    <a href="#/notebook" data-nav="notebook"><span class="nav-label">Notebook</span></a>
+    <a href="#/graph" data-nav="graph"><span class="nav-label">Graph</span></a>
+    <a href="#/surface" data-nav="surface"><span class="nav-label">3D</span></a>
+    <a href="#/calculus" data-nav="calculus"><span class="nav-label">Calculus</span></a>
+    <a href="#/sim" data-nav="sim"><span class="nav-label">Simulate</span></a>
+    <a href="#/contest" data-nav="contest"><span class="nav-label">Contests</span></a>
+    <a href="#/progress" data-nav="progress"><span class="nav-label">Progress</span></a>
+    <a href="#/settings" data-nav="settings"><span class="nav-label">Settings</span></a>
+  </nav>
+  <button type="button" class="trial-badge" id="trial-badge" hidden>Free trial</button>
+  <button type="button" class="profile-chip" id="profile-chip" aria-haspopup="dialog"><span class="profile-avatar" aria-hidden="true"></span><span class="profile-text"><span class="profile-name"></span><span class="profile-mode"></span></span></button>
+</header>
+<main id="main" tabindex="-1"></main>
+<footer class="footer"><p><strong>Stark Math.</strong> Works offline. Madeline is a rule-based teaching guide, not an AI and not a real person. Your progress stays on this device. <button type="button" class="link-btn" id="feedback-open">Send feedback</button><span id="footer-extra"></span></p></footer>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="feedback-dialog" class="dialog" aria-labelledby="feedback-title"><div class="dialog-body" id="feedback-body"></div></dialog>
+<dialog id="trial-dialog" class="dialog" aria-labelledby="trial-title"><div class="dialog-body" id="trial-body"></div></dialog>
+<dialog id="profile-dialog" class="dialog" aria-labelledby="profile-title"><div class="dialog-body" id="profile-body"></div></dialog>
+
+<script src="js/trial_stub.js?v=1.4.0-d1eb7897"></script>
+<script src="js/exact.js?v=1.4.0-b5fff362"></script>
+<script src="js/edition.js?v=1.4.0-bfefa5dd"></script>
+<script src="js/safety.js?v=1.4.0-e139ad67"></script>
+<script src="js/check.js?v=1.4.0-a7d03d04"></script>
+<script src="js/skills.js?v=1.4.0-860a8644"></script>
+<script src="data/constants.js?v=1.4.0-909abce6"></script>
+<script src="js/skills/math1.js?v=1.4.0-3ec4f24e"></script>
+<script src="js/skills/math2.js?v=1.4.0-74f748a6"></script>
+<script src="js/skills/words.js?v=1.4.0-df2f6e02"></script>
+<script src="js/skills/physics.js?v=1.4.0-8ac9ce6b"></script>
+<script src="js/curriculum.js?v=1.4.0-900a82f8"></script>
+<script src="js/learn.js?v=1.4.0-4cf4efbe"></script>
+<script src="js/placement.js?v=1.4.0-91950ae6"></script>
+<script src="js/wordprob.js?v=1.4.0-5cdae375"></script>
+<script src="js/algebra.js?v=1.4.0-184347e4"></script>
+<script src="js/reading.js?v=1.4.0-fad8a263"></script>
+<script src="js/fluency.js?v=1.4.0-df558e53"></script>
+<script src="js/render.js?v=1.4.0-81a25847"></script>
+<script src="js/mathkb.js?v=1.4.0-bfb6da0c"></script>
+<script src="js/core.js?v=1.4.0-ff32e6fb"></script>
+<script src="js/madeline.js?v=1.4.0-43e0f116"></script>
+<script src="js/tutor.js?v=1.4.0-a027f8ab"></script>
+<script src="js/views.js?v=1.4.0-a965409c"></script>
+<script src="js/study.js?v=1.4.0-1e8ffc81"></script>
+<script src="js/notebook.js?v=1.4.0-80a1c510"></script>
+<script src="js/graph.js?v=1.4.0-9dd7d3d1"></script>
+<script src="js/lab.js?v=1.4.0-6a6f23fe"></script>
+<script src="js/sim.js?v=1.4.0-ffe7f5b8"></script>
+<script src="js/trial_glue.js?v=1.4.0-daaaee03"></script>
+<script src="js/shell.js?v=1.4.0-a58cddba"></script>
+<script src="js/pwa.js?v=1.4.0-648f1585"></script>
+<script src="js/app.js?v=1.4.0-a027ce0d"></script>
+<script src="js/i18n.js?v=1.4.0-d13a9bc6" data-app="stark-math" data-anchor="#profile-chip" data-skip=".print-page, .profile-name, .nb-list, .nb-view"></script>
+</body>
+</html>

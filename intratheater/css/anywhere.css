@@ -1,0 +1,56 @@
+/* Stark IntraTheater by Stark. Anywhere (1.1.0): hands-free, sleep timer, touch lock and the guide.
+   Everything drawn over the picture is dim on purpose: warm grey-orange on black, never white, so it does not light up a dark room. */
+:root { --aw-ink: #b86e56; --aw-edge: #43271f; --aw-black: #000000; }
+
+.anywhere-card { margin-bottom: 1rem; }
+.aw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+.theater-side .aw-grid { grid-template-columns: minmax(0, 1fr); }
+.theater-side .anywhere-card { padding: 1rem; }
+.aw-block { display: flex; flex-direction: column; gap: .5rem; align-items: flex-start; min-width: 0; }
+.aw-block h3 { margin: 0; }
+.aw-block label:not(.check) { font-size: .88rem; color: var(--muted); }
+.aw-block select { width: 100%; }
+.aw-block .row { margin: .1rem 0; }
+.aw-go { min-height: 56px; font-size: 1.1rem; }
+.aw-state { font-weight: 700; margin: .8rem 0 .2rem; }
+.aw-state.on { color: var(--gold-2); }
+.aw-note { font-weight: 600; }
+.aw-bold { font-weight: 700; }
+.aw-safety { border: 2px solid var(--gold); }
+.aw-list { padding-left: 1.2rem; display: grid; gap: .5rem; max-width: 75ch; }
+
+/* what sits over the picture */
+.aw-cover { position: absolute; inset: 0; z-index: 5; background: var(--aw-black); opacity: 0; transition: opacity 2.5s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1rem; cursor: pointer; }
+.aw-cover.on { opacity: 1; }
+.aw-cover.instant { transition: none; }
+.aw-cover-text { margin: 0; color: var(--aw-ink); font-weight: 700; font-size: clamp(1.1rem, 3.2vw, 2.4rem); transition: opacity 3s ease; overflow-wrap: anywhere; }
+.aw-cover-sub { margin: .5rem 0 0; color: var(--aw-ink); font-size: clamp(.95rem, 2vw, 1.5rem); transition: opacity 3s ease; }
+.aw-cover.quiet .aw-cover-text, .aw-cover.quiet .aw-cover-sub { opacity: 0; }
+.aw-count { position: absolute; top: .6rem; right: .6rem; z-index: 6; min-height: 44px; padding: .3rem .9rem; border-radius: 999px; background: rgba(0, 0, 0, .78); color: var(--aw-ink); border: 1px solid var(--aw-edge); font: inherit; font-size: .9rem; cursor: pointer; }
+.aw-count:hover { border-color: var(--aw-ink); }
+.aw-end { position: absolute; top: .6rem; left: .6rem; z-index: 6; min-height: 44px; padding: .3rem .9rem; border-radius: 999px; background: rgba(0, 0, 0, .78); color: var(--aw-ink); border: 1px solid var(--aw-edge); font: inherit; font-size: .9rem; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.stage.aw-awake .aw-end { opacity: 1; pointer-events: auto; }
+.aw-end:focus-visible { opacity: 1; outline: 3px solid var(--aw-ink); outline-offset: 2px; }
+.aw-end:hover { border-color: var(--aw-ink); }
+.aw-count[hidden], .aw-cover[hidden], .aw-shield[hidden], .aw-end[hidden] { display: none; }
+
+/* the touch lock: a see-through shield over the whole page (and over the stage in full screen) */
+.stage.aw-locked { z-index: 9000; }
+.aw-shield { position: fixed; inset: 0; z-index: 9000; background: transparent; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; cursor: not-allowed; }
+.aw-badge { position: absolute; bottom: max(1rem, env(safe-area-inset-bottom)); left: max(1rem, env(safe-area-inset-left)); margin: 0; padding: .4rem .9rem; border-radius: 999px; background: rgba(0, 0, 0, .8); color: var(--aw-ink); border: 1px solid var(--aw-edge); font-weight: 700; font-size: .95rem; }
+.aw-unlock { position: absolute; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); width: 104px; height: 104px; padding: 0; border-radius: 50%; border: 1px solid var(--aw-edge); background: rgba(0, 0, 0, .82); color: var(--aw-ink); font: inherit; font-weight: 700; font-size: .85rem; line-height: 1.15; cursor: pointer; touch-action: none; display: grid; place-items: center; }
+.aw-unlock:hover { border-color: var(--aw-ink); }
+.aw-unlock:focus-visible { outline: 3px solid var(--aw-ink); outline-offset: 3px; }
+.aw-unlock-text { position: relative; padding: 0 .7rem; text-align: center; pointer-events: none; }
+.aw-ring { --p: 0; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  background: conic-gradient(var(--aw-ink) calc(var(--p) * 360deg), transparent 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 7px), #000 calc(100% - 6px)); mask: radial-gradient(farthest-side, transparent calc(100% - 7px), #000 calc(100% - 6px)); }
+
+/* the stage in full screen: the picture fills the display and the controls stay out of the way */
+.stage:fullscreen { background: #000; display: flex; flex-direction: column; justify-content: center; }
+.stage:fullscreen .screen { flex: 1 1 auto; aspect-ratio: auto; border: 0; border-radius: 0; box-shadow: none; }
+.stage:fullscreen .stage-bar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .aw-cover, .aw-cover-text, .aw-cover-sub, .aw-end { transition: none; }
+}

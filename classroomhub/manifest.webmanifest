@@ -1,0 +1,25 @@
+{
+ "name": "Stark Classroom Hub (Free trial)",
+ "short_name": "Hub Trial",
+ "description": "The offline teacher desk: lessons, attendance, seating, groups, grading and reports.",
+ "start_url": "./index.html",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#0e1412",
+ "theme_color": "#0e1412",
+ "lang": "en",
+ "icons": [
+  {
+   "src": "icons/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icons/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+/* Free trial bar and notes. Uses the app's own colour variables. */
+.trial-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 6px 18px; background: var(--panel2); border-bottom: 1px solid var(--line); font-size: .82rem; }
+.trial-bar .trial-txt { flex: 1; min-width: 200px; color: var(--muted); }
+.trial-bar .btn { text-decoration: none; }
+.trial-note { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; } .trial-note .btn { text-decoration: none; }

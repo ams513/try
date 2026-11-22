@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="description" content="Stark Builder, by Stark: an offline 3D planner for tiny homes, family homes, compounds and small villages. Floor plans on several floors, furniture, a 3D walkthrough, a site planner, materials, order lists, cost scenarios, a schedule and energy estimates. Everything stays on this computer.">
+<meta name="color-scheme" content="dark light">
+<title>Stark Builder</title><link rel="canonical" href="https://starkforall.com/try/builder/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Builder"><meta property="og:description" content="Stark Builder, by Stark: an offline 3D planner for tiny homes, family homes, compounds and small villages. Floor plans on several floors, furniture, a 3D walkthrough, a site planner, materials, order lists, cost scenarios, a schedule and energy estimates. Everything stays on this computer."><meta property="og:url" content="https://starkforall.com/try/builder/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Builder"><meta name="twitter:description" content="Stark Builder, by Stark: an offline 3D planner for tiny homes, family homes, compounds and small villages. Floor plans on several floors, furniture, a 3D walkthrough, a site planner, materials, order lists, cost scenarios, a schedule and energy estimates. Everything stays on this computer."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
+<link rel="stylesheet" href="css/app.css?v=1.5.0-ebb5b785">
+<link rel="stylesheet" href="css/trial.css?v=1.5.0-436786c0">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.5.0-aa9884f5">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <a class="brand" href="#/plan" aria-label="Stark Builder home">
+    <img src="brand/stark-builder-mark.svg" alt="" width="38" height="38">
+    <span><span class="brand-name">Stark Builder</span><span class="brand-by"><span class="stark-wm" role="img" aria-label="Stark"></span></span></span>
+  </a>
+  <nav class="tabs" role="tablist" aria-label="Main">
+    <button class="tab" role="tab" data-tab="plan">Floor plan</button>
+    <button class="tab" role="tab" data-tab="view3d">3D view</button>
+    <button class="tab" role="tab" data-tab="site">Site</button>
+    <button class="tab" role="tab" data-tab="library">Library</button>
+    <button class="tab" role="tab" data-tab="costs">Materials and cost</button>
+    <button class="tab" role="tab" data-tab="planning">Planning</button>
+    <button class="tab" role="tab" data-tab="studio">Studio</button>
+    <button class="tab" role="tab" data-tab="project">Project</button>
+    <button class="tab" role="tab" data-tab="about">About</button>
+  </nav>
+  <div class="seg" role="group" aria-label="Units">
+    <button type="button" id="u-metric" aria-pressed="true">Metric</button>
+    <button type="button" id="u-imperial" aria-pressed="false">Imperial</button>
+  </div>
+  <button type="button" class="btn" id="theme-btn" aria-label="Switch light or dark theme">Theme</button>
+</header>
+<div class="notice" id="notice" role="note">
+  <strong>Planning tool only.</strong>
+  <span class="notice-text">Not construction documents. Have every plan reviewed by a licensed architect or engineer. Building codes, setbacks and permits vary by location.</span>
+  <a href="#/about">Read more</a>
+  <button type="button" class="notice-x" id="notice-hide" aria-label="Shrink this notice to a small link">Hide</button>
+  <button type="button" class="notice-show" id="notice-show">About these plans</button>
+</div>
+
+<main id="main" tabindex="-1">
+  <!-- FLOOR PLAN -->
+  <section class="view" id="view-plan" aria-label="Floor plan editor">
+    <div class="work">
+      <div class="toolcol" id="tools" role="toolbar" aria-label="Drawing tools"></div>
+      <div class="stage">
+        <div class="canvaswrap"><canvas id="plan-cv" aria-label="Floor plan drawing area. Use the tools at the left; keyboard: Delete removes the selection, Escape cancels."></canvas></div>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </div>
+      <aside class="side" id="plan-side" aria-label="Building details"></aside>
+    </div>
+  </section>
+
+  <!-- 3D -->
+  <section class="view" id="view-view3d" aria-label="3D view">
+    <div class="view3d">
+      <div class="bar" id="bar3d"></div>
+      <div class="canvaswrap" style="flex:1 1 auto"><canvas id="gl-cv" aria-label="3D view of the plan. Drag to look around. In walk mode use W A S D or the arrow keys."></canvas></div>
+      <div class="hint" id="hint3d"></div>
+    </div>
+  </section>
+
+  <!-- SITE -->
+  <section class="view" id="view-site" aria-label="Site and village planner">
+    <div class="work">
+      <div class="toolcol" id="site-tools" role="toolbar" aria-label="Site tools"></div>
+      <div class="stage">
+        <div class="canvaswrap"><canvas id="site-cv" aria-label="Site map. Drag buildings to move them."></canvas></div>
+        <div class="status" id="site-status" role="status" aria-live="polite"></div>
+      </div>
+      <aside class="side" id="site-side" aria-label="Site details"></aside>
+    </div>
+  </section>
+
+  <!-- LIBRARY -->
+  <section class="view" id="view-library" aria-label="Design library">
+    <div class="page">
+      <h1>Design library</h1>
+      <p class="muted">Starting layouts for tiny homes and support buildings. Open one in the floor plan editor and change anything, or add it to your site. These are planning sketches, not engineered designs.</p>
+      <div class="lib" id="lib"></div>
+    </div>
+  </section>
+
+  <!-- COSTS -->
+  <section class="view" id="view-costs" aria-label="Materials and cost">
+    <div class="page" id="costs"></div>
+  </section>
+
+  <!-- PLANNING -->
+  <section class="view" id="view-planning" aria-label="Energy, schedule, permits and accessibility">
+    <div class="page" id="planning"></div>
+  </section>
+
+  <!-- STUDIO -->
+  <section class="view" id="view-studio" aria-label="Studio: sun and shadow, cost risk range and 3D export">
+    <div class="page" id="studio"></div>
+  </section>
+
+  <!-- PROJECT -->
+  <section class="view" id="view-project" aria-label="Project, save and export">
+    <div class="page" id="project"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="view" id="view-about" aria-label="About and honesty notes">
+    <div class="page" id="about"></div>
+  </section>
+</main>
+<footer class="foot" id="foot"><button type="button" class="foot-toggle" id="foot-toggle" aria-expanded="false">Info and feedback</button><span>Stark Builder, by Stark. Works offline; your plans stay on this computer.</span> <button type="button" class="btn" id="feedback-btn">Send feedback</button> <span class="muted small">Opens your email app.</span></footer>
+
+<div id="sheet" aria-label="Printable sheet"></div>
+<div id="modal" class="modal" hidden></div>
+
+<script src="js/core.js?v=1.5.0-e3cdfea6"></script>
+<script src="data/prices.js?v=1.5.0-780f2aae"></script>
+<script src="data/templates.js?v=1.5.0-290ff994"></script>
+<script src="data/catalog.js?v=1.5.0-847ba674"></script>
+<script src="js/takeoff.js?v=1.5.0-97053ba0"></script>
+<script src="js/planning.js?v=1.5.0-8120fa2e"></script>
+<script src="js/studio.js?v=1.5.0-d72808c2"></script>
+<script src="js/mesh3d.js?v=1.5.0-897a7895"></script>
+<script src="js/render3d.js?v=1.5.0-a47455c2"></script>
+<script src="js/plansvg.js?v=1.5.0-e0616d9f"></script>
+<script src="js/trial_stub.js?v=1.5.0-b2abbeee"></script>
+<script src="js/editor.js?v=1.5.0-bfdf7b00"></script>
+<script src="js/site.js?v=1.5.0-b5525645"></script>
+<script src="js/app.js?v=1.5.0-0ee7305d"></script>
+<script src="js/views.js?v=1.5.0-59cbb052"></script>
+<script src="js/studio_ui.js?v=1.5.0-6263a4a4"></script>
+<script src="js/filesave.js?v=1.5.0-57dcbaa4"></script>
+<script src="js/trial_glue.js?v=1.5.0-4de61c8f"></script>
+<script src="js/feedback.js?v=1.5.0-d27c22a3"></script>
+<script src="js/notice.js?v=1.5.0-b4c482bc"></script>
+<script src="js/views2.js?v=1.5.0-1c831a66"></script>
+<script src="js/trial.js?v=1.5.0-fe867769"></script>
+</body>
+</html>

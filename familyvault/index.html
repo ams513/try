@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="description" content="Stark Family Vault, by Stark: an offline, encrypted home for a family's documents, insurance, medicines, emergency plan, digital legacy, estate planning and home inventory. Everything stays on this computer.">
+<meta name="color-scheme" content="dark light">
+<title>Stark Family Vault</title><link rel="canonical" href="https://starkforall.com/try/familyvault/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Family Vault"><meta property="og:description" content="Stark Family Vault, by Stark: an offline, encrypted home for a family's documents, insurance, medicines, emergency plan, digital legacy, estate planning and home inventory. Everything stays on this computer."><meta property="og:url" content="https://starkforall.com/try/familyvault/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Family Vault"><meta name="twitter:description" content="Stark Family Vault, by Stark: an offline, encrypted home for a family's documents, insurance, medicines, emergency plan, digital legacy, estate planning and home inventory. Everything stays on this computer."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
+<link rel="stylesheet" href="css/app.css?v=1.4.0-167130b7">
+<link rel="stylesheet" href="trial/trial.css?v=1.4.0-0de65579">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.4.0-aa9884f5">
+</head>
+<body class="locked">
+<header class="topbar">
+  <a class="brand" href="#/home" aria-label="Stark Family Vault home">
+    <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><rect x="4" y="11" width="16" height="10" rx="2.5" fill="currentColor"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></span>
+    <span class="brand-text"><span class="brand-name">Stark Family Vault</span><span class="brand-by"><span class="stark-wm" role="img" aria-label="Stark"></span></span></span>
+  </a>
+  <span class="trial-badge" id="trial-badge" title="Free trial: up to 15 records, no time limit">Free trial <span id="trial-count">15 records</span></span>
+  <a class="btn small primary trial-buy" href="https://ams513.itch.io/stark-family-vault" target="_blank" rel="noopener">Own it forever: buy on itch.io</a>
+  <div class="tools" id="topbar-tools" hidden>
+    <form id="search-form" class="search" role="search"><input id="q" type="search" maxlength="100" placeholder="Search the vault" aria-label="Search the vault" autocomplete="off"></form>
+    <button type="button" class="btn small ghost" id="palette-btn" aria-label="Quick find (Ctrl+K)" aria-keyshortcuts="Control+K">Quick find <kbd>Ctrl K</kbd></button>
+    <span class="chip" id="save-state"></span>
+    <a class="chip" id="mirror-state" href="#/settings"></a>
+    <span class="chip" id="lock-timer"></span>
+    <button type="button" class="btn small" id="lock-btn">Lock now</button>
+  </div>
+  <button type="button" class="btn small ghost" id="theme-btn" aria-label="Switch light or dark theme">Theme</button>
+</header>
+<nav class="mainnav" id="nav" aria-label="Main" hidden></nav>
+<p class="lang-note" id="lang-note" role="note"><span>Some parts of this app are still in English: letters and legal text, medical and medicine text, safety and emergency text, privacy and encryption warnings, and long help pages.</span> <span>This translation is a machine draft, not yet reviewed by a native speaker. To suggest a correction, use the Send feedback button.</span></p>
+<main id="main" tabindex="-1"></main>
+<footer class="footer"><p class="trial-note"><strong>Free trial.</strong> Up to 15 saved records, no time limit, nothing is ever deleted. Use Sharing, Save a backup file to take your vault into the full version. Not in the free trial: recovery shares (split your passphrase between people you trust), printable emergency binder, calendar file (.ics) and spreadsheet (CSV) exports and insurance claim report with photos and receipts. They are in the full version.</p><p class="fb-row"><button type="button" class="btn small ghost" id="feedback-btn">Send feedback</button> <span class="muted">Opens your email app. Nothing is sent until you press send there.</span></p><p><strong>Stark Family Vault 1.4.0, by Stark.</strong> Works offline. Encrypted on this computer. No account, no cloud, no tracking. Local protections: every save is checked after writing and a last good copy is kept, and imported files are verified before use. If you lose your passphrase, your data cannot be recovered.</p></footer>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden><span id="toast-msg"></span><button type="button" class="icon-btn toast-x" id="toast-x" aria-label="Dismiss message">&times;</button></div>
+<div id="print-root" aria-hidden="true"></div>
+<noscript><p class="banner">Stark Family Vault needs JavaScript to encrypt your data on this computer.</p></noscript>
+<script src="js/trial_stub.js?v=1.4.0-fc01496c"></script>
+<script src="js/core.js?v=1.4.0-a09a68cd"></script>
+<script src="js/content.js?v=1.4.0-c1179030"></script>
+<script src="js/kit.js?v=1.4.0-211006c8"></script>
+<script src="js/intel.js?v=1.4.0-fb71be4b"></script>
+<script src="js/ui.js?v=1.4.0-51727c24"></script>
+<script src="js/app.js?v=1.4.0-b1f69413"></script>
+<script src="js/views2.js?v=1.4.0-5d776e3d"></script>
+<script src="js/views3.js?v=1.4.0-09492a01"></script>
+<script src="js/mirror.js?v=1.4.0-fd7f5850"></script>
+<script src="js/views4.js?v=1.4.0-4f0d1ae8"></script>
+<script src="js/trial_glue.js?v=1.4.0-9a7556fe"></script>
+<script src="js/feedback.js?v=1.4.0-f7a6ad2c"></script>
+<script src="trial/trial.js?v=1.4.0-abfadab5"></script>
+<script src="js/i18n.js?v=1.4.0-74f6ef33" data-app="stark-family-vault" data-anchor="#theme-btn" data-langs="es fr de pt-BR it pl ru tr ar hi id vi zh-Hans ja ko" data-skip=".letter, .sharedoc"></script>
+</body>
+</html>

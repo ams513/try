@@ -1,0 +1,148 @@
+/* Stark IntraTheater. History and geography extras, Family hub, Trivia Night, Museum Builder, Story Studio and kids' limits.
+   Uses the app theme variables. */
+
+/* ---------- Order it ---------- */
+.order-card { max-width: 760px; }
+.order-list { list-style: none; margin: .6rem 0; padding: 0; display: grid; gap: .5rem; }
+.order-item { display: grid; grid-template-columns: 2.2rem 2.4rem minmax(0, 1fr) auto; align-items: center; gap: .5rem; padding: .55rem .7rem; background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; }
+.order-item.is-right { border-color: var(--good); box-shadow: inset 4px 0 0 var(--good); }
+.order-item.is-wrong { border-color: var(--bad); box-shadow: inset 4px 0 0 var(--bad); }
+.order-n { font-weight: 800; color: var(--gold-2); text-align: center; font-size: 1.1rem; }
+.order-icon { font-size: 1.6rem; text-align: center; }
+.order-text { display: flex; flex-direction: column; min-width: 0; overflow-wrap: anywhere; }
+.order-moves { display: flex; gap: .3rem; }
+
+/* ---------- Meanwhile ---------- */
+.mw-anchor .ev-head { margin-top: .6rem; }
+.mw-title { margin: 1.2rem 0 .6rem; font-size: 1.25rem; }
+.mw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .9rem; }
+.mw-region { margin: 0; }
+.mw-region h3 { margin: 0 0 .4rem; color: var(--gold-2); }
+.mw-region li + li { margin-top: .35rem; }
+.mw-item { display: block; width: 100%; text-align: left; background: none; border: 1px solid transparent; border-radius: 10px; padding: .35rem .45rem; color: var(--text); font: inherit; cursor: pointer; }
+.mw-item:hover { border-color: var(--gold); background: var(--panel-2); }
+
+/* ---------- Primary sources ---------- */
+.src-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: .9rem; }
+.src-card.seen { border-color: var(--good); }
+.src-kind { text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; color: var(--muted); font-weight: 700; }
+.src-reader { max-width: 860px; }
+.src-title { font-family: var(--serif); font-size: clamp(1.5rem, 4vw, 2.1rem); margin: .2rem 0; }
+.src-block { margin-top: 1.1rem; }
+.src-block h3 { margin: 0 0 .4rem; color: var(--gold-2); }
+.src-text { font-family: var(--serif); font-size: 1.15rem; line-height: 1.65; white-space: pre-wrap; margin: .4rem 0; padding: .8rem 1.1rem; border-left: 4px solid var(--gold); background: var(--panel-2); border-radius: 0 12px 12px 0; overflow-wrap: anywhere; }
+.src-plain { padding: .4rem .2rem; }
+.src-plain h4 { margin: .2rem 0; }
+.src-ask { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .5rem; }
+.src-q { background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; padding: .5rem .8rem; }
+.src-q summary { cursor: pointer; font-weight: 700; min-height: 32px; display: list-item; }
+.src-q p { margin: .4rem 0 .2rem; }
+
+/* ---------- Find it on the map ---------- */
+.find-map-wrap { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: .5rem 0; max-width: 980px; }
+.findmap { cursor: crosshair; touch-action: manipulation; }
+.findmap .find-line { stroke: var(--gold-2); stroke-dasharray: 2 1.5; }
+.findmap .find-guess { fill: var(--bad); stroke: #fff; stroke-width: .3; }
+.findmap .find-target { fill: var(--good); stroke: #fff; stroke-width: .4; }
+#find-list { max-width: 100%; margin: .3rem 0; }
+
+/* ---------- Capitals review ---------- */
+.review-card { max-width: 720px; }
+.review-stats { display: flex; flex-wrap: wrap; gap: .35rem; }
+.review-ask input { font-size: 1.25rem; padding: .55rem .8rem; width: min(100%, 26rem); }
+.review-done h2 { margin-top: .4rem; }
+
+/* ---------- Family hub and Trivia Night ---------- */
+.trivia { max-width: 900px; }
+.trivia-player { background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; padding: .5rem .7rem; }
+.trivia-player input[type="text"] { flex: 1 1 140px; min-width: 0; }
+.trivia-player .chips { margin: 0; }
+.trivia-pass { text-align: center; }
+.trivia-pass .btn-lg { margin: .6rem 0 1rem; }
+.trivia-avatar { font-size: 4rem; line-height: 1.1; }
+.trivia-board { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: .4rem 1.2rem; padding-left: 1.2rem; margin: 0; text-align: left; }
+.trivia-table-wrap, .trivia-end { overflow-x: auto; }
+.trivia-table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+.trivia-table th, .trivia-table td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid var(--line); }
+.trivia-end { text-align: center; }
+.trivia-end .row { justify-content: center; }
+
+/* ---------- Museum Builder ---------- */
+.theme-gold { --room: #ecb950; } .theme-sea { --room: #5fc2d6; } .theme-forest { --room: #8cc47a; } .theme-plum { --room: #c98ee0; } .theme-stone { --room: #b9b9c2; }
+:root[data-theme="light"] .theme-gold { --room: #a26d0e; } :root[data-theme="light"] .theme-sea { --room: #1f7d8f; } :root[data-theme="light"] .theme-forest { --room: #3e7a2e; }
+:root[data-theme="light"] .theme-plum { --room: #7d3f99; } :root[data-theme="light"] .theme-stone { --room: #5b5b66; }
+.museum-pick { border-top: 5px solid var(--room); }
+.museum-icons { font-size: 1.3rem; letter-spacing: .1em; }
+.theme-chip { border-left-color: var(--room); }
+.museum-items { list-style: none; padding: 0; margin: 0 0 1rem; display: grid; gap: .8rem; }
+.museum-item { margin: 0; border-left: 5px solid var(--room); }
+.museum-item-head { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; gap: .6rem; align-items: start; }
+.museum-item-head h3 { margin: 0; }
+.museum-item-head input { width: 100%; font-weight: 700; }
+.museum-icon { font-size: 2.2rem; line-height: 1; }
+.museum-moves { display: flex; gap: .3rem; }
+.museum-item textarea, .museum-item input[type="text"] { width: 100%; box-sizing: border-box; }
+.museum-item label { display: block; margin-top: .5rem; font-weight: 600; font-size: .9rem; }
+.museum-results li { gap: .6rem; padding: .3rem 0; border-bottom: 1px solid var(--line); margin: 0; }
+.museum-results .grow { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+#mx-search { width: min(100%, 28rem); }
+.gallery { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem 1rem; border-radius: var(--radius);
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, .06), transparent 60%), var(--bg-2); border: 3px solid var(--room); box-shadow: var(--shadow); }
+.gallery:focus { outline: 3px solid var(--focus); outline-offset: 3px; }
+.gallery-top { text-transform: uppercase; letter-spacing: .12em; font-size: .8rem; color: var(--muted); }
+.gallery-icon { font-size: 5rem; line-height: 1.1; }
+.gallery h1 { font-family: var(--serif); color: var(--room); margin: .3rem 0; }
+.gallery-fact { max-width: 60ch; }
+.gallery-cap { font-family: var(--serif); font-size: 1.3rem; max-width: 50ch; }
+
+/* ---------- Story Studio ---------- */
+.write-prompt-text { font-family: var(--serif); font-size: 1.2rem; margin: .6rem 0; padding: .7rem 1rem; border-left: 4px solid var(--gold); background: var(--panel-2); border-radius: 0 12px 12px 0; }
+.write-plan summary { cursor: pointer; }
+.write-plan summary h2 { display: inline; font-size: 1.2rem; }
+.mountain { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .6rem; align-items: end; margin-top: .8rem; }
+.mountain-step { background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; padding: .5rem; }
+.mountain-step.step-1, .mountain-step.step-3 { margin-bottom: 1.2rem; }
+.mountain-step.step-2 { margin-bottom: 2.4rem; border-color: var(--gold); }
+.mountain-step label { font-weight: 700; }
+.mountain-step p { margin: .2rem 0 .4rem; }
+.mountain-step textarea { width: 100%; box-sizing: border-box; }
+.write-text { width: 100%; box-sizing: border-box; font-family: var(--serif); font-size: 1.12rem; line-height: 1.6; padding: .8rem; }
+.write-count { margin: .3rem 0; font-weight: 600; }
+.word-bank summary { cursor: pointer; font-weight: 700; min-height: 36px; display: list-item; }
+.wb-group h3 { font-size: 1rem; margin: .6rem 0 .2rem; }
+.wb-word { min-height: 36px; }
+.write-tips li { margin: .3rem 0; }
+.revise { border: 1px solid var(--line); border-radius: 12px; margin-top: 1rem; }
+.revise .check { display: flex; gap: .5rem; align-items: flex-start; margin: .35rem 0; }
+
+/* ---------- Kids' limits and the rest page ---------- */
+.limits-sections { border: 1px solid var(--line); border-radius: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .2rem .8rem; }
+.limits-sections legend { font-weight: 700; padding: 0 .3rem; }
+.act-list { display: grid; gap: .8rem; }
+.act-kid h3 { margin: .2rem 0; font-size: 1.05rem; }
+.act-bars { display: flex; align-items: flex-end; gap: .4rem; height: 84px; max-width: 360px; }
+.act-bar { flex: 1 1 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+.act-fill { display: block; width: 100%; min-height: 2px; background: var(--accent); border-radius: 4px 4px 0 0; }
+.act-day { font-size: .75rem; color: var(--muted); }
+.rest-card { max-width: 640px; margin: 1.5rem auto; text-align: center; }
+.rest-icon { font-size: 4rem; }
+.rest-card .chips { justify-content: center; }
+
+#kids-limits .form-grid { grid-template-columns: max-content minmax(0, 16rem); }
+.find-card .find-status { min-height: 2.6rem; }
+
+/* phones: the menu stays one swipeable row (css/studio.css), so only the new layouts change here */
+@media (max-width: 760px) {
+  #kids-limits .form-grid { grid-template-columns: minmax(0, 1fr); }
+  .mountain { grid-template-columns: minmax(0, 1fr); }
+  .mountain-step.step-1, .mountain-step.step-2, .mountain-step.step-3 { margin-bottom: 0; }
+  .order-item { grid-template-columns: 1.3rem 1.8rem minmax(0, 1fr) auto; gap: .4rem; padding: .5rem; }
+  .order-moves { flex-direction: column; }
+  .museum-item-head { grid-template-columns: 2.4rem minmax(0, 1fr); }
+  .museum-moves { grid-column: 1 / -1; justify-content: flex-end; }
+  .gallery-icon { font-size: 3.6rem; }
+}
+
+/* start bar: the screen's main action first, with what it will do */
+.start-bar { align-items: center; gap: .5rem 1rem; margin: 0 0 1rem; }
+.start-bar p { margin: 0; flex: 1 1 220px; }

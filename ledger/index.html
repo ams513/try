@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="description" content="Stark Ledger: offline bookkeeping, invoicing, bills, stock and time for freelancers and small businesses. Encrypted on your computer, no account, no network.">
+<meta name="color-scheme" content="dark light">
+<title>Stark Ledger</title><link rel="canonical" href="https://starkforall.com/try/ledger/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Ledger"><meta property="og:description" content="Stark Ledger: offline bookkeeping, invoicing, bills, stock and time for freelancers and small businesses. Encrypted on your computer, no account, no network."><meta property="og:url" content="https://starkforall.com/try/ledger/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Ledger"><meta name="twitter:description" content="Stark Ledger: offline bookkeeping, invoicing, bills, stock and time for freelancers and small businesses. Encrypted on your computer, no account, no network."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
+<link rel="stylesheet" href="css/app.css?v=1.6.0-6eef369a">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.6.0-aa9884f5">
+</head>
+<body>
+<section id="lock" class="lock"></section>
+<div id="app" class="shell" hidden>
+  <header class="topbar no-print">
+    <a class="brand" href="#/dashboard" aria-label="Stark Ledger home"><span class="mark" aria-hidden="true"></span><span class="brand-text"><span class="stark"><span class="stark-wm" role="img" aria-label="Stark"></span></span><span class="name">LEDGER</span></span></a>
+    <span class="by">Offline and encrypted</span>
+    <span class="grow"></span>
+    <button type="button" class="btn sm search-btn" id="search-btn" aria-keyshortcuts="Control+K"><span aria-hidden="true">⌕</span> <span id="search-label">Search</span> <kbd>Ctrl K</kbd></button>
+    <a class="chip blue timer-chip" id="timer-chip" href="#/time" aria-label="Timer running" hidden>⏱</a>
+    <span id="save-state" class="chip red save-state" hidden></span>
+    <button type="button" class="btn ghost sm" id="theme" aria-label="Theme: switch light and dark"><span aria-hidden="true">◐ </span><span class="tlbl">Theme</span></button>
+    <button type="button" class="btn sm" id="lock-btn"><span aria-hidden="true">🔒 </span><span class="tlbl">Lock</span></button>
+  </header>
+  <nav id="nav" class="sidenav no-print" aria-label="Main"></nav>
+  <main id="main" tabindex="-1"></main>
+  <footer class="footer no-print">Stark Ledger. Works offline. Bookkeeping software, not tax advice: check with a tax professional.</footer>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="dlg" class="dialog" aria-labelledby="dlg-title"></dialog>
+<script src="js/edition.js?v=1.6.0-94d613f8"></script>
+<script src="js/core.js?v=1.6.0-c3d825db"></script>
+<script src="js/core_biz.js?v=1.6.0-33438ddb"></script>
+<script src="js/core_smart.js?v=1.6.0-1889c175"></script>
+<script src="js/core_next.js?v=1.6.0-87ff22cd"></script>
+<script src="js/core_tax.js?v=1.6.0-4c438280"></script>
+<script src="js/trial_stub.js?v=1.6.0-6586572e"></script>
+<script src="js/store.js?v=1.6.0-5dc0aea3"></script>
+<script src="js/ui.js?v=1.6.0-eb99a49e"></script>
+<script src="js/i18n.js?v=1.6.0-b34cb226"></script>
+<script src="js/views_a.js?v=1.6.0-2076dc9b"></script>
+<script src="js/views_b.js?v=1.6.0-d5917f88"></script>
+<script src="js/views_c.js?v=1.6.0-05e040e0"></script>
+<script src="js/views_d.js?v=1.6.0-befea782"></script>
+<script src="js/views_e.js?v=1.6.0-f7b3b8a9"></script>
+<script src="js/feedback.js?v=1.6.0-05c8276c"></script>
+<script src="js/views_g.js?v=1.6.0-1ad6ba93"></script>
+<script src="js/trial_glue.js?v=1.6.0-b06d1d8e"></script>
+<script src="js/app.js?v=1.6.0-da3908bb"></script>
+<script src="js/stark_lang.js?v=1.6.0-503d1216" data-app="stark-ledger" data-anchor="#theme" data-langs="en,es" data-builtin="es"></script>
+</body>
+</html>

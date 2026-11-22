@@ -1,0 +1,6 @@
+.trial-badge { background: #c9a227; color: #1b1500; font-weight: 700; font-size: .75rem; letter-spacing: .04em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; }
+.trial-buy { text-decoration: none; }
+#sheet .paper { position: relative; overflow: hidden; }
+.trial-wm { position: absolute; left: -10%; width: 120%; text-align: center; transform: rotate(-24deg); font: 700 3.2rem/1 sans-serif; color: rgba(120, 120, 120, .22); white-space: nowrap; pointer-events: none; user-select: none; z-index: 5; }
+.trial-foot { margin-top: 12px; font-size: .75rem; color: #555; border-top: 1px solid #999; padding-top: 6px; }
+@media print { .trial-wm { color: rgba(110, 110, 110, .3); -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
