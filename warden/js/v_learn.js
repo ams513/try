@@ -71,6 +71,8 @@
       return h('div', { class: 'srcrow' }, h('strong', { text: s.org + ': ' + s.title }), ui.copyLine(s.url), s.note ? h('p', { class: 'small', text: s.note }) : null);
     })]));
     main.appendChild(ui.card('Credits', [h('p', { text: 'Stark Warden, by Stark. All sample messages, names, companies and numbers in this app are made up. No real company is named as a wrongdoer. No third-party code or assets are used. Spanish text is a machine translation pending review. The other screen languages are machine drafts of the labels, buttons and menus only: the letters, rights, scripts and everything that states United States law stay in English.' })]));
+    var sn = typeof document !== 'undefined' && document.getElementById('stark-notice-tpl');
+    if (sn && sn.content) { main.appendChild(document.importNode(sn.content, true)); }
   });
 
   /* ---------- Settings ---------- */

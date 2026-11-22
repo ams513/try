@@ -492,3 +492,6 @@ html:not([lang="en"]) .who label, html:not([lang="en"]) .filter label { white-sp
 html[lang="en"] .lang-note, html:not([lang]) .lang-note { display: none; }
 @media print { .lang-note, .lang-pick { display: none; } }
 /* end languages (apply_languages.py) */
+
+.stark-notice { font-size: .78rem; color: var(--muted); margin: 1rem 0 0; overflow-wrap: anywhere; }
+.stark-notice a { color: inherit; }

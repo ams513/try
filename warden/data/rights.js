@@ -6,7 +6,7 @@
   SW.data = SW.data || {};
 
   SW.data.meta = {
-    version: '2.2.0',
+    version: '2.2.1',
     asOf: '2026-11-20',
     asOfLabel: 'November 20, 2026',
     check: 'Check the date on this information. It was written from the federal rules in force when this version was built (see the date above) and was not re-checked against live websites. Laws, deadlines, dollar limits and agency practices change. Before you rely on any rule, confirm it with the official source listed on the Sources page, your state attorney general, legal aid, or a consumer-protection attorney.',
