@@ -7,7 +7,7 @@
   'use strict';
   const SCH = root.SCH = root.SCH || {};
   const E = {
-    name: 'Stark Classroom Hub', version: '1.4.1', trial: true, cap: 15,
+    name: 'Stark Classroom Hub', version: '1.4.2', trial: true, cap: 15,
     mail: 'hello@starkforall.com', subject: 'Stark ClassroomHub feedback',
     buy: 'https://ams513.itch.io/stark-classroom-hub'
   };

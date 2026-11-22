@@ -20,7 +20,7 @@
   function limitDialog() {
     var dlg = U.modal("Free trial finished", h("div", { class: "dlg-body" },
       h("p", { text: DONE }),
-      h("p", { text: "Everything you saved is still here: charts, patterns and export all keep working. To add new entries, get the full Stark Vital once. Save an encrypted backup in Data, then in the full app choose Restore from a backup file." }),
+      h("p", { text: "Everything you saved is still here: charts, patterns and export all keep working. To add new entries, get the full Stark Vital once. Save an encrypted backup in Data, then in the full version choose Restore from a backup file." }),
       h("div", { class: "row end" }, h("button", { type: "button", class: "btn", text: "Not now", onclick: function () { dlg.close(); } }), buy())));
   }
   // kind: "day" (a new day) or "lab". Called before a new entry is added; true means refused.

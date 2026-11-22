@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Event Kit"; T.buyUrl = "https://ams513.itch.io/stark-event-kit"; T.notIncluded = "Not in the free trial: signed door passes with bar codes, bracket tournaments with printable brackets, league tables and season ladder and printable certificates. They are in the full version."; T.features = {
+  T.app = "Stark Event Kit"; T.buyUrl = "https://ams513.itch.io/stark-event-kit"; T.notIncluded = "Not in the free trial: signed door passes with bar codes, bracket tournaments with printable brackets, league tables and season ladder, printable certificates and sending your kit to another device with no network (receiving is free). They are in the full version."; T.features = {
  "door_passes": {
   "title": "Signed door passes",
   "short": "signed door passes with bar codes",
@@ -26,6 +26,12 @@
   "title": "Printable certificates",
   "short": "printable certificates",
   "blurb": "Certificates for the places you choose and for everyone who took part, in three designs with your own wording, colour and signature lines, one per team member if you like. Standings, name badges, answer sheets and CSV export stay in the trial.",
+  "shot": ""
+ },
+ "beam_send": {
+  "title": "Beam to another device",
+  "short": "sending your kit to another device with no network (receiving is free)",
+  "blurb": "Seal everything saved in the kit with a passphrase and show it as a moving sequence of codes that your phone or another computer reads with its camera: no network, no file to move. The copy stays sealed and needs your passphrase on the other device. Receiving from another device stays in the trial.",
   "shot": ""
  }
 };

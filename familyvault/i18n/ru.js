@@ -251,7 +251,7 @@
 "No": "Нет",
 "No backup file saved yet": "Файл резервной копии ещё не сохранён",
 "No backup yet.": "Резервной копии пока нет.",
-"No checksum, validated.": "Контрольной суммы нет, проверено.",
+
 "No date": "Без даты",
 "No expired documents or policies": "Нет документов или полисов с истёкшим сроком",
 "No expiry": "Без срока окончания",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "Премия записана без даты продления",
 "Premiums only.": "Только премии.",
 "Prepaid plans or arrangements": "Предоплаченные планы или договорённости",
-
+"Prepared": "Подготовлено",
 "Preview": "Предпросмотр",
 "Preview and print": "Предпросмотр и печать",
 "Print": "Печать",

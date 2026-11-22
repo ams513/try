@@ -18,7 +18,7 @@
 
   M.emptyCore = function (name) {
     return { v: 1, settings: { name: trim(name) || "Our community", address: "", taxId: "", wording: "standard", signer: "", signerTitle: "", lockMin: 10, notSeenWeeks: 6 },
-      households: [], people: [], teams: [], slots: [], away: {}, events: [], dayCodes: {}, log: [] };
+      households: [], people: [], teams: [], slots: [], away: {}, events: [], dayCodes: {}, groups: [], log: [] };
   };
   M.emptyContact = function () { return { v: 1, hh: {}, people: {} }; };
   M.emptyCare = function () { return { v: 1, visits: [] }; };
@@ -45,7 +45,58 @@
     else if (!D.households.some(function (h) { return h.id === p.hh; })) throw new Error("Choose a household.");
     var i = D.people.findIndex(function (x) { return x.id === p.id; });
     if (i < 0) D.people.push(p); else D.people[i] = p;
+    if (p.kind === "Child" && i >= 0) M.cleanGroups(D, p.id);   // a person changed to Child leaves every small group
     return p;
+  };
+  /* ---------- small groups: the data rule that keeps children out ----------
+     Children are never members, leaders or attendees of a small group (their attendance stays in Children's check-in under its own rules).
+     This runs when a book is opened, so a backup or a hand-edited file cannot bring a child into a group, and it repairs the shape of every
+     group record. With a person id it only removes that one person. Returns how many children were removed. Groups sit in the shared core part. */
+  var G_RULES = ["weekly", "biweekly", "monthly"], G_NTH = [1, 2, 3, 4, 5, -1];
+  function gStr(v, n) { return typeof v === "string" ? v.trim().slice(0, n) : ""; }
+  function gDate(v) { return typeof v === "string" && K.isDate(v) ? v : ""; }
+  function gTime(v) { return typeof v === "string" && K.hm(v) != null ? v : ""; }
+  M.cleanGroups = function (D, onlyPid) {
+    var kids = {}, known = {}, gone = 0;
+    if (!Array.isArray(D.groups)) D.groups = [];
+    if (onlyPid) {
+      D.groups.forEach(function (g) {
+        if (Array.isArray(g.members)) g.members = g.members.filter(function (x) { return x !== onlyPid; });
+        if (Array.isArray(g.leaders)) g.leaders = g.leaders.filter(function (x) { return x !== onlyPid; });
+        Object.keys(g.att || {}).forEach(function (d) { if (g.att[d] && Array.isArray(g.att[d].present)) g.att[d].present = g.att[d].present.filter(function (x) { return x !== onlyPid; }); });
+      });
+      return 0;
+    }
+    D.people.forEach(function (p) { known[p.id] = 1; if (p.kind === "Child") kids[p.id] = 1; });
+    function ids(list) {
+      var seen = {};
+      return (Array.isArray(list) ? list : []).filter(function (x) {
+        if (typeof x !== "string" || seen[x]) return false;
+        if (kids[x]) { gone++; return false; }
+        return !!known[x] && (seen[x] = 1);
+      });
+    }
+    D.groups = D.groups.filter(function (g) { return g && typeof g.id === "string" && g.id; }).slice(0, 300);
+    D.groups.forEach(function (g) {
+      var r = g.rule, att = {}, seenX = {}, skips = {};
+      g.name = gStr(g.name, 80) || "Group"; g.desc = gStr(g.desc, 500); g.place = gStr(g.place, 120); g.start = gDate(g.start); g.end = gDate(g.end);
+      g.members = ids(g.members).slice(0, 500);
+      g.leaders = ids(g.leaders).filter(function (x) { return g.members.indexOf(x) >= 0; });
+      g.rule = r && typeof r === "object" && G_RULES.indexOf(r.type) >= 0 ? { type: r.type, wd: Math.min(6, Math.max(0, r.wd | 0)), nth: G_NTH.indexOf(r.nth) >= 0 ? r.nth : 1, time: gTime(r.time), end: gTime(r.end) } : null;
+      g.extra = (Array.isArray(g.extra) ? g.extra : []).filter(function (e) {
+        var k = e && gDate(e.date) ? e.date + "|" + gTime(e.time) : "";
+        if (!k || seenX[k]) return false;
+        return (seenX[k] = 1);
+      }).slice(0, 400).map(function (e) { return { date: e.date, time: gTime(e.time), end: gTime(e.end), note: gStr(e.note, 120) }; });
+      (Array.isArray(g.skips) ? g.skips : []).forEach(function (d) { if (gDate(d)) skips[d] = 1; });
+      g.skips = Object.keys(skips).sort().slice(0, 800);
+      Object.keys(g.att && typeof g.att === "object" ? g.att : {}).forEach(function (d) {
+        var a = g.att[d];
+        if (gDate(d) && a && typeof a === "object") att[d] = { present: ids(a.present), visitors: Math.min(999, Math.max(0, a.visitors | 0)), note: gStr(a.note, 200) };
+      });
+      g.att = att;
+    });
+    return gone;
   };
   // Removes a person everywhere in the shared part. Giving and care records keep their history and show "Removed person".
   M.removePerson = function (D, C, pid) {
@@ -54,7 +105,7 @@
     hh = D.people[i].hh; D.people.splice(i, 1);
     D.teams.forEach(function (t) { t.members = t.members.filter(function (x) { return x !== pid; }); if (t.lead === pid) t.lead = ""; });
     D.slots.forEach(function (s) { s.people = s.people.filter(function (x) { return x !== pid; }); });
-    delete D.away[pid];
+    delete D.away[pid]; M.cleanGroups(D, pid);
     Object.keys(D.dayCodes || {}).forEach(function (d) { delete D.dayCodes[d][pid]; });
     if (C) delete C.people[pid];
     if (!D.people.some(function (p) { return p.hh === hh; })) { D.households = D.households.filter(function (h) { return h.id !== hh; }); if (C) delete C.hh[hh]; }

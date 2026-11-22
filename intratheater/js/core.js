@@ -6,7 +6,7 @@
   const SIT = window.SIT = window.SIT || {};
   const D = window.SIT_DATA || {};
   const KEY = 'starkIT.';
-  SIT.VERSION = '1.2.0';
+  SIT.VERSION = '1.2.1';
 
   /* ---------- tiny helpers ---------- */
   const $ = (sel, root) => (root || document).querySelector(sel);

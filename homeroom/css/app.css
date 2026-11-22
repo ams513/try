@@ -237,6 +237,8 @@ body.pal-open { overflow: hidden; }
 #print-area .hm0 { fill: #eef4f2; stroke: #c9dbd7; } #print-area .hm1 { fill: #bfe8de; } #print-area .hm2 { fill: #7fd0bd; } #print-area .hm3 { fill: #2fa68e; } #print-area .hm4 { fill: #0b7d68; }
 #print-area .heat-lab { fill: #444; } #print-area .heat { min-width: 0; width: 100%; } #print-area .bar { max-width: 10rem; margin: 0; } #print-area .bar-bg { fill: #dfe9e6; } #print-area .bar-fg { fill: #0b7d68; }
 .sitefoot { max-width: 1180px; margin: 0 auto; padding: .8rem 1rem 2rem; display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; border-top: 1px solid var(--line); }
+.stark-notice { flex: 1 1 100%; margin: 0; font-size: .8rem; color: var(--muted); } .stark-notice a { color: inherit; } .stark-notice small { font-size: inherit; }
+@media print { .stark-notice { display: none !important; } }
 .trial-badge { font-weight: 700; font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; border: 1px solid var(--coral); color: var(--coral); white-space: nowrap; }
 dialog.fb { max-width: 34rem; width: calc(100% - 2rem); border: 1px solid var(--line); border-radius: 14px; background: var(--bg, #0d1b1e); color: var(--text); padding: 1.2rem; }
 dialog.fb::backdrop { background: rgba(0, 0, 0, .55); }

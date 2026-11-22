@@ -203,3 +203,11 @@ html:not([lang="en"]) .who label, html:not([lang="en"]) .filter label { white-sp
 html[lang="en"] .lang-note, html:not([lang]) .lang-note { display: none; }
 @media print { .lang-note, .lang-pick { display: none; } }
 /* end languages (apply_languages.py) */
+/* 1.5.0: emergency access pack and merge-in */
+.packsheet { border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; background: var(--panel-2); margin: 12px 0; }
+.packsheet h1 { font-size: 1.35rem; margin: 2px 0 4px; } .packsheet h2 { font-size: 1.05rem; margin: 14px 0 6px; } .packsheet ol, .packsheet ul { margin: 4px 0 6px; padding-left: 22px; } .packsheet li { margin: 3px 0; overflow-wrap: anywhere; }
+.sharedoc .packsheet { border: 0; padding: 0; background: #fff; color: #000; } .sharedoc .packsheet h2 { margin: 10px 0 5px; } .sharedoc .packsheet p { margin: 4px 0; } .sharedoc .packsheet li { margin: 1px 0; } .packcode { font-size: 1.2rem; }
+.mergelist { list-style: none; margin: 8px 0 14px; padding: 0; display: grid; gap: 8px; }
+.mergerow { border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; background: var(--panel-2); overflow-wrap: anywhere; } .mergerow select { margin-top: 6px; max-width: 100%; }
+.mergerow .diff { margin: 2px 0; font-size: .9rem; }
+@media print { .packdoc .packcard { break-before: page; page-break-before: always; margin-top: 0; } .packdoc .packcode { font-size: 1.5rem; } }

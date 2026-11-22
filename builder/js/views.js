@@ -302,6 +302,7 @@
     box.appendChild(sec('Keys and mouse', h('ul', null, [['Delete', ' removes the selected wall, opening, room, stair, furniture, symbol or site item'], ['R', ' rotates the selected stair, furniture or symbol'], ['Esc', ' cancels what you are drawing'], ['Ctrl+Z / Ctrl+Y', ' undo and redo'], ['Space + drag', ' pans the plan; the wheel zooms'], ['Shift', ' while drawing a wall allows any angle'], ['W A S D / arrows', ' walk in the 3D walkthrough'], ['Ctrl+K', ' opens the command palette: search anything or ask a question about your plan']].map(k => h('li', null, h('kbd', { text: k[0] }), k[1])))));
     box.appendChild(sec('Your data', h('div', null, h('p', { text: 'The current project autosaves in this browser\'s local storage, with a safety copy of the last good save. Clearing site data removes it, so save a project file for anything you care about.' }), h('p', { text: 'Local protections: no tracking and no network. Project files carry a checksum and are checked before loading, and damaged saves open in a read-only safe mode so nothing is lost.' }))));
     box.appendChild(h('p', { class: 'muted small' }, 'Stark Builder is a Stark product. Design library layouts, furniture sizes and prices are original to this tool.'));
+    const tpl = document.getElementById('stark-notice-tpl'); if (tpl && tpl.content) box.appendChild(tpl.content.cloneNode(true));
   };
   /* app.start() runs at the end of views2.js, once the planning views are registered. */
 })();

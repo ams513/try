@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Family Vault"; T.buyUrl = "https://ams513.itch.io/stark-family-vault"; T.notIncluded = "Not in the free trial: recovery shares (split your passphrase between people you trust), printable emergency binder, calendar file (.ics) and spreadsheet (CSV) exports and insurance claim report with photos and receipts. They are in the full version."; T.features = {
+  T.app = "Stark Family Vault"; T.buyUrl = "https://ams513.itch.io/stark-family-vault"; T.notIncluded = "Not in the free trial: recovery shares (split your passphrase between people you trust), printable emergency binder, calendar file (.ics) and spreadsheet (CSV) exports, insurance claim report with photos and receipts, emergency access pack for a named person, merge-in of a share file or a backup, record by record and sending your vault to another device with no network (receiving is free). They are in the full version."; T.features = {
  "recovery_shares": {
   "title": "Recovery shares",
   "short": "recovery shares (split your passphrase between people you trust)",
@@ -26,6 +26,24 @@
   "title": "Insurance claim report",
   "short": "insurance claim report with photos and receipts",
   "blurb": "A printable contents-claim report for your insurer: the rooms you choose, the policy, the loss, and every item with its value, serial number, photos and receipt. Your home inventory list stays in the trial.",
+  "shot": ""
+ },
+ "emergency_pack": {
+  "title": "Emergency access pack",
+  "short": "emergency access pack for a named person",
+  "blurb": "Prepare a sealed copy for one trusted person: you choose what they can see, the app writes a plain-words instruction sheet, and the file opens only with its passphrase card or with pack codes held by several people. Opening a pack that uses pack codes is in the full version too; a pack that opens with a single passphrase can also be opened here, as a share file.",
+  "shot": ""
+ },
+ "merge_in": {
+  "title": "Merge-in by record",
+  "short": "merge-in of a share file or a backup, record by record",
+  "blurb": "Bring another copy's changes into your vault record by record: see what is new, what differs and which copy changed last, choose for each one, and get a report. A one-time merge of a file, not sync. Opening a share file to read, and your own backup and restore, stay in the trial.",
+  "shot": ""
+ },
+ "beam_send": {
+  "title": "Beam to another device",
+  "short": "sending your vault to another device with no network (receiving is free)",
+  "blurb": "Show your encrypted vault as a moving sequence of codes and let your phone or another computer read it with its camera: no network, no file to move. Your vault stays sealed and needs your passphrase on the other device. Receiving from another device stays in the trial.",
   "shot": ""
  }
 };

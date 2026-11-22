@@ -266,3 +266,5 @@ li.no .badge { background: var(--warn); color: #1d1405; }
   .foot-toggle { display: inline-block; }
   .foot:not(.open) > :not(.foot-toggle) { display: none; }
 }
+.stark-notice { font-size: .75rem; color: var(--muted); margin: 6px 0 0; }
+.stark-notice a { color: inherit; }

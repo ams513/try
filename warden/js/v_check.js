@@ -17,6 +17,11 @@
       h('blockquote', { class: 'hl' }, seg.map(function (x) { return x.hit ? h('mark', { class: 'flag-hit', title: x.title }, x.t) : x.t; })),
       h('p', { class: 'small', text: 'Highlighted words match a warning sign. Point at one, or read the list below, to see which.' }));
   }
+  /* "patterns as of": the built-in date and, when a pattern pack is loaded, the newest pack date. It never claims to be current. */
+  function patternsAsOfText(res) {
+    var a = res.patternsAsOf || SW.analyzer.patternsAsOf();
+    return 'Warning-sign patterns as of ' + (a.label || a.builtin || 'the build date') + ' (built in)' + (a.newest ? '; newest loaded pattern pack dated ' + a.newest : '') + '. Scams change, and a result with no warning signs does not mean a message is safe.';
+  }
   function analysisCard(res, opts) {
     var card = h('section', { class: 'card result' }), steps = h('ol', { class: 'steps' }, res.steps.map(function (s) { return h('li', { text: s }); }));
     opts = opts || {};
@@ -35,9 +40,10 @@
     card.appendChild(h('h4', { text: 'What to do next' }));
     card.appendChild(steps);
     card.appendChild(ui.notice(res.disclaimer, 'soft'));
+    card.appendChild(h('p', { class: 'small patterns-asof', text: patternsAsOfText(res) }));
     card.appendChild(h('div', { class: 'row' }, ui.copyBtn(function () {
-      return 'Stark Warden check: ' + res.level.label + '\n' + res.flags.map(function (f) { return '- ' + f.title; }).join('\n') + '\n' + res.disclaimer;
-    }, 'Copy summary')));
+      return 'Stark Warden check: ' + res.level.label + '\n' + res.flags.map(function (f) { return '- ' + f.title; }).join('\n') + '\n' + res.disclaimer + '\n' + patternsAsOfText(res);
+    }, 'Copy summary'), h('a', { class: 'btn small', href: '#/packs', text: 'Pattern packs' })));
     return card;
   }
 
@@ -84,6 +90,7 @@
     ]));
     root_.appendChild(out);
     root_.appendChild(ui.notice('A pattern check cannot see who really sent a message and it cannot prove anything is safe. Use it to slow down, then verify with the organisation using a phone number or website you already trust.', 'soft'));
+    root_.appendChild(h('p', { class: 'small patterns-asof' }, patternsAsOfText({}) + ' ', h('a', { href: '#/packs', text: 'Pattern packs' })));
   }
 
   function linkView(root_) {

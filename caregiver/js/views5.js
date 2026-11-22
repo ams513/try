@@ -40,7 +40,7 @@
   function limitDialog(kind) {
     var body = h("div", { class: "dlg-body" },
       h("p", { text: "The free trial holds up to " + T.limit + " medicines and diary entries together. You have reached it, so no more can be added here." }),
-      h("p", { class: "muted", text: "Nothing is deleted and nothing expires. You can still edit and log doses and check-ins, and read, print and back up everything. To add more " + (KIND[kind] || "records") + ", buy the full app. Save a backup file from Sharing first: it opens in the full app with the same passphrase, so everything carries over." }),
+      h("p", { class: "muted", text: "Nothing is deleted and nothing expires. You can still edit and log doses and check-ins, and read, print and back up everything. To add more " + (KIND[kind] || "records") + ", buy the full version. Save a backup file from Sharing first: it opens in the full version with the same passphrase, so everything carries over." }),
       h("div", { class: "row end" }, h("button", { type: "button", class: "btn", text: "Close", onclick: function () { dlg.close(); } }), buyButton("coral")));
     var dlg = U.modal("Free trial limit reached", body);
   }
@@ -61,7 +61,7 @@
     // The Sharing page: say plainly that trial data carries over.
     A.ext.shareExtra = function () {
       return h("div", { class: "card" }, h("h2", { text: "Free trial: take your data with you" }),
-        h("p", { class: "muted", text: "Backup files and share files from the trial are the same as the full app's. After you buy, choose Restore from a backup file on the lock screen and enter the same passphrase. Nothing is lost." }), buyButton("coral"));
+        h("p", { class: "muted", text: "Backup files and share files from the trial are the same as the full version's. After you buy, choose Restore from a backup file on the lock screen and enter the same passphrase. Nothing is lost." }), buyButton("coral"));
     };
   }
 

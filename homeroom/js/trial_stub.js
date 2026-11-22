@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Homeroom"; T.buyUrl = "https://starkapps.gumroad.com/l/stark-homeroom"; T.notIncluded = "Not in the free trial: printable transcript and attendance and hours report, portfolio report and year summary. They are in the full version."; T.features = {
+  T.app = "Stark Homeroom"; T.buyUrl = "https://starkapps.gumroad.com/l/stark-homeroom"; T.notIncluded = "Not in the free trial: printable transcript, attendance and hours report, portfolio report and year summary and sending your records to another device with no network (receiving is free). They are in the full version."; T.features = {
  "transcript": {
   "title": "Printable transcript",
   "short": "printable transcript",
@@ -14,6 +14,12 @@
   "title": "Attendance, portfolio and year-summary reports",
   "short": "attendance and hours report, portfolio report and year summary",
   "blurb": "Three printable records for a date range or a school year, on A4 or US Letter: attendance and hours by month and subject, the portfolio with its entries listed, and a one-page year summary per learner. The progress report and the CSV export stay in the trial.",
+  "shot": ""
+ },
+ "beam_send": {
+  "title": "Beam to another device",
+  "short": "sending your records to another device with no network (receiving is free)",
+  "blurb": "Seal the family's records with a passphrase and show them as a moving sequence of codes that your phone or another computer reads with its camera: no network, no file to move. The copy stays sealed and needs your passphrase on the other device. Receiving from another device stays in the trial.",
   "shot": ""
  }
 };

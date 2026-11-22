@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Copyright (c) 2026 Stark. All rights reserved. Stark Vital. Licence: LICENSE.txt -->
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
@@ -9,10 +10,12 @@
 <meta name="color-scheme" content="dark light">
 <title>Stark Vital (Free trial)</title><link rel="canonical" href="https://starkforall.com/try/vital/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Vital (Free trial)"><meta property="og:description" content="Stark Vital, by Stark: a private, offline notebook that shows which of your habits go with your better days. Encrypted on your computer. Not medical advice."><meta property="og:url" content="https://starkforall.com/try/vital/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Vital (Free trial)"><meta name="twitter:description" content="Stark Vital, by Stark: a private, offline notebook that shows which of your habits go with your better days. Encrypted on your computer. Not medical advice."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
-<link rel="stylesheet" href="css/app.css?v=1.1.0-64a4f0d7">
-<link rel="stylesheet" href="css/trial_stub.css?v=1.1.0-aa9884f5">
+<link rel="stylesheet" href="css/app.css?v=1.2.0-275fd212">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.2.0-728a780b">
+<link rel="stylesheet" href="css/beam.css?v=1.2.0-a86251e4">
 </head>
 <body class="locked">
+<p class="trial-adds"><b>What the paid version adds:</b> your own tracked items and the printable Year view, planned two-week experiments with their fixed judging rules, the one-page visit summary to print or save as PDF and sending your notebook to another device with no network (receiving is free). <a href="https://starkapps.gumroad.com/l/stark-vital" rel="noopener">Get the full version</a></p>
 <header class="topbar">
   <a class="brand" href="#/home" aria-label="Stark Vital home">
     <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64" width="26" height="26"><path d="M6 34h13l8-20 10 34 7-14h14" fill="none" stroke="#4ee3b3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -29,26 +32,31 @@
 </header>
 <nav class="mainnav" id="nav" aria-label="Main" hidden></nav>
 <main id="main" tabindex="-1"></main>
-<footer class="footer"><p><strong>Stark Vital 1.1.0, by Stark.</strong> A private notebook for your own habits. <strong>Not medical advice.</strong> Ask a clinician about your health. Works offline and is encrypted on this computer: no account, no network, no analytics. If you lose your passphrase, your data cannot be recovered.</p><p class="footer-links"><button type="button" class="btn small ghost" id="feedback-btn">Send feedback</button> <span class="fine">Opens your email app. Nothing is sent until you press send there.</span></p></footer>
+<footer class="footer"><p><strong>Stark Vital 1.2.0, by Stark.</strong> A private notebook for your own habits. <strong>Not medical advice.</strong> Ask a clinician about your health. Works offline and is encrypted on this computer: no account, no network, no analytics. If you lose your passphrase, your data cannot be recovered.</p><p class="footer-links"><button type="button" class="btn small ghost" id="feedback-btn">Send feedback</button> <span class="fine">Opens your email app. Nothing is sent until you press send there.</span></p></footer>
+<template id="stark-notice-tpl"><p class="stark-notice">(c) 2026 Stark. All rights reserved. For use on your own devices; no redistribution or re-hosting. <a href="https://starkforall.com/terms.html" target="_blank" rel="noopener">Licence</a>. <small class="stark-mark" data-stark-mark>Build mark: unstamped</small></p></template>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 <div id="print-root" aria-hidden="true"></div>
 <noscript><p class="banner">Stark Vital needs JavaScript to encrypt your data on this computer. Not medical advice.</p></noscript>
-<script src="js/trial_stub.js?v=1.1.0-b7bd46d0"></script>
-<script src="js/core.js?v=1.1.0-1a379570"></script>
-<script src="js/ui.js?v=1.1.0-9ada1b2d"></script>
-<script src="js/data.js?v=1.1.0-5e1ca4c9"></script>
-<script src="js/stats.js?v=1.1.0-fcabdb0a"></script>
-<script src="js/levers.js?v=1.1.0-fc0a7cbb"></script>
-<script src="js/safety.js?v=1.1.0-aa83bb96"></script>
-<script src="js/learn.js?v=1.1.0-5110579a"></script>
-<script src="js/charts.js?v=1.1.0-09db45e2"></script>
-<script src="js/app.js?v=1.1.0-517b4356"></script>
-<script src="js/views.js?v=1.1.0-d41a7a48"></script>
-<script src="js/views2.js?v=1.1.0-1752220d"></script>
-<script src="js/views3.js?v=1.1.0-1ee4498a"></script>
-<script src="js/trial_glue.js?v=1.1.0-b2f5f1bd"></script>
-<script src="js/feedback.js?v=1.1.0-6dfb1c7d"></script>
-<script src="js/trial.js?v=1.1.0-fcb5ea83"></script>
-<script src="js/i18n.js?v=1.1.0-e49e6fd9" data-app="sv" data-anchor="#theme-btn"></script>
+<script src="js/trial_stub.js?v=1.2.0-a1d023da"></script>
+<script src="js/core.js?v=1.2.0-1081862e"></script>
+<script src="js/ui.js?v=1.2.0-9ada1b2d"></script>
+<script src="js/data.js?v=1.2.0-5e1ca4c9"></script>
+<script src="js/stats.js?v=1.2.0-fcabdb0a"></script>
+<script src="js/levers.js?v=1.2.0-fc0a7cbb"></script>
+<script src="js/safety.js?v=1.2.0-aa83bb96"></script>
+<script src="js/learn.js?v=1.2.0-5110579a"></script>
+<script src="js/charts.js?v=1.2.0-09db45e2"></script>
+<script src="js/app.js?v=1.2.0-ebd3e55a"></script>
+<script src="js/views.js?v=1.2.0-d41a7a48"></script>
+<script src="js/views2.js?v=1.2.0-1752220d"></script>
+<script src="js/views3.js?v=1.2.0-ec609f36"></script>
+<script src="js/beam/beam.js?v=1.2.0-b7aa84cd"></script>
+<script src="js/beam/beam_qrdec.js?v=1.2.0-cfe14239"></script>
+<script src="js/beam/beam_ui.js?v=1.2.0-fcae18f2"></script>
+<script src="js/beam_vital.js?v=1.2.0-38dd273f"></script>
+<script src="js/trial_glue.js?v=1.2.0-edb6c888"></script>
+<script src="js/feedback.js?v=1.2.0-6dfb1c7d"></script>
+<script src="js/trial.js?v=1.2.0-88fd50bf"></script>
+<script src="js/i18n.js?v=1.2.0-e49e6fd9" data-app="sv" data-anchor="#theme-btn"></script>
 </body>
 </html>

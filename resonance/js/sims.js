@@ -157,6 +157,6 @@
     id: "memristor", group: "frontier", title: "The memristor, a resistor with memory", icon: "memory", blurb: "A device whose resistance depends on the current that has passed.", controls: [], experiment: [] });
   reg({
     id: "ledger", group: "tesla", title: "Possible or impossible machines", icon: "ledger", blurb: "Run a machine and account for every joule.", controls: [], experiment: [] });
-  root.StarkSims = { list: SIMS, byId: function (id) { for (var i = 0; i < SIMS.length; i++) if (SIMS[i].id === id) return SIMS[i]; return null; }, H: H };
+  root.StarkSims = { list: SIMS, byId: function (id) { for (var i = 0; i < SIMS.length; i++) if (SIMS[i].id === id) return SIMS[i]; return null; }, add: reg, H: H };
   if (typeof module !== "undefined" && module.exports) module.exports = root.StarkSims;
 })(typeof window !== "undefined" ? window : globalThis);

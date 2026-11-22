@@ -37,7 +37,7 @@
       h('li', { text: 'Reminders show inside the app. For alerts while it is closed, add the calendar file from the Alarms page to your calendar.' }),
       h('li', { text: 'The rent ledger does not prorate partial months or calculate late fees or interest.' }),
       h('li', { text: 'Spanish text is a machine translation pending review. Letters are written in English.' }))]));
-    main.appendChild(ui.card('Credits', [h('p', { text: 'Stark Tenancy, by Stark. Built on the Stark Warden shell (letters engine, crash-safe storage, backup checks) and Stark Family Vault’s photo handling. No third-party code or assets. Example data, names, addresses and photos are made up.' })]));
+    main.appendChild(ui.card('Credits', [h('p', { text: 'Stark Tenancy, by Stark. Built on the Stark Warden shell (letters engine, crash-safe storage, backup checks) and Stark Family Vault’s photo handling. No third-party code or assets. Example data, names, addresses and photos are made up.' }), (function () { var t = document.getElementById('stark-notice-tpl'); return t && t.content ? t.content.cloneNode(true) : null; })()]));
   });
 
   /* ---------- region format, currency and paper (dates and money on screen and in reports go through TN.fmt) ---------- */

@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Fellowship"; T.buyUrl = "https://starkapps.gumroad.com/l/stark-fellowship"; T.notIncluded = "Not in the free trial: year-end giving statements and gift receipts, children's check-in name labels, pickup slips and register and Insights, rota what-if and Ctrl K search. They are in the full version."; T.features = {
+  T.app = "Stark Fellowship"; T.buyUrl = "https://starkapps.gumroad.com/l/stark-fellowship"; T.notIncluded = "Not in the free trial: year-end giving statements and gift receipts, children's check-in name labels, pickup slips and register, Insights, rota what-if and Ctrl K search and small groups, the month calendar and group attendance. They are in the full version."; T.features = {
  "giving_statements": {
   "title": "Year-end giving statements and receipts",
   "short": "year-end giving statements and gift receipts",
@@ -20,6 +20,12 @@
   "title": "Insights, rota what-if and Ctrl K search",
   "short": "Insights, rota what-if and Ctrl K search",
   "blurb": "A guess at how many will come to the next gathering, people whose attendance is slipping, a giving pulse, a rota what-if simulator, and a Ctrl K box that finds any person or page and answers plain questions such as who has not been seen in eight weeks, using only what your role can read.",
+  "shot": ""
+ },
+ "small_groups": {
+  "title": "Small groups and the month calendar",
+  "short": "small groups, the month calendar and group attendance",
+  "blurb": "Keep small groups with their members and leaders (adults only), meeting times (weekly, every two weeks, monthly on the nth weekday, one-off dates, single dates cancelled), a month calendar you can print on A4 or US Letter, attendance for each meeting with visitors, attendance history per group and per person, printable attendance sheets, and CSV exports of groups, meetings and attendance. A record kept on this computer: nobody signs up and nothing is sent. Children are never added to groups.",
   "shot": ""
  }
 };

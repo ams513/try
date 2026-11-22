@@ -65,8 +65,8 @@
     return el;
   }
   function clear(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-  function download(name, obj) {
-    var blob = new Blob([typeof obj === 'string' ? obj : JSON.stringify(obj, null, 2)], { type: 'application/json' });
+  function download(name, obj, mime) {
+    var blob = new Blob([typeof obj === 'string' || ArrayBuffer.isView(obj) ? obj : JSON.stringify(obj, null, 2)], { type: mime || 'application/json' });
     var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
     setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   }
@@ -108,7 +108,7 @@
         if (r.pii.length) {
           gatesBox.appendChild(h('div', { class: 'pii', role: 'alert' }, h('b', null, 'Personal data warning. Sharing is blocked until this is removed.'),
             h('ul', null, r.pii.map(function (p) { return h('li', null, p.field + ': ' + p.label + ' ', h('code', null, p.text)); })),
-            h('button', { type: 'button', class: 'btn small', onclick: function () { ['title', 'question', 'findings', 'method'].forEach(function (k) { e[k] = SC.scrubText(e[k]); }); persist(); drawEditor(); } }, 'Replace flagged text with [removed]'),
+            h('button', { type: 'button', class: 'btn small', onclick: function () { ['title', 'question', 'findings', 'method'].forEach(function (k) { if (!(SC.isSealed(e) && SC.PREREG_LOCKED.indexOf(k) >= 0)) e[k] = SC.scrubText(e[k]); }); persist(); drawEditor(); } }, 'Replace flagged text with [removed]'),
             h('p', { class: 'small muted' }, 'The scrubber catches names with titles or cues, emails, phone numbers, birth dates, record numbers, addresses and case-style patient wording. It cannot catch everything: re-read your entry before sharing.')));
         }
         gatesBox.appendChild(r.ok ? h('div', { class: 'notice good' }, 'Ready to share. Open the Share tab to build a signed pack.') : h('div', { class: 'notice' }, 'Not ready to share yet.'));
@@ -129,9 +129,10 @@
         });
       }
       function field(label, key, type, id) {
-        var ctl = type === 'area' ? h('textarea', { id: id, value: e[key] }) : h('input', { id: id, type: 'text', value: e[key] });
+        var sealed = SC.isSealed(e) && SC.PREREG_LOCKED.indexOf(key) >= 0;
+        var ctl = type === 'area' ? h('textarea', { id: id, value: e[key], readonly: sealed, 'aria-readonly': sealed ? 'true' : null }) : h('input', { id: id, type: 'text', value: e[key], readonly: sealed, 'aria-readonly': sealed ? 'true' : null });
         ctl.addEventListener('input', function () { e[key] = ctl.value; touch(); });
-        return [h('label', { for: id }, label), ctl, h('small', { id: id + '-err', class: 'field-err' })];
+        return [h('label', { for: id }, label), ctl, sealed ? h('small', { class: 'muted' }, 'Locked: this entry has a sealed preregistration.') : null, h('small', { id: id + '-err', class: 'field-err' })];
       }
       var topic = h('select', { id: 'f-topic', onchange: function () { e.topic = topic.value; touch(); } }, SC.TOPICS.map(function (t) { return h('option', { value: t, selected: e.topic === t }, t); }));
       var ev = h('select', { id: 'f-ev', onchange: function () { e.evidence = ev.value; touch(); } }, [h('option', { value: '' }, 'Choose...')].concat(SC.EVIDENCE.map(function (t) { return h('option', { value: t, selected: e.evidence === t }, t); })));
@@ -157,6 +158,33 @@
         var c = h('input', { type: 'checkbox', checked: e.links.indexOf(o.id) >= 0, onchange: function () { e.links = e.links.filter(function (x) { return x !== o.id; }); if (c.checked) e.links.push(o.id); touch(); } });
         return h('label', { class: 'inline' }, c, o.title || 'Untitled');
       }) : h('span', { class: 'muted small' }, 'Add more entries to link them.'));
+      /* Sealed preregistration: a plan written before the work, locked with a hash and this device's date. It is not an independent time stamp. */
+      function preregCard() {
+        var p = e.prereg, sealed = SC.isSealed(e), box = h('div', { class: 'prereg', id: 'prereg-box' }), msg = h('div', { role: 'status' });
+        box.appendChild(h('h3', null, 'Preregistration (optional)'));
+        box.appendChild(h('p', { class: 'small muted' }, 'Write your hypothesis and analysis plan before you collect or look at results, then seal it. Sealing stores a SHA-256 hash and this device\'s date and time, and locks the title, question, method, hypothesis and analysis plan. Findings stay editable. ' + SC.PREREG_NOTE + ' Preregistrations are not included in contribution packs.'));
+        function pf(label, key, id) {
+          var c = h('textarea', { id: id, value: (p && p[key]) || '', readonly: sealed, 'aria-readonly': sealed ? 'true' : null, rows: 3 });
+          c.addEventListener('input', function () { if (!e.prereg) e.prereg = { hypothesis: '', analysis: '', sealedAt: '', hash: '' }; e.prereg[key] = c.value; touch(); });
+          return [h('label', { for: id }, label), c];
+        }
+        box.appendChild(h('div', null, pf('Hypothesis', 'hypothesis', 'f-hyp'), pf('Analysis plan', 'analysis', 'f-plan')));
+        if (!sealed) {
+          box.appendChild(h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn', id: 'seal-btn', onclick: function () {
+            clear(msg);
+            if (!e.prereg) e.prereg = { hypothesis: '', analysis: '', sealedAt: '', hash: '' };
+            SC.sealPrereg(e).then(function () { persist(); drawEditor(); toast('Preregistration sealed on this device. Keep a copy of the record somewhere else if you want to show it later.'); }, function (err) { msg.appendChild(notice('bad', err.message)); });
+          } }, 'Seal this plan'), h('span', { class: 'small muted' }, 'Sealing cannot be undone.')));
+        } else {
+          var st = h('p', { id: 'seal-state', class: 'small', role: 'status' }, 'Checking...');
+          SC.verifyPrereg(e).then(function (v) { st.textContent = v.state === 'valid' ? 'Check: the text matches its seal.' : 'Check: the text does NOT match its seal. It was changed after sealing.'; st.className = 'small ' + (v.state === 'valid' ? '' : 'bad'); });
+          box.appendChild(h('div', { class: 'notice good', id: 'seal-info' }, h('b', null, 'Sealed. '), 'Date on this device: ' + new Date(p.sealedAt).toLocaleString() + ' (' + p.sealedAt + '). SHA-256: ', h('code', { id: 'seal-hash' }, p.hash), h('p', { class: 'small', id: 'seal-note' }, 'Not an independent time stamp. Only this device\'s clock and this hash are behind the date.')));
+          box.appendChild(st);
+          box.appendChild(h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn', id: 'seal-save', onclick: function () { download('preregistration-' + p.hash.slice(0, 8) + '.txt', SC.preregRecord(e), 'text/plain'); } }, 'Save the record as a text file')));
+        }
+        box.appendChild(msg);
+        return box;
+      }
       var del = h('button', { type: 'button', class: 'btn danger small', onclick: function () {
         if (!del.dataset.armed) { del.dataset.armed = '1'; del.textContent = 'Click again to delete'; return; }
         state.entries = state.entries.filter(function (x) { return x.id !== e.id; }); state.entries.forEach(function (x) { x.links = x.links.filter(function (l) { return l !== e.id; }); });
@@ -171,7 +199,7 @@
         h('label', { class: 'inline' }, aiBox, 'AI-assisted: an AI tool helped produce this entry'), h('label', { for: 'f-tool' }, 'AI tool used'), tool,
         h('label', { class: 'inline' }, hc, 'This entry makes a health claim'),
         h('label', { class: 'inline' }, dis, SC.DISCLAIMER + ' (I understand and agree; needed for health claims)'),
-        h('label', null, 'Links to other entries'), linkBox, h('div', { class: 'row end' }, del), gateStatus));
+        h('label', null, 'Links to other entries'), linkBox, window.SC_FILES_EDITOR(ctx, e, touch), preregCard(), h('div', { class: 'row end' }, del), gateStatus));
       editor.appendChild(gatesBox); drawGates();
     }
     search.addEventListener('input', function () { state.q = search.value; drawList(); });
@@ -196,9 +224,14 @@
   function alert_(where, text) { where.prepend(notice('bad', text)); toast(text, true); }
   /* Adds restored entries that are not already in the notebook. -> {added, dropped} */
   function mergeRestored(list) {
-    var r = SC.sanitizeNotebook(list), have = Object.create(null), added = 0;
+    var r = SC.sanitizeNotebook(list), have = Object.create(null), added = 0, space = SC.ATTACH_MAX_TOTAL - SC.attachmentBytes(state.entries);
     state.entries.forEach(function (x) { have[x.id] = 1; });
-    r.entries.forEach(function (x) { if (!have[x.id] && state.entries.length < SC.MAX_NOTEBOOK && ED.room(state.entries.length) > 0) { state.entries.push(x); have[x.id] = 1; added++; } });
+    r.entries.forEach(function (x) {
+      if (!have[x.id] && state.entries.length < SC.MAX_NOTEBOOK && ED.room(state.entries.length) > 0) {
+        if (x.attachments) { x.attachments = x.attachments.filter(function (a) { if (a.size > space) return false; space -= a.size; return true; }); if (!x.attachments.length) delete x.attachments; }   // attachments share one budget
+        state.entries.push(x); have[x.id] = 1; added++;
+      }
+    });
     return { added: added, dropped: r.dropped + (r.entries.length - added) };
   }
   /* Live file sync control: one button that connects a file on disk and shows when it was last written. */
@@ -357,7 +390,7 @@
   function trialCard() {
     return h('div', { class: 'card trial', id: 'trialcard' }, h('h2', null, 'Free trial'),
       h('p', null, 'You can keep up to ', h('b', null, String(ED.limit)), ' entries in this trial (', h('b', { id: 'trialused' }, String(state.entries.length)), ' used). It never expires and nothing is ever deleted. ' + ((window.StarkTrial || {}).notIncluded || '')),
-      h('p', { class: 'small muted' }, 'Back up your notebook any time: the backup file restores straight into the full app, so your work carries over.'), h('div', { class: 'row' }, buyLink()));
+      h('p', { class: 'small muted' }, 'Back up your notebook any time: the backup file restores straight into the full version, so your work carries over.'), h('div', { class: 'row' }, buyLink()));
   }
   function viewFeedback() {
     clear(main);
@@ -392,11 +425,13 @@
       h('li', null, 'A signature proves a pack was not changed after it was made. It does not prove the contributor\'s identity or that the findings are correct.'),
       h('li', null, 'Evidence labels are chosen by contributors and reviewed by the owner; they are guides, not verdicts.'),
       h('li', null, 'All contributions are CC BY 4.0: free to reuse with credit.'))));
+    var tpl = document.getElementById('stark-notice-tpl');
+    if (tpl && tpl.content) main.appendChild(document.importNode(tpl.content, true));
   }
 
   /* ---------- router ---------- */
   var ctx = { state: state, h: h, clear: clear, main: main, notice: notice, persist: persist, download: download, load: load, save: save, keys: keys, toast: toast, mergeRestored: mergeRestored };
-  var views = { notebook: viewNotebook, graph: viewGraph, lab: function () { window.SC_LAB_VIEW(ctx); }, share: viewShare, explorer: viewExplorer, merge: viewMerge, about: viewAbout, feedback: viewFeedback };
+  var views = { notebook: viewNotebook, graph: viewGraph, lab: function () { window.SC_LAB_VIEW(ctx); }, refs: function () { window.SC_REFS_VIEW(ctx); }, markdown: function () { window.SC_MD_VIEW(ctx); }, share: viewShare, explorer: viewExplorer, merge: viewMerge, about: viewAbout, feedback: viewFeedback };
   function route() {
     var v = (location.hash || '#notebook').slice(1);
     if (!views[v]) v = 'notebook';

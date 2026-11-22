@@ -38,7 +38,7 @@
       used = S.trialUsed(); left = Math.max(0, TN.trial.CAP - used);
       main.insertBefore(h('div', { class: 'notice soft trial-note', role: 'note', id: 'trial-note' },
         h('strong', { text: T('Free trial: ', 'Prueba gratis: ') }),
-        T(used + ' of ' + TN.trial.CAP + ' saved records used (condition reports, repairs and rent entries). ' + (left ? left + ' left.' : 'Full: you can still view, edit, delete and export everything.') + ' No time limit, and your data is never deleted. Save a backup file in Settings and restore it in the full app to carry everything over. ' + ((root.StarkTrial || {}).notIncluded || ''),
+        T(used + ' of ' + TN.trial.CAP + ' saved records used (condition reports, repairs and rent entries). ' + (left ? left + ' left.' : 'Full: you can still view, edit, delete and export everything.') + ' No time limit, and your data is never deleted. Save a backup file in Settings and restore it in the full version to carry everything over. ' + ((root.StarkTrial || {}).notIncluded || ''),
           used + ' de ' + TN.trial.CAP + ' registros usados (reportes, reparaciones y pagos de renta). ' + (left ? 'Quedan ' + left + '.' : 'Completo: aún puede ver, editar, borrar y exportar todo.') + ' Sin límite de tiempo, y sus datos nunca se borran. Guarde una copia en Ajustes y restáurela en la app completa para llevarlo todo.'),
         ' ', buyBtn(false)), main.firstChild);
     }

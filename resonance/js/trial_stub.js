@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Resonance"; T.buyUrl = "https://starkapps.gumroad.com/l/stark-resonance"; T.notIncluded = "Not in the free trial: seven of the eight labs (the LC circuit, the Tesla coil, the power grid, wireless power, standing waves, the memristor and the energy ledger) and data and graph export (CSV, spreadsheet copy, PNG, SVG and the printable lab sheet). They are in the full version."; T.features = {
+  T.app = "Stark Resonance"; T.buyUrl = "https://starkapps.gumroad.com/l/stark-resonance"; T.notIncluded = "Not in the free trial: seven of the eight labs (the LC circuit, the Tesla coil, the power grid, wireless power, standing waves, the memristor and the energy ledger), data and graph export (CSV, spreadsheet copy, PNG, SVG and the printable lab sheet) and the circuit-builder lab and the teacher pack (a printable worksheet and answer key for every lab). They are in the full version."; T.features = {
  "more_labs": {
   "title": "The other seven labs",
   "short": "seven of the eight labs (the LC circuit, the Tesla coil, the power grid, wireless power, standing waves, the memristor and the energy ledger)",
@@ -14,6 +14,12 @@
   "title": "Data and graph export",
   "short": "data and graph export (CSV, spreadsheet copy, PNG, SVG and the printable lab sheet)",
   "blurb": "Turn any lab's current run into a CSV file, a block to paste into a spreadsheet, a graph as PNG or SVG, or a printable lab sheet with the settings, the readouts and the data. The values are simulated, not measurements. Saving and restoring your own experiments stays in the trial.",
+  "shot": ""
+ },
+ "circuit_teacher": {
+  "title": "Circuit builder and teacher pack",
+  "short": "the circuit-builder lab and the teacher pack (a printable worksheet and answer key for every lab)",
+  "blurb": "Write a circuit of resistors, capacitors, inductors, a source and a switch as lines of text and see its voltages over time and its response across frequency, checked against the Resonance lab. And a teacher pack: a one-page worksheet and an answer key for every lab, with every number in a key worked out from the same physics the lab runs on. The values are simulated, not measured, and the pack is support for a teacher, not a curriculum.",
   "shot": ""
  }
 };

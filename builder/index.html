@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Copyright (c) 2026 Stark. All rights reserved. Stark Builder. Licence: LICENSE.txt -->
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
@@ -8,11 +9,12 @@
 <meta name="color-scheme" content="dark light">
 <title>Stark Builder</title><link rel="canonical" href="https://starkforall.com/try/builder/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Builder"><meta property="og:description" content="Stark Builder, by Stark: an offline 3D planner for tiny homes, family homes, compounds and small villages. Floor plans on several floors, furniture, a 3D walkthrough, a site planner, materials, order lists, cost scenarios, a schedule and energy estimates. Everything stays on this computer."><meta property="og:url" content="https://starkforall.com/try/builder/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Builder"><meta name="twitter:description" content="Stark Builder, by Stark: an offline 3D planner for tiny homes, family homes, compounds and small villages. Floor plans on several floors, furniture, a 3D walkthrough, a site planner, materials, order lists, cost scenarios, a schedule and energy estimates. Everything stays on this computer."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
-<link rel="stylesheet" href="css/app.css?v=1.5.0-ebb5b785">
-<link rel="stylesheet" href="css/trial.css?v=1.5.0-436786c0">
-<link rel="stylesheet" href="css/trial_stub.css?v=1.5.0-aa9884f5">
+<link rel="stylesheet" href="css/app.css?v=1.5.1-63244b68">
+<link rel="stylesheet" href="css/trial.css?v=1.5.1-70586d20">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.5.1-728a780b">
 </head>
 <body>
+<p class="trial-adds"><b>What the paid version adds:</b> scaled plan export (SVG, DXF for CAD, PDF on a real sheet size) and PNG picture export of the 3D view and plan, and the one-page overview sheet. <a href="https://ams513.itch.io/stark-builder" rel="noopener">Get the full version</a></p>
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
   <a class="brand" href="#/plan" aria-label="Stark Builder home">
@@ -114,30 +116,31 @@
 </main>
 <footer class="foot" id="foot"><button type="button" class="foot-toggle" id="foot-toggle" aria-expanded="false">Info and feedback</button><span>Stark Builder, by Stark. Works offline; your plans stay on this computer.</span> <button type="button" class="btn" id="feedback-btn">Send feedback</button> <span class="muted small">Opens your email app.</span></footer>
 
+<template id="stark-notice-tpl"><p class="stark-notice">(c) 2026 Stark. All rights reserved. For use on your own devices; no redistribution or re-hosting. <a href="https://starkforall.com/terms.html" target="_blank" rel="noopener">Licence</a>. <small class="stark-mark" data-stark-mark>Build mark: unstamped</small></p></template>
 <div id="sheet" aria-label="Printable sheet"></div>
 <div id="modal" class="modal" hidden></div>
 
-<script src="js/core.js?v=1.5.0-e3cdfea6"></script>
-<script src="data/prices.js?v=1.5.0-780f2aae"></script>
-<script src="data/templates.js?v=1.5.0-290ff994"></script>
-<script src="data/catalog.js?v=1.5.0-847ba674"></script>
-<script src="js/takeoff.js?v=1.5.0-97053ba0"></script>
-<script src="js/planning.js?v=1.5.0-8120fa2e"></script>
-<script src="js/studio.js?v=1.5.0-d72808c2"></script>
-<script src="js/mesh3d.js?v=1.5.0-897a7895"></script>
-<script src="js/render3d.js?v=1.5.0-a47455c2"></script>
-<script src="js/plansvg.js?v=1.5.0-e0616d9f"></script>
-<script src="js/trial_stub.js?v=1.5.0-b2abbeee"></script>
-<script src="js/editor.js?v=1.5.0-bfdf7b00"></script>
-<script src="js/site.js?v=1.5.0-b5525645"></script>
-<script src="js/app.js?v=1.5.0-0ee7305d"></script>
-<script src="js/views.js?v=1.5.0-59cbb052"></script>
-<script src="js/studio_ui.js?v=1.5.0-6263a4a4"></script>
-<script src="js/filesave.js?v=1.5.0-57dcbaa4"></script>
-<script src="js/trial_glue.js?v=1.5.0-4de61c8f"></script>
-<script src="js/feedback.js?v=1.5.0-d27c22a3"></script>
-<script src="js/notice.js?v=1.5.0-b4c482bc"></script>
-<script src="js/views2.js?v=1.5.0-1c831a66"></script>
-<script src="js/trial.js?v=1.5.0-fe867769"></script>
+<script src="js/core.js?v=1.5.1-e3cdfea6"></script>
+<script src="data/prices.js?v=1.5.1-780f2aae"></script>
+<script src="data/templates.js?v=1.5.1-290ff994"></script>
+<script src="data/catalog.js?v=1.5.1-847ba674"></script>
+<script src="js/takeoff.js?v=1.5.1-97053ba0"></script>
+<script src="js/planning.js?v=1.5.1-8120fa2e"></script>
+<script src="js/studio.js?v=1.5.1-d72808c2"></script>
+<script src="js/mesh3d.js?v=1.5.1-897a7895"></script>
+<script src="js/render3d.js?v=1.5.1-a47455c2"></script>
+<script src="js/plansvg.js?v=1.5.1-e0616d9f"></script>
+<script src="js/trial_stub.js?v=1.5.1-b2abbeee"></script>
+<script src="js/editor.js?v=1.5.1-bfdf7b00"></script>
+<script src="js/site.js?v=1.5.1-b5525645"></script>
+<script src="js/app.js?v=1.5.1-2f3c0f5f"></script>
+<script src="js/views.js?v=1.5.1-104e7dba"></script>
+<script src="js/studio_ui.js?v=1.5.1-6263a4a4"></script>
+<script src="js/filesave.js?v=1.5.1-57dcbaa4"></script>
+<script src="js/trial_glue.js?v=1.5.1-4de61c8f"></script>
+<script src="js/feedback.js?v=1.5.1-d27c22a3"></script>
+<script src="js/notice.js?v=1.5.1-b4c482bc"></script>
+<script src="js/views2.js?v=1.5.1-1c831a66"></script>
+<script src="js/trial.js?v=1.5.1-37294947"></script>
 </body>
 </html>

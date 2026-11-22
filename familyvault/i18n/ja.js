@@ -251,7 +251,7 @@
 "No": "いいえ",
 "No backup file saved yet": "バックアップファイルはまだ保存されていません",
 "No backup yet.": "バックアップはまだありません。",
-"No checksum, validated.": "チェックサムなし、検証済み。",
+
 "No date": "日付なし",
 "No expired documents or policies": "期限切れの書類や保険証券はありません",
 "No expiry": "期限なし",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "更新日のない保険料が記録されています",
 "Premiums only.": "保険料のみ。",
 "Prepaid plans or arrangements": "前払いのプランまたは手配",
-
+"Prepared": "準備済み",
 "Preview": "プレビュー",
 "Preview and print": "プレビューと印刷",
 "Print": "印刷",

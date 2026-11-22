@@ -40,6 +40,7 @@ p { margin: 0 0 .8rem; }
 .lead { font-size: 1.08rem; }
 .muted { color: var(--muted); }
 .small { font-size: .88rem; color: var(--muted); }
+.stark-notice { font-size: .82rem; color: var(--muted); margin: .6rem 0 0; overflow-wrap: anywhere; }
 .eyebrow { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 2px; }
 code { font-family: var(--mono); font-size: .9em; overflow-wrap: anywhere; }
 .empty { color: var(--muted); font-style: italic; }

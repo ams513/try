@@ -3,11 +3,29 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Commons"; T.buyUrl = "https://starkforall.com/commons.html"; T.notIncluded = "Not in the free trial: the Lab (rigor board, overclaim linter, evidence matrix, suggested links, source audit, sealed backup and the Ctrl+K finder) and merging signed contribution packs into a public bundle, with the trusted-key list and the change report. They are in the full version."; T.features = {
+  T.app = "Stark Commons"; T.buyUrl = "https://starkforall.com/commons.html"; T.notIncluded = "Not in the free trial: the Lab (rigor board, overclaim linter, evidence matrix, suggested links, source audit, sealed backup and the Ctrl+K finder), Recovery Circle (k-of-n recovery cards for a forgotten sealed-backup passphrase), reference import and export (BibTeX, RIS, CSL JSON) with formatted reference lists in six styles, Markdown export and import and file attachments and merging signed contribution packs into a public bundle, with the trusted-key list and the change report. They are in the full version."; T.features = {
  "lab": {
   "title": "The Lab",
   "short": "the Lab (rigor board, overclaim linter, evidence matrix, suggested links, source audit, sealed backup and the Ctrl+K finder)",
   "blurb": "On-device analysis of your notebook: a rigor checklist for each note, a linter that flags claims stated more strongly than the sources allow, an evidence matrix across entries, suggested links between related notes, a source audit, an encrypted (sealed) backup, key fingerprint art and a ranked finder. It describes how completely a note is documented. It never says whether a finding is true.",
+  "shot": ""
+ },
+ "recovery": {
+  "title": "Recovery Circle",
+  "short": "Recovery Circle (k-of-n recovery cards for a forgotten sealed-backup passphrase)",
+  "blurb": "Split the passphrase of your sealed backup among people you rely on: choose how many cards are needed (3 of 5 by default), print the cards with a QR code and a typed code with a checksum, and recover the passphrase from any enough cards. Fewer cards reveal nothing. It sits with the sealed backup in the Lab.",
+  "shot": ""
+ },
+ "refs": {
+  "title": "References",
+  "short": "reference import and export (BibTeX, RIS, CSL JSON) with formatted reference lists in six styles",
+  "blurb": "Read BibTeX, RIS and CSL JSON files into your sources after a preview that lists what will be added, what is skipped and which fields have no home here; write your sources back out in those formats with a round-trip check; and print a list of formatted references in six common styles. Everything stays on your device.",
+  "shot": ""
+ },
+ "markdown": {
+  "title": "Markdown and attachments",
+  "short": "Markdown export and import and file attachments",
+  "blurb": "Export your notebook as one Markdown file with properties at the top that other note apps can open, import Markdown notes after a preview, check that a notebook round-trips, and keep small files with an entry. Your notebook backup file stays in the trial.",
   "shot": ""
  },
  "merge": {

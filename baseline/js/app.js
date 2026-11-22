@@ -4,7 +4,7 @@
   var V = StarkBaseline, C = BaselineContent, L = BaselineLogic, U = BaselineUI, h = U.h, $ = U.$;
   var S = { d: null, session: null, ws: null, wsLabel: "", route: "home", last: 0, saveTimer: null, saving: Promise.resolve(), seq: 0 };
   var NAV = [["home", "Home"], ["inventory", "Inventory"], ["checklist", "Checklist"], ["plan", "Path to green"], ["map", "Exposure map"], ["risks", "Risks"], ["evidence", "Evidence"], ["runbook", "Runbook"],
-    ["drills", "Drills"], ["staff", "Staff lessons"], ["hipaa", "HIPAA evidence"], ["ukce", "UK Cyber Essentials"], ["sources", "Sources"], ["settings", "Settings"]];
+    ["drills", "Drills"], ["staff", "Staff lessons"], ["hipaa", "HIPAA evidence"], ["ukce", "UK Cyber Essentials"], ["gdpr", "GDPR view"], ["nis2", "NIS2 view"], ["policies", "Policy pack"], ["sources", "Sources"], ["settings", "Settings"]];
   var A = window.BaselineApp = { views: {}, S: S, NAV: NAV, full: function () { return false; }, room: function () { return Infinity; }, afterRender: null };   // full/room/afterRender: hooks the Free trial build overrides
 
   /* ---------- helpers shared with views.js and views2.js ---------- */
@@ -476,12 +476,16 @@
       "Stark Baseline paraphrases public US government frameworks in plain language and cites them by name and identifier. NIST, CISA and HHS have not reviewed or endorsed Stark Baseline. Using it helps you organise and track your work; it does not show that you meet any law, contract or standard. " + L.NOT_ADVICE));
     wrap.appendChild(h("div", { class: "banner" }, h("strong", { text: "UK Cyber Essentials view. " }),
       "It uses the names of the scheme's five technical controls, taken from the UK National Cyber Security Centre's own page, with our own descriptions and mapping, reviewed against the NCSC's Requirements for IT Infrastructure v3.3 (April 2026). It is a self-check aid, not a certification, and passing Baseline's checks does not mean meeting Cyber Essentials. Stark Baseline is not affiliated with the scheme, the NCSC or IASME, and none of them has reviewed or endorsed it."));
+    wrap.appendChild(h("div", { class: "banner" }, h("strong", { text: "GDPR view, NIS2 view and policy pack. " }),
+      "The views group your checklist under article numbers of the published texts of Regulation (EU) 2016/679 and Directive (EU) 2022/2555, with short quotations; the grouping and mapping are our own. The policy pack is our own plain-language wording. They are a self-check aid, not a certification, and not legal advice. Stark Baseline is not affiliated with the European Union or any authority."));
     C.SOURCES.forEach(function (s) {
       wrap.appendChild(h("div", { class: "card" }, h("h2", { text: s.name }), h("dl", null, kv("Published by", s.by), kv("Edition", s.ref),
         s.url ? h("div", { class: "kv" }, h("dt", { text: "Address" }), h("dd", null, h("code", { class: "url", text: s.url }))) : null, kv("Date checked", s.checked), kv("Licence status", s.status),
         s.statusUrl ? h("div", { class: "kv" }, h("dt", { text: "Licence page" }), h("dd", null, h("code", { class: "url", text: s.statusUrl }))) : null, kv("How we use it", s.use))));
     });
     wrap.appendChild(h("p", { class: "fine", text: "Addresses are shown as text because this app never connects to the internet. Copy one into your browser to read the original." }));
+    var tpl = document.getElementById("stark-notice-tpl");
+    if (tpl && tpl.content) wrap.appendChild(document.importNode(tpl.content, true));
     return wrap;
   }
 

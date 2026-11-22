@@ -251,7 +251,7 @@
 "No": "Không",
 "No backup file saved yet": "Chưa lưu tệp sao lưu nào",
 "No backup yet.": "Chưa có bản sao lưu.",
-"No checksum, validated.": "Không có mã kiểm tra, đã xác thực.",
+
 "No date": "Không có ngày",
 "No expired documents or policies": "Không có tài liệu hoặc hợp đồng bảo hiểm hết hạn",
 "No expiry": "Không hết hạn",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "Đã ghi phí bảo hiểm nhưng không có ngày gia hạn",
 "Premiums only.": "Chỉ phí bảo hiểm.",
 "Prepaid plans or arrangements": "Gói hoặc thỏa thuận trả trước",
-
+"Prepared": "Đã chuẩn bị",
 "Preview": "Xem trước",
 "Preview and print": "Xem trước và in",
 "Print": "In",

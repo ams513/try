@@ -2,7 +2,7 @@
    It caches this app's own files only (no other site is ever contacted) and answers from that cache, so the
    installed app opens with no connection. A new build changes VERSION and replaces the old cache. */
 'use strict';
-const VERSION = 'b86cec78f7b0561d', PREFIX = 'stark-classroom-hub-trial-', CACHE = PREFIX + VERSION;
+const VERSION = 'bcc497b0fffb5d4b', PREFIX = 'stark-classroom-hub-trial-', CACHE = PREFIX + VERSION;
 const FILES = ["css/app.css","css/trial_stub.css","icons/icon-192.png","icons/icon-512.png","img/trial-import_export.png","index.html","js/app.js","js/catalog.js","js/demo.js","js/edition.js","js/hublib.js","js/insight.js","js/insightviews.js","js/pwa.js","js/teachlib.js","js/trial_glue.js","js/trial_stub.js","js/views.js","manifest.webmanifest"];
 const BASE = new URL('./', self.location).pathname, OWN = new Set(FILES);
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });

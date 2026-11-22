@@ -57,7 +57,7 @@ main.enter > *:nth-child(2) { animation-delay: .04s; } main.enter > *:nth-child(
 .enter { animation: viewIn .3s var(--ease) both; }
 @keyframes viewIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
-.footer { text-align: center; color: var(--muted); font-size: .84rem; padding: 1rem 1rem 1.6rem; border-top: 1px solid var(--line-2); }
+.footer .stark-notice { margin: .5rem auto 0; font-size: .8rem; max-width: 78ch; } .footer { text-align: center; color: var(--muted); font-size: .84rem; padding: 1rem 1rem 1.6rem; border-top: 1px solid var(--line-2); }
 .view-head { margin-bottom: 1.2rem; } .lede { color: var(--muted); max-width: 76ch; font-size: 1.02rem; margin: .2rem 0 0; }
 .section-title { margin: 1.6rem 0 .7rem; font-size: 1.05rem; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; }
 

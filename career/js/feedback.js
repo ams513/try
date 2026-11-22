@@ -3,7 +3,7 @@
 (function () {
   "use strict";
   var E = SC.esc, $ = SC.$;
-  SC.APP_NAME = "Stark Career"; SC.APP_VERSION = "2.5.0"; SC.FEEDBACK_TO = "hello@starkforall.com"; SC.FEEDBACK_SUBJECT = "Stark Career feedback";
+  SC.APP_NAME = "Stark Career"; SC.APP_VERSION = "2.6.0"; SC.FEEDBACK_TO = "hello@starkforall.com"; SC.FEEDBACK_SUBJECT = "Stark Career feedback";
   var MAX = 1200;
 
   function clean(s) { return String(s == null ? "" : s).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "").replace(/\r\n?/g, "\n").trim().slice(0, MAX); }

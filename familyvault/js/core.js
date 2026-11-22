@@ -2,7 +2,7 @@
    Runs in the browser and in Node (tests) using the standard WebCrypto API. */
 (function (root) {
   "use strict";
-  var VERSION = "1.4.0";
+  var VERSION = "1.6.0";
   var KDF_ITER = 600000;            // PBKDF2-SHA256 iterations (OWASP 2023 guidance)
   var MIN_ITER = 100000, MAX_ITER = 2000000; // accepted range in files: a crafted file cannot freeze the tab or downgrade the vault
   var FORMAT = "StarkVault";
@@ -292,8 +292,53 @@
     if (has("tasks")) out.tasks = clone((vault.tasks || []).filter(function (t) { return house(t.person); }));
     if (has("digital")) out.digital = clone((vault.digital || []).filter(function (d) { return mine(d.person); })).map(function (d) { if (!opts.hints) d.hint = ""; return d; });
     if (has("emergency")) out.emergency = clone(vault.emergency || {});
+    // 1.5.0: the edit times of the records that are in the file travel with it, so a later merge can tell which copy is newer.
+    var mods = (vault.settings || {}).mods, keep = {};
+    if (isObj(mods)) { Object.keys(prints(out)).forEach(function (k) { if (typeof mods[k] === "string") keep[k] = mods[k]; }); out.settings.mods = keep; }
+    if (typeof (vault.settings || {}).modsFrom === "string") out.settings.modsFrom = vault.settings.modsFrom;
+    if (isObj(opts.pack)) out.settings.pack = clone(opts.pack);
     return out;
   }
+  /* ---- edit times (1.5.0) ----
+     settings.mods maps "docs:<id>", "people:<id>", "health:<person id>", "plan:<person id>" and "emergency" to the time (ISO, UTC, this
+     computer's clock) the record last changed on this copy; settings.modsFrom is when this vault started keeping them. They are worked out
+     by comparing a fingerprint of every record before and after each save, so no screen has to remember to set them. */
+  var RECORD_LISTS = ["people", "docs", "contacts", "accounts", "inventory", "meds", "policies", "digital", "tasks"];
+  function fnv(hh, s) { for (var i = 0; i < s.length; i++) { hh ^= s.charCodeAt(i); hh = Math.imul(hh, 16777619) >>> 0; } return hh; }
+  function printOf(x, hh) {
+    var t = typeof x, i, keys;
+    if (x == null || x === "") return fnv(hh, "~");
+    if (t === "string") {
+      if (x.length <= 20000) return fnv(hh, "s" + x);
+      hh = fnv(hh, "S" + x.length + x.slice(0, 256) + x.slice(-256));     // scans and photos: length, both ends and a sample
+      for (i = 0; i < x.length; i += 61) hh = fnv(hh, x[i]);
+      return hh;
+    }
+    if (t !== "object") return fnv(hh, t[0] + String(x));
+    if (Array.isArray(x)) { hh = fnv(hh, "["); for (i = 0; i < x.length; i++) hh = printOf(x[i], hh); return fnv(hh, "]"); }
+    keys = Object.keys(x).sort(); hh = fnv(hh, "{");
+    for (i = 0; i < keys.length; i++) { if (x[keys[i]] == null || x[keys[i]] === "") continue; hh = printOf(x[keys[i]], fnv(hh, keys[i] + ":")); }
+    return fnv(hh, "}");
+  }
+  // One fingerprint per record, keyed the same way as settings.mods.
+  function prints(vault) {
+    var out = {};
+    RECORD_LISTS.forEach(function (k) { (Array.isArray(vault[k]) ? vault[k] : []).forEach(function (x) { if (isObj(x) && typeof x.id === "string" && x.id) out[k + ":" + x.id] = printOf(x, 2166136261); }); });
+    ["health", "plan"].forEach(function (k) { if (isObj(vault[k])) Object.keys(vault[k]).forEach(function (pid) { if (isObj(vault[k][pid]) && Object.keys(vault[k][pid]).length) out[k + ":" + pid] = printOf(vault[k][pid], 2166136261); }); });
+    if (isObj(vault.emergency) && Object.keys(vault.emergency).length) out.emergency = printOf(vault.emergency, 2166136261);
+    return out;
+  }
+  // Stamp every record whose fingerprint is new or different from `prev` with `now`, forget records that are gone, and return the new fingerprints.
+  function stampMods(vault, prev, now) {
+    var cur = prints(vault), st = vault.settings = isObj(vault.settings) ? vault.settings : {}, mods = isObj(st.mods) ? st.mods : {}, changed = false;
+    prev = prev || {};
+    Object.keys(cur).forEach(function (k) { if (prev[k] !== cur[k]) { mods[k] = now; changed = true; } });
+    Object.keys(mods).forEach(function (k) { if (!Object.prototype.hasOwnProperty.call(cur, k)) delete mods[k]; });
+    if (changed || isObj(st.mods)) st.mods = mods;
+    if (typeof st.modsFrom !== "string") st.modsFrom = now;
+    return cur;
+  }
+
   function exportShare(vault, opts, pass, iter) { return encryptOnce(subset(vault, opts), pass, "share", iter); }
   function exportBackup(vault, pass, iter) { return encryptOnce(vault, pass, "vault", iter); }
   // Merge shared data into a vault. Everything gets fresh ids; people are matched by name or added.
@@ -327,7 +372,7 @@
     guessSeconds: guessSeconds, guessTable: guessTable, durationText: durationText, ATTACKERS: ATTACKERS, mediaUrlOk: mediaUrlOk, b64: b64, unb64: unb64, uid: uid, newSession: newSession, checkPass: checkPass, seal: seal, open: open, openVault: openVault,
     encryptOnce: encryptOnce, strength: strength, dayNum: dayNum, todayStr: todayStr, daysUntil: daysUntil, addYears: addYears, addDays: addDays,
     reminderStatus: reminderStatus, reminders: reminders, reminderText: reminderText, cleanLast4: cleanLast4, looksSensitive: looksSensitive,
-    emptyVault: emptyVault, SECTIONS: SECTIONS, subset: subset, exportShare: exportShare, exportBackup: exportBackup, mergeInto: mergeInto, validateEnvelope: validateEnvelope, validateVault: validateVault, sumOf: sumOf };
+    emptyVault: emptyVault, SECTIONS: SECTIONS, subset: subset, exportShare: exportShare, exportBackup: exportBackup, mergeInto: mergeInto, clone: clone, prints: prints, stampMods: stampMods, validateEnvelope: validateEnvelope, validateVault: validateVault, sumOf: sumOf };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.StarkVault = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

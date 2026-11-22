@@ -5,7 +5,7 @@
 (function (root) {
   'use strict';
   const SCH = root.SCH = root.SCH || {};
-  const VERSION = '1.4.1', SHARE_APP = 'stark-classroomhub-share';
+  const VERSION = '1.4.2', SHARE_APP = 'stark-classroomhub-share';
   const LIM = { standards: 300, units: 60, plans: 600, days: 400, notes: 3000, rubrics: 100, sets: 30, apart: 60 };
   const MARKS = { P: 'Present', L: 'Late', A: 'Absent', E: 'Excused' };
   const KINDS = { positive: 'Positive', concern: 'Concern', note: 'Note' };

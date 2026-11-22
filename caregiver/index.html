@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Copyright (c) 2026 Stark. All rights reserved. Stark Caregiver. Licence: LICENSE.txt -->
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
@@ -8,10 +9,11 @@
 <meta name="color-scheme" content="dark light">
 <title>Stark Caregiver</title><link rel="canonical" href="https://starkforall.com/try/caregiver/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Caregiver"><meta property="og:description" content="Stark Caregiver, by Stark: an offline, private care record for family carers. Medicines and a dose log, an appointment and symptom diary, a care rota with handover notes, and a check-in for the carer. Everything stays on this computer."><meta property="og:url" content="https://starkforall.com/try/caregiver/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Caregiver"><meta name="twitter:description" content="Stark Caregiver, by Stark: an offline, private care record for family carers. Medicines and a dose log, an appointment and symptom diary, a care rota with handover notes, and a check-in for the carer. Everything stays on this computer."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
-<link rel="stylesheet" href="css/app.css?v=1.3.0-678a9c9d">
-<link rel="stylesheet" href="css/trial_stub.css?v=1.3.0-aa9884f5">
+<link rel="stylesheet" href="css/app.css?v=1.4.0-e9e986d6">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.4.0-728a780b">
 </head>
 <body class="locked">
+<p class="trial-adds"><b>What the paid version adds:</b> care Radar and the Care Clock, Ask the record, the medicine runway and the emergency QR card, the printable in-case-of-emergency binder, the calendar file (.ics) of refills, appointments and checks and dose alarms as a repeating calendar file and the medicine list import. Not on sale yet.</p>
 <header class="topbar">
   <a class="brand" href="#/home" aria-label="Stark Caregiver home">
     <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 20.5S3.5 15.3 3.5 9.3A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 8.5 2.1c0 6-8.5 11.2-8.5 11.2z" fill="currentColor"/><path class="mark-cross" d="M9.6 11.6h1.6V10h1.6v1.6h1.6v1.6h-1.6v1.6h-1.6v-1.6H9.6z"/></svg></span>
@@ -29,28 +31,29 @@
 <p class="medline" role="note"><strong>Not medical advice. Ask your doctor or pharmacist.</strong> <span>A record-keeping tool: no dosing advice, no checks between medicines, no diagnosis. In an emergency, call your local emergency number.</span></p>
 <p class="lang-note" id="lang-note" role="note"><span>Some parts of this app are still in English: letters and legal text, medical and medicine text, safety and emergency text, privacy and encryption warnings, and long help pages.</span> <span>This translation is a machine draft, not yet reviewed by a native speaker. To suggest a correction, use the Send feedback button.</span></p>
 <main id="main" tabindex="-1"></main>
-<footer class="footer"><p><strong>Stark Caregiver 1.3.0, by Stark.</strong> Not medical advice. Ask your doctor or pharmacist. Works offline. Encrypted on this computer. No account, no cloud, no tracking. Every save is checked after writing and a last good copy is kept. If you lose your passphrase, your data cannot be recovered.</p>
+<footer class="footer"><p><strong>Stark Caregiver 1.4.0, by Stark.</strong> Not medical advice. Ask your doctor or pharmacist. Works offline. Encrypted on this computer. No account, no cloud, no tracking. Every save is checked after writing and a last good copy is kept. If you lose your passphrase, your data cannot be recovered.</p>
 <p class="footer-actions"><button type="button" class="btn small" id="fb-btn">Send feedback</button> <span id="trial-foot"></span></p></footer>
+<template id="stark-notice-tpl"><p class="stark-notice">(c) 2026 Stark. All rights reserved. For use on your own devices; no redistribution or re-hosting. <a href="https://starkforall.com/terms.html" target="_blank" rel="noopener">Licence</a>. <small class="stark-mark" data-stark-mark>Build mark: unstamped</small></p></template>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 <div id="toast-alert" class="toast bad" role="alert" hidden></div>
 <div id="print-root" aria-hidden="true"></div>
 <noscript><p class="banner">Stark Caregiver needs JavaScript to encrypt your data on this computer.</p></noscript>
-<script src="js/core.js?v=1.3.0-8fce72c0"></script>
-<script src="js/trial_stub.js?v=1.3.0-5a8c0d85"></script>
-<script src="js/feedback.js?v=1.3.0-4dc3fbeb"></script><script src="js/trial.js?v=1.3.0-8cf12e38"></script>
-<script src="js/content.js?v=1.3.0-763e8344"></script>
-<script src="js/emergency.js?v=1.3.0-129547fd"></script>
-<script src="js/care.js?v=1.3.0-e404b22d"></script>
-<script src="js/kit.js?v=1.3.0-fcf3e092"></script>
-<script src="js/demo.js?v=1.3.0-99e30195"></script>
-<script src="js/store.js?v=1.3.0-aa6bf528"></script>
-<script src="js/ui.js?v=1.3.0-3a7d5cc7"></script>
-<script src="js/app.js?v=1.3.0-d7216613"></script>
-<script src="js/views2.js?v=1.3.0-fb62b31b"></script>
-<script src="js/views3.js?v=1.3.0-83c44ffc"></script>
-<script src="js/trial_glue.js?v=1.3.0-c98b06e1"></script>
-<script src="js/views5.js?v=1.3.0-d649c483"></script>
-<script src="js/views6.js?v=1.3.0-c1414f3a"></script>
-<script src="js/i18n.js?v=1.3.0-74f6ef33" data-app="stark-caregiver" data-anchor="#theme-btn" data-langs="es fr de pt-BR it pl ru tr ar hi id vi zh-Hans ja ko" data-skip=".emg-out, .crisis-list, .doselist"></script>
+<script src="js/core.js?v=1.4.0-e3409344"></script>
+<script src="js/trial_stub.js?v=1.4.0-5613a4be"></script>
+<script src="js/feedback.js?v=1.4.0-4dc3fbeb"></script><script src="js/trial.js?v=1.4.0-6d7355bb"></script>
+<script src="js/content.js?v=1.4.0-763e8344"></script>
+<script src="js/emergency.js?v=1.4.0-129547fd"></script>
+<script src="js/care.js?v=1.4.0-e404b22d"></script>
+<script src="js/kit.js?v=1.4.0-fcf3e092"></script>
+<script src="js/demo.js?v=1.4.0-99e30195"></script>
+<script src="js/store.js?v=1.4.0-aa6bf528"></script>
+<script src="js/ui.js?v=1.4.0-3a7d5cc7"></script>
+<script src="js/app.js?v=1.4.0-ee1d2370"></script>
+<script src="js/views2.js?v=1.4.0-fb62b31b"></script>
+<script src="js/views3.js?v=1.4.0-c818ccad"></script>
+<script src="js/trial_glue.js?v=1.4.0-c98b06e1"></script>
+<script src="js/views5.js?v=1.4.0-e3c3321f"></script>
+<script src="js/views6.js?v=1.4.0-c1414f3a"></script>
+<script src="js/i18n.js?v=1.4.0-74f6ef33" data-app="stark-caregiver" data-anchor="#theme-btn" data-langs="es fr de pt-BR it pl ru tr ar hi id vi zh-Hans ja ko" data-skip=".emg-out, .crisis-list, .doselist"></script>
 </body>
 </html>

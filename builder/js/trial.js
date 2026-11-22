@@ -14,6 +14,22 @@
     bar.appendChild(h('a', { class: 'btn primary trial-buy', href: BUY, target: '_blank', rel: 'noopener noreferrer' }, 'Own it forever: buy on itch.io'));
   }
 
+  /* A compact, dismissible banner on first load that says what the trial leaves out. Only a "dismissed" flag is remembered (never project data). */
+  const BANNER_KEY = 'starkBuilder.trialBanner';
+  let seen = false;
+  try { seen = localStorage.getItem(BANNER_KEY) === '1'; } catch (e) { seen = false; }
+  const anchor = document.querySelector('.notice');
+  if (NOT && !seen && anchor && anchor.parentNode) {
+    const ban = h('div', { class: 'trial-banner', role: 'note' },
+      h('span', { class: 'trial-banner-text', text: NOT }),
+      h('button', { type: 'button', class: 'trial-banner-x', 'aria-label': 'Dismiss this note', text: 'Got it' }));
+    ban.querySelector('.trial-banner-x').addEventListener('click', function () {
+      try { localStorage.setItem(BANNER_KEY, '1'); } catch (e) { /* not remembered, still dismissed */ }
+      if (ban.parentNode) ban.parentNode.removeChild(ban);
+    });
+    anchor.parentNode.insertBefore(ban, anchor.nextSibling);
+  }
+
   function mark() {
     const paper = document.querySelector('#sheet .paper'); if (!paper || paper.querySelector('.trial-wm')) return;
     for (let i = 0; i < 6; i++) paper.appendChild(h('div', { class: 'trial-wm', 'aria-hidden': 'true', style: 'top:' + (i * 17 + 4) + '%', text: SB.trial.watermark + '   ' + SB.trial.watermark + '   ' + SB.trial.watermark }));
@@ -29,7 +45,7 @@
     const box = $('#project'); if (!box) return;
     box.insertBefore(h('div', { class: 'card trial-card' }, h('h2', { text: 'You are using the free trial' }),
       h('p', { text: 'Nothing is ever time-limited or deleted. Printed sheets and PDFs carry a "Stark trial" watermark. ' + NOT }),
-      h('p', { text: 'Your work carries over. Use "Save project file" below, then in the full app open it with "Open a project file". The file is the same format, so nothing is lost.' }),
+      h('p', { text: 'Your work carries over. Use "Save project file" below, then in the full version open it with "Open a project file". The file is the same format, so nothing is lost.' }),
       h('a', { class: 'btn primary', href: BUY, target: '_blank', rel: 'noopener noreferrer' }, 'Own it forever: buy on itch.io')), box.firstChild);
   };
   if (app.tab === 'project') app.views.project();

@@ -251,7 +251,7 @@
 "No": "Nie",
 "No backup file saved yet": "Nie zapisano jeszcze pliku kopii zapasowej",
 "No backup yet.": "Brak kopii zapasowej.",
-"No checksum, validated.": "Brak sumy kontrolnej, zweryfikowano.",
+
 "No date": "Brak daty",
 "No expired documents or policies": "Brak wygasłych dokumentów lub polis",
 "No expiry": "Bez terminu ważności",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "Zapisano składkę bez daty odnowienia",
 "Premiums only.": "Tylko składki.",
 "Prepaid plans or arrangements": "Plany lub ustalenia opłacone z góry",
-
+"Prepared": "Przygotowano",
 "Preview": "Podgląd",
 "Preview and print": "Podgląd i wydruk",
 "Print": "Drukuj",

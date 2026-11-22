@@ -59,7 +59,7 @@
         promises(),
         h("div", { class: "row big-row" }, btn("Look around with example data", "primary big", startExample), btn("Start my own", "big", function () { setup(); })),
         h("p", { class: "fine", text: "The example is made up, marked EXAMPLE on every screen, and never saved. Starting your own takes about a minute." }),
-        h("p", { class: "fine" }, btn("Restore from a backup file", "small ghost", function () { restore(); }))));
+        h("p", { class: "fine" }, btn("Restore from a backup file", "small ghost", function () { restore(); }), " ", A.beamReceive ? btn("Receive from another device", "small ghost", function () { A.beamReceive(function (env) { restoreEnv(env, "the notebook on the other device"); }); }) : null)));
     main.appendChild(wrap);
     $("#topbar-tools").hidden = true; $("#nav").hidden = true;
   }
@@ -164,17 +164,20 @@
     inp.focus();
   }
   A.askPass = askPass;
+  function restoreEnv(env, from) {   // from: the file name, or where a beamed copy came from
+    askPass("Restore backup", "Enter the passphrase that was in use when " + from + " was saved. It becomes your notebook on this computer.", function (pw) {
+      return V.openData(env, pw).then(function (r) {
+        return U.seqGet(WS).then(function (hw) {
+          S.d = D.sanitize(r.data); S.session = r.session; S.seq = hw; S.example = false; S.rev++;
+          return persist().then(function () { askPersistence(); enter(); U.toast("Backup restored: " + Object.keys(S.d.days).length + " days."); if (r.upgrade) V.newSession(pw).then(function (s) { S.session = s; return persist(); }); });
+        });
+      });
+    });
+  }
   function restore() {
     U.pickFile(".starkvital,.json,application/json").then(function (f) {
       if (!f) return; var rb = readBackup(f); if (rb.error) return U.toast(rb.error, true);
-      askPass("Restore backup", "Enter the passphrase that was in use when " + f.name + " was saved. It becomes your notebook on this computer.", function (pw) {
-        return V.openData(rb.env, pw).then(function (r) {
-          return U.seqGet(WS).then(function (hw) {
-            S.d = D.sanitize(r.data); S.session = r.session; S.seq = hw; S.example = false; S.rev++;
-            return persist().then(function () { askPersistence(); enter(); U.toast("Backup restored: " + Object.keys(S.d.days).length + " days."); if (r.upgrade) V.newSession(pw).then(function (s) { S.session = s; return persist(); }); });
-          });
-        });
-      });
+      restoreEnv(rb.env, f.name);
     });
   }
 

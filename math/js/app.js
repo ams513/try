@@ -5,7 +5,7 @@
   const { $, h, clear } = SM;
   const main = $('#main');
   let current = null;
-  const STUDY = ['review', 'placement', 'worksheets', 'words', 'algebra', 'fluency', 'curriculum', 'report'];
+  const STUDY = ['review', 'placement', 'worksheets', 'words', 'algebra', 'fluency', 'curriculum', 'countrymaps', 'report'];
 
   function parseHash() {
     const raw = (location.hash || '#/home').slice(2), qi = raw.indexOf('?');

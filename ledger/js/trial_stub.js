@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Ledger"; T.buyUrl = "https://ams513.itch.io/stark-ledger"; T.notIncluded = "Not in the free trial: bank file import (OFX, QFX, QIF, CAMT.053, MT940 and CSV) with categorising rules, VAT / GST period summary and tax payment entry and Months of cover. They are in the full version."; T.features = {
+  T.app = "Stark Ledger"; T.buyUrl = "https://ams513.itch.io/stark-ledger"; T.notIncluded = "Not in the free trial: bank file import (OFX, QFX, QIF, CAMT.053, MT940 and CSV) with categorising rules, VAT / GST period summary and tax payment entry, Months of cover and E-invoice file output (a UBL 2.1 / EN 16931 invoice, Peppol BIS Billing 3.0 field set, checked on your computer). They are in the full version."; T.features = {
  "bank_import": {
   "title": "Bank statement import",
   "short": "bank file import (OFX, QFX, QIF, CAMT.053, MT940 and CSV) with categorising rules",
@@ -21,6 +21,12 @@
   "short": "Months of cover",
   "blurb": "How many months your household's money, stock and obligations last, with scenarios you can compare, a stock-up list and a printable plan. Plain arithmetic on the numbers you type.",
   "shot": "img/trial-cover.png"
+ },
+ "einvoice": {
+  "title": "E-invoice file (UBL XML)",
+  "short": "E-invoice file output (a UBL 2.1 / EN 16931 invoice, Peppol BIS Billing 3.0 field set, checked on your computer)",
+  "blurb": "Write an issued invoice as a standard UBL 2.1 e-invoice XML file, with the EN 16931 and Peppol BIS Billing 3.0 rules checked on your computer first. Made offline; not certified, not sent through any network.",
+  "shot": ""
  }
 };
   var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };

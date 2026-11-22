@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Copyright (c) 2026 Stark. All rights reserved. Stark Resonance. Licence: LICENSE.txt -->
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
@@ -9,10 +10,11 @@
 <meta name="color-scheme" content="dark light">
 <title>Stark Resonance (Free trial)</title><link rel="canonical" href="https://starkforall.com/try/resonance/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Resonance (Free trial)"><meta property="og:description" content="Stark Resonance, by Stark: an offline lab of real physics. Resonance, a Tesla coil, the rotating magnetic field, AC versus DC losses, wireless power, standing waves, a memristor and an energy-ledger test of perpetual-motion claims, plus a timeline of scientists and an honest guide to computing beyond silicon."><meta property="og:url" content="https://starkforall.com/try/resonance/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Resonance (Free trial)"><meta name="twitter:description" content="Stark Resonance, by Stark: an offline lab of real physics. Resonance, a Tesla coil, the rotating magnetic field, AC versus DC losses, wireless power, standing waves, a memristor and an energy-ledger test of perpetual-motion claims, plus a timeline of scientists and an honest guide to computing beyond silicon."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
-<link rel="stylesheet" href="css/app.css?v=1.1.0-369540ab">
-<link rel="stylesheet" href="css/trial_stub.css?v=1.1.0-aa9884f5">
+<link rel="stylesheet" href="css/app.css?v=1.2.0-0eef9208">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.2.0-728a780b">
 </head>
 <body>
+<p class="trial-adds"><b>What the paid version adds:</b> seven of the eight labs (the LC circuit, the Tesla coil, the power grid, wireless power, standing waves, the memristor and the energy ledger), data and graph export (CSV, spreadsheet copy, PNG, SVG and the printable lab sheet) and the circuit-builder lab and the teacher pack (a printable worksheet and answer key for every lab). <a href="https://starkapps.gumroad.com/l/stark-resonance" rel="noopener">Get the full version</a></p>
 <header class="topbar">
   <a class="brand" href="#/home" aria-label="Stark Resonance home">
     <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64" width="26" height="26"><path d="M4 34c7-26 12-26 16 0s9 26 16 0 9-26 14 0 5 10 10 0" fill="none" stroke="#4cc9f0" stroke-width="5" stroke-linecap="round"/><path d="M4 34c7 20 12 20 16 0s9-20 16 0 9 20 14 0 5-8 10 0" fill="none" stroke="#ffb454" stroke-width="4" stroke-linecap="round" opacity=".85"/></svg></span>
@@ -26,19 +28,20 @@
 <nav class="mainnav" id="nav" aria-label="Main"></nav>
 <main id="main" tabindex="-1"></main>
 <footer class="footer">
-  <p><strong>Stark Resonance 1.1.0, by Stark.</strong> A set of simulations for learning. It does not make electricity, add memory to your computer or replace any hardware, and it makes no free-energy claims. Independent educational product by Stark. Not affiliated with, endorsed by or sponsored by Tesla, Inc., Nikola Corporation, the Nikola Tesla Museum or the Tesla estate. Names are used only to describe the history of science. Works offline: no account, no network, no analytics.</p>
+  <p><strong>Stark Resonance 1.2.0, by Stark.</strong> A set of simulations for learning. It does not make electricity, add memory to your computer or replace any hardware, and it makes no free-energy claims. Independent educational product by Stark. Not affiliated with, endorsed by or sponsored by Tesla, Inc., Nikola Corporation, the Nikola Tesla Museum or the Tesla estate. Names are used only to describe the history of science. Works offline: no account, no network, no analytics.</p>
   <p class="footer-links"><button type="button" class="btn small ghost" id="feedback-btn">Send feedback</button> <span class="fine">Opens your email app. Nothing is sent until you press send there.</span></p>
 </footer>
+<template id="stark-notice-tpl"><p class="stark-notice">(c) 2026 Stark. All rights reserved. For use on your own devices; no redistribution or re-hosting. <a href="https://starkforall.com/terms.html" target="_blank" rel="noopener">Licence</a>. <small class="stark-mark" data-stark-mark>Build mark: unstamped</small></p></template>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 <noscript><p class="banner">Stark Resonance needs JavaScript to run its simulations. It works offline and sends nothing anywhere.</p></noscript>
-<script src="js/trial_stub.js?v=1.1.0-7a3da069"></script>
-<script src="js/trial.js?v=1.1.0-f080d39b"></script>
-<script src="js/physics.js?v=1.1.0-98b5ff10"></script>
-<script src="js/content.js?v=1.1.0-2930a492"></script>
-<script src="js/store.js?v=1.1.0-dc5d0cf1"></script>
-<script src="js/sims.js?v=1.1.0-50b174ec"></script>
-<script src="js/app.js?v=1.1.0-4402ee1b"></script>
-<script src="js/feedback.js?v=1.1.0-b788802c"></script>
-<script src="js/i18n.js?v=1.1.0-5d4320af" data-app="stark-resonance" data-anchor="#theme-btn" data-skip=".stage-canvas, .eq, .readouts dd"></script>
+<script src="js/trial_stub.js?v=1.2.0-3637d991"></script>
+<script src="js/trial.js?v=1.2.0-8aaff79e"></script>
+<script src="js/physics.js?v=1.2.0-98b5ff10"></script>
+<script src="js/content.js?v=1.2.0-2930a492"></script>
+<script src="js/store.js?v=1.2.0-498a2b01"></script>
+<script src="js/sims.js?v=1.2.0-320fe8c2"></script>
+<script src="js/app.js?v=1.2.0-facbb03a"></script>
+<script src="js/feedback.js?v=1.2.0-b788802c"></script>
+<script src="js/i18n.js?v=1.2.0-5d4320af" data-app="stark-resonance" data-anchor="#theme-btn" data-skip=".stage-canvas, .eq, .readouts dd"></script>
 </body>
 </html>

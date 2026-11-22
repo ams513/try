@@ -251,7 +251,7 @@
 "No": "Hayır",
 "No backup file saved yet": "Henüz kaydedilmiş yedek dosyası yok",
 "No backup yet.": "Henüz yedek yok.",
-"No checksum, validated.": "Sağlama toplamı yok, doğrulandı.",
+
 "No date": "Tarih yok",
 "No expired documents or policies": "Süresi dolmuş belge veya poliçe yok",
 "No expiry": "Son kullanma tarihi yok",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "Prim kaydedilmiş, yenileme tarihi yok",
 "Premiums only.": "Yalnızca primler.",
 "Prepaid plans or arrangements": "Ön ödemeli planlar veya düzenlemeler",
-
+"Prepared": "Hazırlandı",
 "Preview": "Önizleme",
 "Preview and print": "Önizle ve yazdır",
 "Print": "Yazdır",

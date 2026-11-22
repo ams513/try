@@ -177,8 +177,11 @@
       h('section', { class: 'card about' }, h('h2', null, 'About'), h('p', null, h('strong', null, 'Stark Math ' + SM.VERSION), ', a Stark product.'),
         h('p', null, 'Madeline is a rule-based teaching guide. Her explanations, hints and mistake checks were written by people as rules and templates. She is not an AI, not a chatbot and not a real person. Her character was drawn in code for this app.'),
         h('p', null, 'Every answer is checked exactly by the app\'s own maths engine, which accepts equivalent forms (1/2, 0.5 and 2/4 where the question allows). Physical constants are CODATA 2018 values; atomic masses are IUPAC standard values.'),
-        h('p', null, 'No accounts, no ads, no tracking and no network calls. Fonts are your system\'s own.'), h('p', null, 'Local protections: your data stays on this device. Saves are checked and a spare copy is kept, backup files carry a checksum and are validated before restoring, and if saved data is ever damaged the app opens read-only instead of overwriting it.')));
+        h('p', null, 'No accounts, no ads, no tracking and no network calls. Fonts are your system\'s own.'), h('p', null, 'Local protections: your data stays on this device. Saves are checked and a spare copy is kept, backup files carry a checksum and are validated before restoring, and if saved data is ever damaged the app opens read-only instead of overwriting it.'), SM.starkNotice()));
   };
+
+  /* the licence line and build mark live in index.html (<template id=stark-notice-tpl>); apply_protect.py stamps the mark at release */
+  SM.starkNotice = function () { const t = document.getElementById('stark-notice-tpl'); return t ? t.content.cloneNode(true) : document.createTextNode(''); };
 
   /* ---------- profile dialog ---------- */
   V.profileDialog = function () {

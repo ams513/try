@@ -28,7 +28,7 @@
 
   SC.views.match = function (root) {
     var S = SC.S, T = null, dismissed = {}, job = "";
-    root.innerHTML = '<div class="view-head"><p class="eyebrow">Tailor</p><h1>Tailor your resume to a job</h1><p class="lede">Paste a posting. In one click you get a keyword match, a tailored copy (matching skills first, the most relevant bullets on top, the summary reordered) and the missing keywords, each with an honest "add only if true" prompt. Save one version per application.</p></div>' +
+    root.innerHTML = '<div class="view-head"><p class="eyebrow">Tailor</p><h1>Tailor your resume to a job</h1><p class="lede">Paste a posting. In one click you get a word-overlap percentage, a tailored copy (matching skills first, the most relevant bullets on top, the summary reordered) and the missing keywords, each with an honest "add only if true" prompt. Save one version per application.</p></div>' +
       '<div class="two"><div class="card"><label for="job">Job posting</label><textarea id="job" rows="13" placeholder="Paste the full posting here">' + E(S.jobText) + "</textarea>" +
       '<div class="cols"><div><label for="t-role">Role</label><input id="t-role" value="' + E(S.tailor.role) + '" placeholder="Found in the posting"></div><div><label for="t-company">Company</label><input id="t-company" value="' + E(S.tailor.company) + '" placeholder="Found in the posting"></div></div>' +
       '<label for="src">Compare against</label><select id="src"><option value="built">My resume from the builder (tailor it)</option><option value="paste">Text I paste below (score only)</option></select>' +
@@ -36,11 +36,11 @@
       '<div class="row" style="margin-top:.7rem"><button type="button" class="btn primary" id="go" data-primary>Tailor my resume</button><span class="fine"><kbd>Ctrl Enter</kbd></span></div>' +
       '<div class="row" style="margin-top:.6rem"><button type="button" class="btn" id="p-rep">Word-overlap report</button><label class="sr-only" for="p-stage">Stage for the saved job</label><select id="p-stage" class="inline"><option value="wishlist">Wishlist</option><option value="applied">Applied</option></select><button type="button" class="btn" id="p-save">Save posting as a job</button></div>' +
       '<p class="fine">The report and the saved job use the posting above. Everything runs on this device with plain rules.</p></div>' +
-      '<div id="out" class="card" aria-live="polite"><h2>What you get</h2><ul class="checks"><li class="ok">A match score and the key terms you cover or miss.</li><li class="ok">A tailored copy: matching skills moved up, the most relevant bullets first in each job.</li><li class="ok">Missing keywords with honest prompts. Nothing is added unless you say it is true.</li><li class="ok">One saved version per application, linked to your tracker.</li></ul></div></div>' +
+      '<div id="out" class="card" aria-live="polite"><h2>What you get</h2><ul class="checks"><li class="ok">A word-overlap percentage and the key terms you cover or miss.</li><li class="ok">A tailored copy: matching skills moved up, the most relevant bullets first in each job.</li><li class="ok">Missing keywords with honest prompts. Nothing is added unless you say it is true.</li><li class="ok">One saved version per application, linked to your tracker.</li></ul></div></div>' +
       '<div id="rep" class="card" aria-live="polite" hidden></div>' +
       '<div class="card"><div class="card-head"><h2>Saved versions</h2><span class="fine">' + S.versions.length + " saved</span></div><div id=\"vers\">" + SC.versionsHTML() + "</div></div>";
     var src = $("#src"); src.value = S.matchSource;
-    function vis() { $("#pastebox").hidden = src.value !== "paste"; $("#go").textContent = src.value === "paste" ? "Check the match" : "Tailor my resume"; }
+    function vis() { $("#pastebox").hidden = src.value !== "paste"; $("#go").textContent = src.value === "paste" ? "Check the word overlap" : "Tailor my resume"; }
     vis(); src.addEventListener("change", function () { S.matchSource = src.value; vis(); SC.save(); });
     var saveSoon = SC.debounce(SC.save, 300);
     root.addEventListener("input", function (ev) {
@@ -52,8 +52,9 @@
     SC.onPrint = function () { SC.printResume(T ? T.resume : S.resume, false); };
 
     function matchHTML(m) {
-      var label = { strong: "Strong match", fair: "Fair match", weak: "Weak match", none: "Nothing to compare" }[m.band];
+      var label = m.band === "none" ? "Nothing to compare" : "Word overlap: " + m.score + "%";
       return '<div class="row">' + SC.ringHTML(m.score, m.score + "%") + "<div><h2>" + label + '</h2><p class="fine">' + m.matched.length + " of " + m.total + " key terms found. A keyword check, not a verdict on you.</p></div></div>" +
+        '<p class="fine" role="note"><b>What this is:</b> a word-overlap check between the text you pasted and your resume, made on this device with plain rules. It is not a prediction of how any employer or software will read or rank your resume, and it says nothing about interviews. English words only. Add a missing term only where it is true for you.</p>' +
         '<h3>Found in your resume</h3><p class="chips">' + (m.matched.length ? m.matched.map(function (k) { return '<span class="chip ok">' + E(k.label) + "</span>"; }).join("") : '<span class="muted">None yet.</span>') + "</p>" +
         '<h3>Missing, most important first</h3><p class="chips">' + (m.missing.length ? m.missing.map(function (k) { return '<span class="chip no">' + E(k.label) + (k.count > 1 ? " x" + k.count : "") + "</span>"; }).join("") : '<span class="muted">Nothing missing.</span>') + "</p>";
     }
@@ -63,7 +64,7 @@
       return matchHTML(T.match) +
         '<h2 class="section-title">Your tailored copy</h2><div class="stat">' +
         "<div><b>" + T.skillsUp + "</b>skills moved up</div><div><b>" + T.bulletsMoved + "</b>bullets reordered</div><div><b>" + T.topBefore + "% &rarr; " + T.topAfter + "%</b>matching evidence in each job's top 3 bullets</div>" +
-        (gain > 0 ? "<div><b>" + now.score + "%</b>match with your additions</div>" : "") + "</div>" +
+        (gain > 0 ? "<div><b>" + now.score + "%</b>word overlap with your additions</div>" : "") + "</div>" +
         (T.summaryMoved ? '<p class="fine">Your summary now leads with the sentence closest to this job (your opening line stays first).</p>' : "") +
         (miss.length ? '<h3>Missing keywords: add only if true</h3><ul class="kw">' + miss.map(function (k) {
           var added = SC.relevance(T.resume.skills, [{ key: SC.stemList(k.label).join(" "), label: k.label, weight: 1, phrase: SC.stemList(k.label).length > 1 }]).score > 0;

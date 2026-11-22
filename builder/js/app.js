@@ -4,7 +4,7 @@
 (function () {
   'use strict';
   const SB = window.SB, C = SB.core, K = SB.takeoff, T = SB.templates, CAT = SB.catalog, PL = SB.planning;
-  const VERSION = '1.5.0', STORE = 'starkBuilder.v1';
+  const VERSION = '1.5.1', STORE = 'starkBuilder.v1';
   const $ = (s, r) => (r || document).querySelector(s);
   function h(tag, attrs) {
     const el = document.createElement(tag);

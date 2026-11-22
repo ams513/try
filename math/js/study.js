@@ -38,6 +38,7 @@
       ['#/fluency', 'Fact fluency', 'One-minute sprints.', 'Addition, subtraction, times tables and division facts, with a grid showing which facts are fluent.'],
       ['#/worksheets', 'Worksheets', 'Print with answer keys.', 'Build a sheet from any skills at any level; the code rebuilds the same sheet and key later.'],
       ['#/curriculum', 'Curriculum map', 'Grade bands and reference codes.', 'Every skill by grade band, with ages, international equivalents and US standard codes.'],
+      ['#/countrymaps', 'Country curriculum maps', 'India, Australia, Brazil and the IB.', 'Pick a country and a grade to see what Stark Math covers and what it does not. Printable on A4.'],
       ['#/report', 'Parent and carer report', 'Printable progress summary.', 'Activity, accuracy, strengths, skills to work on and suggestions for home.'],
     ];
     main.append(h('div', { class: 'page-head' }, h('h1', null, 'Study'), h('p', { class: 'muted' }, 'Tools for reviewing, checking your level, printing and tracking progress. All of it runs offline on this device.')),
@@ -277,6 +278,7 @@
       h('section', { class: 'card' }, chips, h('div', { class: 'row wrap' }, subSel, search, count),
         eq ? h('p', { class: 'band-eq' }, h('strong', null, eq.name), ' · ages ' + eq.ages + ' · ' + eq.isced + ' · England and Wales: ' + eq.ew + '. ', btn('Practise this band', () => { const ids = C.inBand(band, subject ? [subject] : null).filter(id => SM.inRange(SM.SKILL[id], eq.lv)); if (!ids.length) { SM.toast('No skills here at this band\'s level.'); return; } clear(main); SM.practice(main, { skills: ids, adaptive: true, count: 10, lv: eq.lv, df: eq.df, title: eq.name }); }, 'btn-small')) : null,
         h('div', { class: 'table-wrap' }, h('table', { class: 'tbl curr-tbl' }, h('thead', null, h('tr', null, ['Skill', 'Subject', 'Band', 'Reference codes', 'Your status'].map(x => h('th', { scope: 'col' }, x)))), body)),
+        h('p', { class: 'muted' }, 'Studying outside the US? ', h('a', { href: '#/countrymaps' }, 'See what Stark Math covers for India, Australia, Brazil and the IB.')),
         h('div', { class: 'row' }, btn('Download the map (CSV)', () => SM.download('stark-math-curriculum-map.csv', C.csv(), 'text/csv;charset=utf-8'), 'btn-small'))),
       h('section', { class: 'card' }, h('h2', null, 'Grade bands around the world'), h('div', { class: 'table-wrap' }, h('table', { class: 'tbl' }, h('thead', null, h('tr', null, ['Band', 'Ages', 'International (ISCED)', 'England and Wales', 'Stark Math setting'].map(x => h('th', { scope: 'col' }, x)))),
         h('tbody', null, C.BANDS.map(b => h('tr', null, h('td', null, b.name), h('td', null, b.ages), h('td', null, b.isced), h('td', null, b.ew), h('td', null, SM.LEVELS[b.lv].name + ', ' + SM.DIFFS[b.df].name))))))));

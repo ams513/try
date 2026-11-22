@@ -8,10 +8,11 @@
 <meta name="color-scheme" content="light dark">
 <title>Stark Tenancy</title><link rel="canonical" href="https://starkforall.com/try/tenancy/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Tenancy"><meta property="og:description" content="Stark Tenancy, by Stark: a clean, private record of a tenancy. Move-in and move-out reports with dated photos and sign-off, a repair log, a rent and deposit ledger, letters and alarm reminders. Works offline; everything stays on your device."><meta property="og:url" content="https://starkforall.com/try/tenancy/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Tenancy"><meta name="twitter:description" content="Stark Tenancy, by Stark: a clean, private record of a tenancy. Move-in and move-out reports with dated photos and sign-off, a repair log, a rent and deposit ledger, letters and alarm reminders. Works offline; everything stays on your device."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
-<link rel="stylesheet" href="css/app.css?v=1.1.1-90a9fa12">
-<link rel="stylesheet" href="css/trial_stub.css?v=1.1.1-aa9884f5">
+<link rel="stylesheet" href="css/app.css?v=1.1.2-964878e7">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.1.2-728a780b">
 </head>
 <body>
+<p class="trial-adds"><b>What the paid version adds:</b> the move-in versus move-out comparison and its printable sheet, insights (record gap finder, rent notes and what-if, timeline, sealed backup) and the Ctrl+K finder and the letter generators (repair request, deposit return request, notice to fix). Not on sale yet.</p>
 <button type="button" class="skip-link" id="skip-link">Skip to content</button>
 
 <header class="topbar">
@@ -33,29 +34,31 @@
   <p class="small">Not legal advice. Check your state's landlord-tenant law or a local legal aid office. No tenant screening, credit checks or blacklists. <span id="ver"></span></p>
 </footer>
 
+<template id="stark-notice-tpl"><p class="stark-notice">(c) 2026 Stark. All rights reserved. For use on your own devices; no redistribution or re-hosting. <a href="https://starkforall.com/terms.html" target="_blank" rel="noopener">Licence</a>. <small class="stark-mark" data-stark-mark>Build mark: unstamped</small></p></template>
+
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-<script src="js/common.js?v=1.1.1-c0a4fd2b"></script>
-<script src="data/meta.js?v=1.1.1-dbd94fdc"></script>
-<script src="data/edition.js?v=1.1.1-287181f4"></script>
-<script src="data/rooms.js?v=1.1.1-829d51c3"></script>
-<script src="data/resources.js?v=1.1.1-796fbf2c"></script>
-<script src="js/trial_stub.js?v=1.1.1-e315e4ef"></script>
-<script src="js/trial.js?v=1.1.1-ec0d8791"></script>
-<script src="js/feedback.js?v=1.1.1-2e61b527"></script>
-<script src="js/backup.js?v=1.1.1-335b49ab"></script>
-<script src="js/tenancy.js?v=1.1.1-32c8693c"></script>
-<script src="js/photos.js?v=1.1.1-fe296c7b"></script>
-<script src="js/core.js?v=1.1.1-eb9a6e34"></script>
-<script src="js/demo.js?v=1.1.1-a6b42e98"></script>
-<script src="js/v_home.js?v=1.1.1-fb5f9c2d"></script>
-<script src="js/v_reports.js?v=1.1.1-a86ed0fb"></script>
-<script src="js/v_repairs.js?v=1.1.1-8562d9fa"></script>
-<script src="js/v_ledger.js?v=1.1.1-72a41c8a"></script>
-<script src="js/v_safety.js?v=1.1.1-65f27a0a"></script>
-<script src="js/trial_glue.js?v=1.1.1-e5f8f72c"></script>
-<script src="js/v_info.js?v=1.1.1-78f261ff"></script>
-<script src="js/v_extra.js?v=1.1.1-600065f3"></script>
-<script src="js/app.js?v=1.1.1-1ac72de7"></script>
+<script src="js/common.js?v=1.1.2-c0a4fd2b"></script>
+<script src="data/meta.js?v=1.1.2-9b1db87d"></script>
+<script src="data/edition.js?v=1.1.2-287181f4"></script>
+<script src="data/rooms.js?v=1.1.2-829d51c3"></script>
+<script src="data/resources.js?v=1.1.2-796fbf2c"></script>
+<script src="js/trial_stub.js?v=1.1.2-e315e4ef"></script>
+<script src="js/trial.js?v=1.1.2-ec0d8791"></script>
+<script src="js/feedback.js?v=1.1.2-2e61b527"></script>
+<script src="js/backup.js?v=1.1.2-335b49ab"></script>
+<script src="js/tenancy.js?v=1.1.2-32c8693c"></script>
+<script src="js/photos.js?v=1.1.2-fe296c7b"></script>
+<script src="js/core.js?v=1.1.2-eb9a6e34"></script>
+<script src="js/demo.js?v=1.1.2-a6b42e98"></script>
+<script src="js/v_home.js?v=1.1.2-fb5f9c2d"></script>
+<script src="js/v_reports.js?v=1.1.2-a86ed0fb"></script>
+<script src="js/v_repairs.js?v=1.1.2-8562d9fa"></script>
+<script src="js/v_ledger.js?v=1.1.2-72a41c8a"></script>
+<script src="js/v_safety.js?v=1.1.2-65f27a0a"></script>
+<script src="js/trial_glue.js?v=1.1.2-e5f8f72c"></script>
+<script src="js/v_info.js?v=1.1.2-3370b59c"></script>
+<script src="js/v_extra.js?v=1.1.2-96b32581"></script>
+<script src="js/app.js?v=1.1.2-1ac72de7"></script>
 </body>
 </html>

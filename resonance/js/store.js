@@ -18,6 +18,7 @@
       v = params[c.id];
       if (c.type === "toggle") out[c.id] = typeof v === "boolean" ? v : c.val;
       else if (c.type === "select") out[c.id] = c.options.some(function (o) { return o[0] === v; }) ? v : c.val;
+      else if (c.type === "text") out[c.id] = typeof v === "string" ? v.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "").slice(0, c.max || 1000) : c.val;
       else out[c.id] = typeof v === "number" && isFinite(v) ? Math.max(c.min, Math.min(c.max, v)) : c.val;
     }
     return out;

@@ -3,7 +3,7 @@
    AES-256-GCM, PBKDF2-SHA256 600k, header bound as additional data, SHA-256 file checksum, strict validation. */
 (function (root) {
   "use strict";
-  var VERSION = "1.1.0";
+  var VERSION = "1.2.0";
   var KDF_ITER = 600000;            // PBKDF2-SHA256 iterations (OWASP 2023 guidance)
   var MIN_ITER = 100000, MAX_ITER = 2000000;   // accepted from a file: higher is a UI-freeze trap; lower is upgraded on unlock
   var FORMAT = "StarkBaseline", BUNDLE = "StarkBaselineBackup";
@@ -46,7 +46,7 @@
   /* ---- integrity and strict validation ---- */
   var ENV_KEYS = ["format", "v", "kind", "kdf", "iter", "salt", "ref", "seq", "iv", "ct", "sum"];
   var DATA_KEYS = ["v", "created", "org", "settings", "fileGen", "devices", "accounts", "backups", "datasets", "checks", "risks", "evidence",
-    "staff", "contacts", "services", "runbook", "drills", "training", "hipaa", "example", "vendors", "incidents", "history"];
+    "staff", "contacts", "services", "runbook", "drills", "training", "hipaa", "example", "vendors", "incidents", "history", "policy"];
   var LISTS = ["devices", "accounts", "backups", "datasets", "risks", "evidence", "staff", "contacts", "services", "drills", "vendors", "incidents", "history"];
   var OBJS = ["org", "settings", "checks", "runbook", "training", "hipaa"];
   var MAX_CT = 48 * 1024 * 1024, MAX_ITEMS = 20000, MAX_STR = 8 * 1024 * 1024, MAX_DEPTH = 8, MAX_NODES = 1000000, MAX_FILES = 5000;
@@ -106,6 +106,7 @@
       if (L != null && (!Array.isArray(L) || !L.every(function (x) { return isObj(x) && typeof x.id === "string"; }))) return shape;
     }
     for (i = 0; i < OBJS.length; i++) if (d[OBJS[i]] != null && !isObj(d[OBJS[i]])) return shape;
+    if (d.policy != null && (!isObj(d.policy) || Object.keys(d.policy).some(function (pk) { return typeof d.policy[pk] !== "string" || d.policy[pk].length > 400; }))) return shape;   // policy pack answers: flat text
     if (d.fileGen != null && !/^[0-9a-f]{16}$/.test(d.fileGen)) return shape;
     if (d.created != null && typeof d.created !== "string") return shape;
     if (d.example != null && typeof d.example !== "boolean") return shape;

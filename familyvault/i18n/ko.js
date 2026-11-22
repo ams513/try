@@ -251,7 +251,7 @@
 "No": "아니요",
 "No backup file saved yet": "저장된 백업 파일이 아직 없습니다",
 "No backup yet.": "아직 백업이 없습니다.",
-"No checksum, validated.": "체크섬이 없으며, 검증되었습니다.",
+
 "No date": "날짜 없음",
 "No expired documents or policies": "만료된 문서나 보험 증권이 없습니다",
 "No expiry": "만료 없음",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "갱신일 없이 보험료만 기록되어 있습니다",
 "Premiums only.": "보험료만 해당합니다.",
 "Prepaid plans or arrangements": "선불 상품 또는 사전 준비",
-
+"Prepared": "준비됨",
 "Preview": "미리보기",
 "Preview and print": "미리보기 및 인쇄",
 "Print": "인쇄",

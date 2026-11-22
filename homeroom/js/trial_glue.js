@@ -3,6 +3,7 @@
 (function () {
   'use strict';
   var SHR = window.SHR = window.SHR || {}, T = window.StarkTrial;
+  SHR.beamSend = function () { T.show('beam_send'); };
   SHR.reportViews = function (X, HV) {
     var h = X.h;
     function page(title, tab) {

@@ -25,7 +25,7 @@ h1 { font-size: 1.85rem; } h2 { font-size: 1.28rem; margin-top: 1.1em; } h3 { fo
 a { color: var(--accent-2); }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
 main:focus, main:focus-visible { outline: none; }
-.muted { color: var(--muted); } .fine { font-size: .86rem; color: var(--muted); margin: .25em 0; max-width: 80ch; }
+.muted { color: var(--muted); } .stark-notice, .stark-notice small { font-size: .8rem; color: var(--muted); margin: .5em 0; max-width: 80ch; overflow-wrap: anywhere; } .fine { font-size: .86rem; color: var(--muted); margin: .25em 0; max-width: 80ch; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 [hidden] { display: none !important; }
 code.url { font-size: .82rem; background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; user-select: all; word-break: break-all; display: inline-block; }

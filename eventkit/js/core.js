@@ -4,7 +4,7 @@
   'use strict';
   var S = g.SEK = g.SEK || {};
   S.RAW = S.RAW || [];
-  S.VERSION = '1.4.0';
+  S.VERSION = '1.5.0';
 
   S.CATS = [
     { id: 'geography', name: 'Geography', color: '#2fb5a0' }, { id: 'history', name: 'History', color: '#c58b3a' },

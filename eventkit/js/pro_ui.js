@@ -218,6 +218,9 @@
             outp.appendChild(btn(r.older ? 'Roll back to this older backup' : 'Replace my data with this backup', function () { var d = S.backup.restore(parsed.data); if (!d.failed.length) S.vault.noteSeq(r.seq); UI.clear(outp); outp.appendChild(h('p', { class: d.failed.length ? 'status-wrong' : 'status-right', text: 'Restored ' + d.ok.length + ' section' + (d.ok.length === 1 ? '' : 's') + (d.failed.length ? '; could not restore ' + d.failed.length + ' (storage full or in safe mode).' : '.') })); }, 'bad', { id: 'open-restore' }));
           });
         }, 'primary', { id: 'open-go' })), outp));
+      /* Beam (beam_events.js): a sealed backup that arrives from another device lands in the box above; it still needs its passphrase and the same Unlock and check */
+      S.beamIn = function (text) { ta.value = text; parsed = null; UI.clear(outp); outp.appendChild(h('p', { class: 'status-right', id: 'beam-in-note', text: 'Received from the other device and put in the box above. Nothing has changed yet: type that backup\'s passphrase and press Unlock and check.' })); pass2.focus(); };
+      if (S.beamCard) root.appendChild(S.beamCard());
     }
     draw();
   };

@@ -251,7 +251,7 @@
 "No": "否",
 "No backup file saved yet": "尚未保存备份文件",
 "No backup yet.": "尚无备份。",
-"No checksum, validated.": "无校验和，已验证。",
+
 "No date": "无日期",
 "No expired documents or policies": "没有已过期的文件或保单",
 "No expiry": "无到期日",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "已记录保费但没有续期日期",
 "Premiums only.": "仅限保费。",
 "Prepaid plans or arrangements": "预付计划或安排",
-
+"Prepared": "已准备",
 "Preview": "预览",
 "Preview and print": "预览和打印",
 "Print": "打印",

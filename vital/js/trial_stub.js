@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Vital"; T.buyUrl = "https://starkapps.gumroad.com/l/stark-vital"; T.notIncluded = "Not in the free trial: your own tracked items and the printable Year view, planned two-week experiments with their fixed judging rules and the one-page visit summary to print or save as PDF. They are in the full version."; T.features = {
+  T.app = "Stark Vital"; T.buyUrl = "https://starkapps.gumroad.com/l/stark-vital"; T.notIncluded = "Not in the free trial: your own tracked items and the printable Year view, planned two-week experiments with their fixed judging rules, the one-page visit summary to print or save as PDF and sending your notebook to another device with no network (receiving is free). They are in the full version."; T.features = {
  "items_year": {
   "title": "My items and the Year view",
   "short": "your own tracked items and the printable Year view",
@@ -21,6 +21,12 @@
   "short": "the one-page visit summary to print or save as PDF",
   "blurb": "A one-page summary of your last 30 days (averages, ranges, your notes, your latest lab results with the range printed on each report and your questions for the doctor) to bring to an appointment. Your questions list stays in the trial.",
   "shot": "img/trial-visit_summary.png"
+ },
+ "beam_send": {
+  "title": "Beam to another device",
+  "short": "sending your notebook to another device with no network (receiving is free)",
+  "blurb": "Show your encrypted notebook as a moving sequence of codes and let your phone or another computer read it with its camera: no network, no file to move. Your notebook stays sealed and needs your passphrase on the other device. Receiving from another device stays in the trial.",
+  "shot": ""
  }
 };
   var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };

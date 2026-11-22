@@ -2,7 +2,7 @@
    Pure functions, no network. The trial never expires and never deletes anything: it only stops NEW notebook entries past the limit. */
 (function (root) {
   'use strict';
-  var ed = { name: 'Stark Commons', version: '1.1.0', trial: true, limit: 15, buyUrl: 'https://starkforall.com/commons.html', mailTo: 'hello@starkforall.com' };
+  var ed = { name: 'Stark Commons', version: '1.3.0', trial: true, limit: 15, buyUrl: 'https://starkforall.com/commons.html', mailTo: 'hello@starkforall.com' };
   /* How many more records may be added when `count` exist. Infinity in the paid app. Never negative. */
   ed.room = function (count) { return ed.trial ? Math.max(0, ed.limit - (count | 0)) : Infinity; };
   function clip(s, n) { s = typeof s === 'string' ? s : ''; return s.length > n ? s.slice(0, n) : s; }

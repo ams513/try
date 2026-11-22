@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Copyright (c) 2026 Stark. All rights reserved. Stark ClassroomHub. Licence: LICENSE.txt -->
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
@@ -10,10 +11,11 @@
 <link rel="manifest" href="manifest.webmanifest">
 <title>Stark Classroom Hub</title><link rel="canonical" href="https://starkforall.com/try/classroomhub/"><meta name="theme-color" content="#0d0f12"><meta property="og:type" content="website"><meta property="og:site_name" content="Stark"><meta property="og:title" content="Stark Classroom Hub"><meta property="og:description" content="Stark Classroom Hub: one offline teacher dashboard for the Stark Education Suite. Lesson planner, attendance, seating, groups, standards-based grade book, rubrics, conference reports and substitute packets. Everything stays on this computer."><meta property="og:url" content="https://starkforall.com/try/classroomhub/"><meta property="og:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="A pair of eyes in the dark above the word STARK."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Stark Classroom Hub"><meta name="twitter:description" content="Stark Classroom Hub: one offline teacher dashboard for the Stark Education Suite. Lesson planner, attendance, seating, groups, standards-based grade book, rubrics, conference reports and substitute packets. Everything stays on this computer."><meta name="twitter:image" content="https://starkforall.com/try/img/cover-1200x630.jpg"><meta name="twitter:image:alt" content="A pair of eyes in the dark above the word STARK.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTcgNTEgTDMyIDEzIEw0NyA1MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTlFREYyIiBzdHJva2Utd2lkdGg9IjQuNSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIvPjxwYXRoIGQ9Ik0xMiA1NiBINTIiIHN0cm9rZT0iIzlDQzRGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+">
-<link rel="stylesheet" href="css/app.css?v=1.4.1-28877d90">
-<link rel="stylesheet" href="css/trial_stub.css?v=1.4.1-aa9884f5">
+<link rel="stylesheet" href="css/app.css?v=1.4.2-28877d90">
+<link rel="stylesheet" href="css/trial_stub.css?v=1.4.2-728a780b">
 </head>
 <body>
+<p class="trial-adds"><b>What the paid version adds:</b> roster import from a CSV file and date-range grade book and attendance CSV export and parent notes for the whole class. <a href="https://ams513.itch.io/stark-classroom-hub" rel="noopener">Get the full version</a></p>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="topbar">
   <a class="brand" href="#/home" aria-label="Stark Classroom Hub home">
@@ -29,17 +31,18 @@
 <div id="print-area" aria-hidden="true"></div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <noscript><p>Stark Classroom Hub needs JavaScript, which runs only on this computer. Nothing is sent anywhere.</p></noscript>
-<script src="js/trial_stub.js?v=1.4.1-5c745da8"></script>
-<script src="js/catalog.js?v=1.4.1-594ddcfa"></script>
-<script src="js/trial_glue.js?v=1.4.1-265f5c93"></script>
-<script src="js/teachlib.js?v=1.4.1-af0a3c63"></script>
-<script src="js/hublib.js?v=1.4.1-ae63aeda"></script>
-<script src="js/demo.js?v=1.4.1-3e89b914"></script>
-<script src="js/insight.js?v=1.4.1-dd435554"></script>
-<script src="js/views.js?v=1.4.1-037d703b"></script>
-<script src="js/insightviews.js?v=1.4.1-b2ad00fb"></script>
-<script src="js/edition.js?v=1.4.1-52b4993d"></script>
-<script src="js/pwa.js?v=1.4.1-f1aadc2e"></script>
-<script src="js/app.js?v=1.4.1-9fb19838"></script>
+<template id="stark-notice-tpl"><p class="stark-notice small muted">(c) 2026 Stark. All rights reserved. For use on your own devices; no redistribution or re-hosting. <a href="https://starkforall.com/terms.html" target="_blank" rel="noopener">Licence</a>. <small class="stark-mark" data-stark-mark>Build mark: unstamped</small></p></template>
+<script src="js/trial_stub.js?v=1.4.2-5c745da8"></script>
+<script src="js/catalog.js?v=1.4.2-594ddcfa"></script>
+<script src="js/trial_glue.js?v=1.4.2-265f5c93"></script>
+<script src="js/teachlib.js?v=1.4.2-fea00fd4"></script>
+<script src="js/hublib.js?v=1.4.2-ae63aeda"></script>
+<script src="js/demo.js?v=1.4.2-3e89b914"></script>
+<script src="js/insight.js?v=1.4.2-dd435554"></script>
+<script src="js/views.js?v=1.4.2-037d703b"></script>
+<script src="js/insightviews.js?v=1.4.2-b2ad00fb"></script>
+<script src="js/edition.js?v=1.4.2-edad6710"></script>
+<script src="js/pwa.js?v=1.4.2-f1aadc2e"></script>
+<script src="js/app.js?v=1.4.2-6d3c53be"></script>
 </body>
 </html>

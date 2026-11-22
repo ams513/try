@@ -4,7 +4,7 @@
   "use strict";
   var K = StarkCore, B = StarkBooks, M = StarkCommunity, E = StarkEdition, U = FellowUI, h = U.h, $ = U.$, btn = U.btn;
   var S = { file: null, session: null, data: null, route: "home", dirty: {}, saveTimer: null, saving: Promise.resolve(), last: Date.now(), page: {} };
-  var NAV = [["home", "Home", null], ["people", "Directory", "people"], ["teams", "Teams and rotas", "teams"], ["checkin", "Check-in", "checkin"], ["kids", "Children", "checkin"], ["giving", "Giving", "giving"],
+  var NAV = [["home", "Home", null], ["people", "Directory", "people"], ["teams", "Teams and rotas", "teams"], ["groups", "Groups", "groups"], ["checkin", "Check-in", "checkin"], ["kids", "Children", "checkin"], ["giving", "Giving", "giving"],
     ["care", "Care", "care"], ["help", "Help requests", "help"], ["users", "Users", "users"], ["settings", "Settings", "settings"]];
   var PART_WORDS = { core: "names, households, teams, gatherings", contact: "contact details", giving: "giving and books", care: "care visits", notes: "private care notes", help: "help requests" };
   var A = window.FellowApp = { S: S, views: {}, NAV: NAV };
@@ -226,6 +226,7 @@
   /* ---------- app shell ---------- */
   function enter(file, session, data) {
     S.file = file; S.session = session; S.data = data; S.dirty = {}; S.last = Date.now(); S.page = {}; S.idx = null;
+    var kidsOut = M.cleanGroups(data.core);   // small groups never hold children: a backup or an edited file cannot bring one in
     document.body.classList.remove("locked");
     $("#topbar-tools").hidden = false; $("#who").hidden = false;
     $("#who").textContent = session.user.name + " · " + K.ROLES[session.user.role].label;
@@ -234,6 +235,7 @@
     NAV.forEach(function (n) { if (!n[2] || A.can(n[2])) nav.appendChild(h("a", { href: "#/" + n[0], "data-nav": n[0], text: n[1] })); });
     if (location.hash !== "#/home") history.replaceState(null, "", "#/home"); // each person starts at Home, never on the last person's page
     route();
+    if (kidsOut) { M.log(data.core, session.user.name, "Removed " + kidsOut + " child record" + (kidsOut === 1 ? "" : "s") + " found in small groups"); A.save("core"); U.toast("Children cannot be in small groups. " + kidsOut + " child record" + (kidsOut === 1 ? " was" : "s were") + " taken out of the group lists. Children's attendance stays in Children's check-in.", true); }
   }
   A.signOut = function (why) {
     clearTimeout(S.saveTimer);
