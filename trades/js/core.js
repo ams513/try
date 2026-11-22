@@ -14,27 +14,16 @@
     if (typeof v === 'number') return Math.round(v * 100);
     let s = String(v == null ? '' : v).trim(); if (!s) return NaN;
     let neg = false; if (/^\(.*\)$/.test(s)) { neg = true; s = s.slice(1, -1); }
-    s = s.replace(/[$\s]/g, ''); if (C.REGION.sym !== '$') s = s.split(C.REGION.sym).join('');
-    if (C.REGION.dec === ',') s = s.indexOf(',') >= 0 ? s.replace(/\./g, '').replace(',', '.') : /^-?\d*\.\d{1,2}$/.test(s) ? s : s.replace(/\./g, ''); else s = s.replace(/,/g, '');
-    if (s[0] === '-') { neg = !neg; s = s.slice(1); }
+    s = s.replace(/[$\s,]/g, ''); if (s[0] === '-') { neg = !neg; s = s.slice(1); }
     if (!/^\d*\.?\d*$/.test(s) || s === '' || s === '.') return NaN;
     const p = s.split('.'); let c = parseInt(p[0] || '0', 10) * 100 + parseInt(((p[1] || '') + '00').slice(0, 2), 10);
     if ((p[1] || '')[2] >= '5') c += 1; return neg ? -c : c;
   };
-  /* how money and dates are shown. Defaults are the US look; the region setting (core5) replaces this object; nothing else here changes. */
-  C.REGION = { sym: '$', after: false, dec: '.', grp: ',', order: 'mdy' };
-  const fmtN = function (c, cents) {
-    const R = C.REGION, neg = c < 0; c = Math.abs(Math.round(c || 0)); const d = Math.floor(c / 100), r = c % 100;
-    const body = String(d).replace(/\B(?=(\d{3})+(?!\d))/g, R.grp) + (cents ? R.dec + (r < 10 ? '0' : '') + r : '');
-    return (neg ? '-' : '') + (R.after ? body + ' ' + R.sym : R.sym + body);
-  };
-  C.fmt = c => fmtN(c, true);
-  C.fmt0 = c => fmtN(c, false);
-  C.fmtPlain = c => (Math.round(c || 0) / 100).toFixed(2).replace('.', C.REGION.dec);
-  const decPt = x => C.REGION.dec === ',' ? x.replace(',', '.') : x;   // a decimal-comma region types 19,5 for 19.5
-  C.toBps = function (v) { const s = decPt(String(v == null ? '' : v).replace('%', '').trim()); if (!/^\d*\.?\d*$/.test(s) || s === '' || s === '.') return NaN; const p = s.split('.'); return parseInt(p[0] || '0', 10) * 100 + parseInt(((p[1] || '') + '00').slice(0, 2), 10); };
+  C.fmt = function (c) { const neg = c < 0; c = Math.abs(Math.round(c || 0)); const d = Math.floor(c / 100), r = c % 100; return (neg ? '-' : '') + '$' + String(d).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + (r < 10 ? '0' : '') + r; };
+  C.fmt0 = c => C.fmt(c).replace(/\.\d\d$/, '');
+  C.toBps = function (v) { const s = String(v == null ? '' : v).replace('%', '').trim(); if (!/^\d*\.?\d*$/.test(s) || s === '' || s === '.') return NaN; const p = s.split('.'); return parseInt(p[0] || '0', 10) * 100 + parseInt(((p[1] || '') + '00').slice(0, 2), 10); };
   C.fmtBps = b => String(+(b / 100).toFixed(2)) + '%';
-  C.toMilli = function (v) { const s = decPt(String(v == null ? '' : v).trim()); if (!/^\d*\.?\d*$/.test(s) || s === '' || s === '.') return NaN; const p = s.split('.'); return parseInt(p[0] || '0', 10) * 1000 + parseInt(((p[1] || '') + '000').slice(0, 3), 10); };
+  C.toMilli = function (v) { const s = String(v == null ? '' : v).trim(); if (!/^\d*\.?\d*$/.test(s) || s === '' || s === '.') return NaN; const p = s.split('.'); return parseInt(p[0] || '0', 10) * 1000 + parseInt(((p[1] || '') + '000').slice(0, 3), 10); };
   C.fmtMilli = q => String(+(q / 1000).toFixed(3));
   C.fmtHrs = h => String(+(h / 100).toFixed(2));
 
@@ -52,17 +41,8 @@
   const DOWS = { en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], es: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'] };
   C.dowName = d => DOWS[I.lang][d];
   C.monthName = (m, long) => (long ? MONL : MON)[I.lang][m];
-  C.fmtDate = function (s) {
-    if (!C.isDate(s)) return ''; const o = C.REGION.order, d = +s.slice(8, 10), m = +s.slice(5, 7) - 1;
-    if (o === 'ymd') return s;
-    if (I.lang === 'es') return d + ' ' + MON.es[m] + ' ' + s.slice(0, 4);
-    return o === 'dmy' ? d + ' ' + MON.en[m] + ' ' + s.slice(0, 4) : MON.en[m] + ' ' + d + ', ' + s.slice(0, 4);
-  };
-  C.fmtShort = function (s) {
-    if (!C.isDate(s)) return ''; const o = C.REGION.order, d = +s.slice(8, 10), m = +s.slice(5, 7) - 1;
-    if (o === 'ymd') return s.slice(5);
-    return I.lang === 'es' || o === 'dmy' ? d + ' ' + (I.lang === 'es' ? MON.es : MON.en)[m] : MON.en[m] + ' ' + d;
-  };
+  C.fmtDate = s => !C.isDate(s) ? '' : I.lang === 'es' ? (+s.slice(8, 10)) + ' ' + MON.es[+s.slice(5, 7) - 1] + ' ' + s.slice(0, 4) : MON.en[+s.slice(5, 7) - 1] + ' ' + (+s.slice(8, 10)) + ', ' + s.slice(0, 4);
+  C.fmtShort = s => !C.isDate(s) ? '' : I.lang === 'es' ? (+s.slice(8, 10)) + ' ' + MON.es[+s.slice(5, 7) - 1] : MON.en[+s.slice(5, 7) - 1] + ' ' + (+s.slice(8, 10));
   C.isWork = (s, wd) => (wd || [1, 2, 3, 4, 5]).indexOf(C.dow(s)) >= 0;
   C.nextWork = function (s, wd) { let d = s; for (let i = 0; i < 8 && !C.isWork(d, wd); i++) d = C.addDays(d, 1); return d; };
   C.addWorkdays = function (start, n, wd) { let d = C.nextWork(start, wd), left = Math.max(1, n) - 1; while (left > 0) { d = C.addDays(d, 1); if (C.isWork(d, wd)) left--; } return d; };

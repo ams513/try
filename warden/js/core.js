@@ -99,10 +99,6 @@
     onChange: function (fn) { if (changeHooks.indexOf(fn) < 0) { changeHooks.push(fn); } },
     unsaved: function () { return Object.keys(memOnly); },
     del: function (k) { lsDel(store.key(k)); },
-    /* device-wide data (not per profile), kept under sw:p:_device: so backups, autosave and restores carry it like everything else */
-    getDevice: function (k, d) { try { var v = lsGet('sw:p:_device:' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
-    rawDevice: function (k) { try { return lsGet('sw:p:_device:' + k); } catch (e) { return null; } },
-    setDevice: function (k, v) { return lsSet('sw:p:_device:' + k, JSON.stringify(v)); },
     exportAll: function () { var o = {}; lsKeys().forEach(function (k) { o[k] = lsGet(k); }); return SW.backup.seal('Stark Warden', SW.data.meta.version, new Date().toISOString(), o); },
     scan: function () { lsKeys().forEach(lsGet); return safeMode(); },
     safeMode: safeMode, rawDump: rawDump,
@@ -233,7 +229,7 @@
     return h('ul', { class: 'flags' }, flags.map(function (f) {
       return h('li', { class: 'flag w' + Math.min(f.weight, 5) },
         h('div', { class: 'flag-head' }, h('strong', { text: f.title }), h('span', { class: 'dots', 'aria-label': 'weight ' + f.weight, text: '●'.repeat(Math.min(f.weight, 5)) })),
-        h('p', { text: f.why }), f.evidence ? h('p', { class: 'ev' }, 'Matched: ', h('q', { text: f.evidence })) : null, f.note ? h('p', { class: 'small muted', text: f.note }) : null);
+        h('p', { text: f.why }), f.evidence ? h('p', { class: 'ev' }, 'Matched: ', h('q', { text: f.evidence })) : null);
     }));
   }
   function notice(text, kind) { return h('div', { class: 'notice ' + (kind || ''), role: kind === 'warn' ? 'note' : null }, text); }

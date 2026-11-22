@@ -78,7 +78,7 @@
   A.views.meds = function () {
     var v = vault(), d = UI.doseDate || today(), people = v.people.filter(function (p) { return A.visible(p.id); });
     var wrap = h("div", null, A.section("Medicines", "The list as prescribed, the times you give each one, and a log of every dose given or missed.",
-      [btn("Print list", "", function () { A.printNode(medsDoc(people)); }), btn("Dose alarms (.ics)", "", function () { window.StarkTrial.show("dose_tools"); }), ro() ? null : btn("Import medicines", "", function () { window.StarkTrial.show("dose_tools"); }), ro() ? null : btn("Add medicine", "primary", function () { editMed(); })]));
+      [btn("Print list", "", function () { A.printNode(medsDoc(people)); }), ro() ? null : btn("Add medicine", "primary", function () { editMed(); })]));
     wrap.appendChild(h("p", { class: "banner warn", text: NOADVICE }));
     var w = A.whoBar(); if (w) wrap.appendChild(w);
     var f = A.personFilterBar(); if (f) wrap.appendChild(f);

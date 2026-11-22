@@ -85,15 +85,13 @@
     var e = newEntry();
     e.id = x.id; e.title = clip(x.title, 200); e.question = clip(x.question, 2000); e.findings = clip(x.findings, 20000); e.method = clip(x.method, 10000);
     e.sources = (Array.isArray(x.sources) ? x.sources : []).filter(function (s) { return s && typeof s === 'object'; }).slice(0, 50)
-      .map(function (s) { var o = { citation: clip(s.citation, 1000), doi: clip(s.doi, 300), url: clip(s.url, 2000) }, r = sanitizeRef(s.ref); if (r) o.ref = r; return o; });
+      .map(function (s) { return { citation: clip(s.citation, 1000), doi: clip(s.doi, 300), url: clip(s.url, 2000) }; });
     e.evidence = EVIDENCE.indexOf(x.evidence) >= 0 ? x.evidence : '';
     e.topic = TOPICS.indexOf(x.topic) >= 0 ? x.topic : 'other';
     e.tags = (Array.isArray(x.tags) ? x.tags : []).filter(function (t) { return typeof t === 'string'; }).slice(0, 20).map(function (t) { return t.slice(0, 40); });
     e.ai = { used: !!(x.ai && x.ai.used === true), tool: clip(x.ai && x.ai.tool, 100) };
     e.links = (Array.isArray(x.links) ? x.links : []).filter(function (l) { return safeId(l) && l !== x.id; }).slice(0, 500);
     e.healthClaim = x.healthClaim === true; e.disclaimer = x.disclaimer === true;
-    var at = sanitizeAttachments(x.attachments); if (at.length) e.attachments = at;
-    var pr = sanitizePrereg(x.prereg); if (pr) e.prereg = pr;
     if (typeof x.created === 'string' && x.created.length <= 40) e.created = x.created;
     if (typeof x.updated === 'string' && x.updated.length <= 40) e.updated = x.updated;
     return e;
@@ -107,97 +105,7 @@
       if (!e || seen[e.id]) { dropped++; continue; }
       seen[e.id] = 1; out.push(e);
     }
-    var total = 0;   // attachments share one budget so a hostile backup cannot fill the browser's storage
-    out.forEach(function (e) {
-      if (!e.attachments) return;
-      e.attachments = e.attachments.filter(function (a) { if (total + a.size > ATTACH_MAX_TOTAL) { dropped++; return false; } total += a.size; return true; });
-      if (!e.attachments.length) delete e.attachments;
-    });
     return { entries: out, dropped: dropped };
-  }
-
-  /* ---------- reference metadata kept on a source (set by the reference importer; restore keeps it so backups carry it) ---------- */
-  var REF_TYPES = ['article', 'book', 'chapter', 'thesis', 'report', 'conference', 'web', 'other'];
-  var REF_TEXT = { title: 500, container: 300, issued: 20, volume: 40, issue: 40, pages: 40, publisher: 200, edition: 40, isbn: 40, issn: 20, language: 20, note: 1000, key: 80 };
-  function cleanCtl(v, n) { return clip(v, n).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, ''); }
-  function sanitizeRef(r) {
-    if (!r || typeof r !== 'object' || Array.isArray(r) || hasBadKeys(r)) return null;
-    var o = { type: REF_TYPES.indexOf(r.type) >= 0 ? r.type : 'other', authors: [] }, any = false;
-    (Array.isArray(r.authors) ? r.authors : []).slice(0, 100).forEach(function (a) {
-      if (!a || typeof a !== 'object') return;
-      var f = cleanCtl(a.family, 100).trim(), g = cleanCtl(a.given, 100).trim(), l = cleanCtl(a.literal, 200).trim();
-      if (f || g) o.authors.push({ family: f, given: g }); else if (l) o.authors.push({ literal: l });
-    });
-    if (o.authors.length) any = true;
-    Object.keys(REF_TEXT).forEach(function (k) { var v = cleanCtl(r[k], REF_TEXT[k]).trim(); if (v) { o[k] = v; any = true; } });
-    return any ? o : null;
-  }
-
-  /* ---------- file attachments stored inside an entry (base64, small, on this device only, never put in a pack) ---------- */
-  var ATTACH_MAX_FILE = 750000, ATTACH_MAX_PER_ENTRY = 5, ATTACH_MAX_TOTAL = 2500000;
-  var B64_RE = /^[A-Za-z0-9+\/]*={0,2}$/;
-  function attachmentBytes(entries) { var t = 0; entries.forEach(function (e) { (e.attachments || []).forEach(function (a) { t += a.size; }); }); return t; }
-  function sanitizeAttachments(list) {
-    var out = [];
-    (Array.isArray(list) ? list : []).slice(0, ATTACH_MAX_PER_ENTRY).forEach(function (a) {
-      if (!a || typeof a !== 'object' || hasBadKeys(a) || typeof a.data !== 'string' || a.data.length > Math.ceil(ATTACH_MAX_FILE / 3) * 4 || a.data.length % 4 !== 0 || !B64_RE.test(a.data)) return;
-      var pad = a.data.length ? (a.data.charAt(a.data.length - 1) === '=' ? (a.data.charAt(a.data.length - 2) === '=' ? 2 : 1) : 0) : 0, size = a.data.length / 4 * 3 - pad;
-      if (size <= 0 || size > ATTACH_MAX_FILE) return;
-      var name = cleanCtl(a.name, 120).replace(/[\\\/:*?"<>|]+/g, '_').replace(/^\.+/, '').trim() || 'file';
-      var type = typeof a.type === 'string' && a.type.length <= 100 && /^[a-z0-9][a-z0-9.+-]*\/[a-z0-9][a-z0-9.+-]*$/i.test(a.type) ? a.type.toLowerCase() : 'application/octet-stream';
-      out.push({ name: name, type: type, size: size, data: a.data });
-    });
-    return out;
-  }
-
-  /* ---------- sealed preregistration record ---------- */
-  /* A plan written down before the work and sealed with a SHA-256 hash and this device's clock. It is NOT an independent time stamp:
-     anyone with access to this notebook file can rewrite the text, the hash and the date together. It shows the record is unchanged
-     since sealing only to a person who also holds the hash or the exported record from somewhere else. */
-  var PREREG_NOTE = "Not an independent time stamp. The date comes from this device's own clock and the hash is stored next to the text, so it shows the text has not changed since sealing only if you keep a copy of the hash or of the exported record somewhere else (for example email it to yourself or a colleague).";
-  function sanitizePrereg(p) {
-    if (!p || typeof p !== 'object' || Array.isArray(p) || hasBadKeys(p)) return null;
-    var o = { hypothesis: clip(p.hypothesis, 5000), analysis: clip(p.analysis, 5000), sealedAt: '', hash: '' };
-    if (typeof p.hash === 'string' && /^[0-9a-f]{64}$/.test(p.hash) && typeof p.sealedAt === 'string' && p.sealedAt.length <= 40 && !isNaN(Date.parse(p.sealedAt))) { o.hash = p.hash; o.sealedAt = p.sealedAt; }
-    return o.hypothesis || o.analysis || o.hash ? o : null;
-  }
-  function preregSnapshot(e, sealedAt) {
-    var p = e.prereg || {};
-    return canon({ v: 1, id: str(e.id), title: str(e.title), question: str(e.question), method: str(e.method), hypothesis: str(p.hypothesis), analysis: str(p.analysis), sealedAt: sealedAt });
-  }
-  function isSealed(e) { return !!(e && e.prereg && e.prereg.hash); }
-  var PREREG_LOCKED = ['title', 'question', 'method'];   // entry fields that cannot be edited once sealed (the hypothesis and analysis plan lock too)
-  /* -> [] when ready to seal, else what is missing. */
-  function preregReady(e) {
-    var p = (e && e.prereg) || {}, why = [];
-    if (isSealed(e)) return ['nothing: it is already sealed'];
-    if (str(e.title).trim().length < 3) why.push('a title of at least 3 characters');
-    if (str(e.question).trim().length < 10) why.push('a question of at least 10 characters');
-    if (str(e.method).trim().length < 10) why.push('a method of at least 10 characters');
-    if (str(p.hypothesis).trim().length < 10) why.push('a hypothesis of at least 10 characters');
-    if (str(p.analysis).trim().length < 10) why.push('an analysis plan of at least 10 characters');
-    return why;
-  }
-  async function sealPrereg(e, now) {
-    var why = preregReady(e);
-    if (why.length) throw new Error('To seal, write ' + why.join(', ') + '.');
-    var at = (now instanceof Date ? now : new Date()).toISOString();
-    e.prereg.sealedAt = at; e.prereg.hash = await sha256(preregSnapshot(e, at));
-    return e.prereg;
-  }
-  /* -> {state: 'none' | 'draft' | 'valid' | 'altered', hash, sealedAt} */
-  async function verifyPrereg(e) {
-    if (!e || !e.prereg) return { state: 'none' };
-    if (!e.prereg.hash) return { state: 'draft' };
-    var h = await sha256(preregSnapshot(e, e.prereg.sealedAt));
-    return { state: h === e.prereg.hash ? 'valid' : 'altered', hash: e.prereg.hash, sealedAt: e.prereg.sealedAt, recomputed: h };
-  }
-  /* Plain-text record the author can keep or send elsewhere. */
-  function preregRecord(e) {
-    var p = e.prereg || {};
-    return ['STARK COMMONS PREREGISTRATION RECORD', '', 'Title: ' + str(e.title), 'Entry id: ' + str(e.id), "Sealed (this device's clock): " + p.sealedAt, 'SHA-256: ' + p.hash, '',
-      PREREG_NOTE, '', '--- Question ---', str(e.question), '', '--- Method ---', str(e.method), '', '--- Hypothesis ---', str(p.hypothesis), '', '--- Analysis plan ---', str(p.analysis), '',
-      'To check: the hash is SHA-256 of the canonical JSON {analysis, hypothesis, id, method, question, sealedAt, title, v:1} with keys sorted. Stark Commons shows "matches" or "altered" for it.', ''].join('\n');
   }
 
   /* ---------- personal-data scrubber ---------- */
@@ -430,7 +338,6 @@
     newEntry: newEntry, validateEntry: validateEntry, scanText: scanText, scanEntry: scanEntry, scrubText: scrubText, gates: gates, isHealth: isHealth, sourceOk: sourceOk,
     canon: canon, sha256: sha256, newKeyPair: newKeyPair, buildPack: buildPack, verifyPack: verifyPack, validatePack: validatePack,
     mergePacks: mergePacks, validateBundle: validateBundle, entryKey: entryKey, restoreEntry: restoreEntry, sanitizeNotebook: sanitizeNotebook, hasBadKeys: hasBadKeys,
-    importSigningKey: importSigningKey, sanitizeRef: sanitizeRef, REF_TYPES: REF_TYPES, sanitizeAttachments: sanitizeAttachments, attachmentBytes: attachmentBytes, ATTACH_MAX_FILE: ATTACH_MAX_FILE, ATTACH_MAX_PER_ENTRY: ATTACH_MAX_PER_ENTRY, ATTACH_MAX_TOTAL: ATTACH_MAX_TOTAL,
-    sealPrereg: sealPrereg, verifyPrereg: verifyPrereg, preregReady: preregReady, preregRecord: preregRecord, isSealed: isSealed, PREREG_LOCKED: PREREG_LOCKED, PREREG_NOTE: PREREG_NOTE, keyFingerprint: keyFingerprint, wordDiff: wordDiff, ID_RE: ID_RE, MAX_NOTEBOOK: MAX_NOTEBOOK, MAX_PACK_ENTRIES: MAX_PACK_ENTRIES, MAX_FILE_BYTES: MAX_FILE_BYTES };
+    importSigningKey: importSigningKey, keyFingerprint: keyFingerprint, wordDiff: wordDiff, ID_RE: ID_RE, MAX_NOTEBOOK: MAX_NOTEBOOK, MAX_PACK_ENTRIES: MAX_PACK_ENTRIES, MAX_FILE_BYTES: MAX_FILE_BYTES };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.SC;
 })(typeof window !== 'undefined' ? window : globalThis);

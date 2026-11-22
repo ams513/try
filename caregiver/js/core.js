@@ -3,7 +3,7 @@
    The encryption layer is the one from Stark Family Vault, with the care record types added. */
 (function (root) {
   "use strict";
-  var VERSION = "1.4.0";
+  var VERSION = "1.3.0";
   var KDF_ITER = 600000;            // PBKDF2-SHA256 iterations (OWASP 2023 guidance)
   var FORMAT = "StarkCaregiver";
   var enc = new TextEncoder(), dec = new TextDecoder();

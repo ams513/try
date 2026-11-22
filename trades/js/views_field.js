@@ -123,7 +123,6 @@
           glMin: L.cents(f.gl.value, t('the GL requirement')), glAgg: L.cents(f.agg.value, t('the GL aggregate')), autoMin: L.cents(f.auto.value || '0', t('the auto limit')), umbrella: L.cents(f.umb.value || '0', t('the umbrella limit')), addlInsured: f.addl.checked, waiverSubro: f.wos.checked, primaryNC: f.pnc.checked,
           lockMin: +f.lock.value, workDays: days.map(x => x.querySelector('input')).filter(i => i.checked).map(i => +i.value), lang: f.lang.value });
         if (!co.workDays.length) co.workDays = [1, 2, 3, 4, 5]; st.trades = tr; st.device.role = f.role.value; L.setLang(f.lang.value); L.restartIdle(); L.commit(); L.toast(t('Settings saved')); }),
-      L.regionCard ? L.regionCard() : null,
       L.docSettingsCard ? L.docSettingsCard() : null,
       h('section', { class: 'card stack' }, h('h2', null, t('Change passphrase')), h('div', { class: 'grid2' }, L.field(t('New passphrase'), np1), L.field(t('Repeat it'), np2)), perr,
         h('div', null, h('button', { class: 'btn', type: 'button', onclick: async e => { perr.textContent = ''; try { const iss = C.passIssues(np1.value); if (iss.length) throw new Error(iss[0]); if (np1.value !== np2.value) throw new Error(t('The two passphrases differ.')); e.target.disabled = true; await S.rekey(np1.value, st, allPhotoIds()); np1.value = np2.value = ''; L.toast(S.passkeyDropped ? t('Passphrase changed. Everything was re-encrypted. Passkey unlock was turned off; turn it on again below.') : t('Passphrase changed. Everything was re-encrypted.')); L.render(); } catch (x) { perr.textContent = x.message; } e.target.disabled = false; } }, t('Change passphrase')))),
@@ -151,11 +150,8 @@
     [N('Sensitive numbers are refused'), N('It will not save full Social Security numbers, tax ID (EIN) digits, bank account or routing numbers, or card numbers. Keep W-9s and banking details on paper or with your accountant. The one exception is the "how to pay" text in Settings, where you may type your own bank details to print on your invoices; Social Security, tax ID and card numbers are still refused there.')],
     [N('Browser storage'), N('Data lives in this browser for this file location. Use a normal (not private) window, and keep the app folder in one place.')]
   ];
-  function starkNotice() { /* licence line and build mark: the slot lives in index.html so the build can stamp it */
-    const tpl = document.getElementById('stark-notice-tpl'); return tpl ? tpl.content.firstElementChild.cloneNode(true) : null;
-  }
   L.routes.limits = function () {
     return h('div', { class: 'stack' }, h('h1', null, t('Honest limits')), h('p', { class: 'muted' }, t('What Stark Trades does not do, in plain words.')),
-      h('div', { class: 'grid2', id: 'limits' }, L.LIMITS.map(x => h('section', { class: 'card' }, h('h2', null, t(x[0])), h('p', null, t(x[1]))))), starkNotice());
+      h('div', { class: 'grid2', id: 'limits' }, L.LIMITS.map(x => h('section', { class: 'card' }, h('h2', null, t(x[0])), h('p', null, t(x[1]))))));
   };
 })();

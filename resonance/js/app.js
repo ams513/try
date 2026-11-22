@@ -1,7 +1,7 @@
 /* Stark Resonance: the app shell (router, views, simulation runner). Offline, no network. */
 (function (root) {
   "use strict";
-  var VERSION = "1.2.0", doc = document, P = root.StarkPhysics, Sims = root.StarkSims, X = root.StarkExport, Cn = root.StarkContent, Store = root.StarkStore, TRIAL = root.STARK_TRIAL || null;
+  var VERSION = "1.1.0", doc = document, P = root.StarkPhysics, Sims = root.StarkSims, X = root.StarkExport, Cn = root.StarkContent, Store = root.StarkStore, TRIAL = root.STARK_TRIAL || null;
   var H = Sims.H, TAU = P.TAU, state = Store.load(Sims.list), reduced = false, raf = 0, running = null, rootEl, navEl;
   try { reduced = !!(root.matchMedia && root.matchMedia("(prefers-reduced-motion: reduce)").matches); } catch (e) { reduced = false; }
 
@@ -22,7 +22,7 @@
   var ICONS = {
     wave: ["M2 16c3-12 6-12 9 0s6 12 9 0 6-12 10 0"], coil: ["M16 4v6", "M8 12h16", "M8 17h16", "M8 22h16", "M6 27h20"], motor: ["M16 16m-10 0a10 10 0 1 0 20 0a10 10 0 1 0 -20 0", "M16 16l7-4", "M16 6v4"],
     grid: ["M3 26l6-18 6 18", "M13 26l6-18 6 18", "M2 12h28"], wireless: ["M8 6v20", "M24 8v16", "M13 11c3 3 3 7 0 10", "M18 9c5 4 5 10 0 14"], string: ["M3 16c3.5-10 7-10 10.5 0s7 10 10.5 0", "M3 10v12", "M27 10v12"],
-    memory: ["M4 24c6 0 4-16 12-16s6 16 12 16", "M2 16h28"], circuit: ["M3 16h6l2-6 4 12 4-12 2 6h8", "M3 8v16", "M29 8v16"], ledger: ["M6 6h20v20H6z", "M6 13h20", "M13 6v20"]
+    memory: ["M4 24c6 0 4-16 12-16s6 16 12 16", "M2 16h28"], ledger: ["M6 6h20v20H6z", "M6 13h20", "M13 6v20"]
   };
   function icon(n, s) { return svg(ICONS[n] || ICONS.wave, s); }
   function toast(msg) { var t = doc.getElementById("toast"); if (!t) return; t.textContent = msg; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(function () { t.hidden = true; }, 5000); }
@@ -53,21 +53,18 @@
   root.StarkResonance = { VERSION: VERSION, route: function () { route(); }, lab: null };
 
   // ---------- routing ----------
-  var NAV = [["#/home", "Home"], ["#/labs", "Labs"], ["#/history", "Timeline"], ["#/frontier", "Frontier"], ["#/teacher", "Teacher"], ["#/saved", "Saved"], ["#/about", "About"]];
+  var NAV = [["#/home", "Home"], ["#/labs", "Labs"], ["#/history", "Timeline"], ["#/frontier", "Frontier"], ["#/saved", "Saved"], ["#/about", "About"]];
   function route() {
     var hash = (root.location.hash || "#/home").replace(/^#\/?/, ""), parts = hash.split("?"), seg = parts[0].split("/"), q = {}, v;
     (parts[1] || "").split("&").forEach(function (kv) { if (kv) { var a = kv.split("="); q[a[0]] = decodeURIComponent(a[1] || ""); } });
     stop(); root.StarkResonance.lab = null; rootEl.textContent = ""; rootEl.scrollTop = 0;
     var page = seg[0] || "home";
     if (page === "sim" && Sims.byId(seg[1])) v = simView(Sims.byId(seg[1]), q);
-    else if (page === "labs") v = labsView(); else if (page === "history") v = historyView(); else if (page === "frontier") v = frontierView(); else if (page === "teacher") v = teacherView(); else if (page === "saved") v = savedView(); else if (page === "about") v = aboutView(); else v = homeView();
+    else if (page === "labs") v = labsView(); else if (page === "history") v = historyView(); else if (page === "frontier") v = frontierView(); else if (page === "saved") v = savedView(); else if (page === "about") v = aboutView(); else v = homeView();
     rootEl.appendChild(v); doc.title = "Stark Resonance" + (TRIAL ? " (Free trial)" : "");
     navEl.querySelectorAll("a").forEach(function (a) { var on = a.getAttribute("href") === "#/" + (page === "sim" ? "labs" : page); a.classList.toggle("on", on); if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     root.scrollTo(0, 0); var m = doc.getElementById("main"); if (m) m.focus({ preventScroll: true });
   }
-
-  function teacherView() { return h("div", { class: "page" }, h("h1", { text: "Teacher pack" }), window.StarkTrial.card("circuit_teacher")); } function aboutExtra() { return []; }
-  // ---------- end of the teacher pack ----------
 
   // ---------- shared bits ----------
   function statusChip(s) { return h("span", { class: "chip st-" + s, text: Cn.STATUS[s] || s }); }
@@ -111,8 +108,7 @@
         h("p", { class: "lead", text: "Tune a Tesla coil. Turn a motor with three currents and no moving part in the field. Watch wireless power fade with distance. Test a perpetual-motion machine against the books. Every simulation shows its equation, its model and what it leaves out." }),
         h("p", { class: "cta" }, h("a", { class: "btn primary", href: "#/sim/field", text: "Start with the rotating field" }), " ", h("a", { class: "btn", href: "#/labs", text: "All eight labs" }))), heroCanvas()),
       TRIAL ? trialNote() : null,
-      h("section", null, h("h2", { text: "The labs" }), h("div", { class: "grid" }, Sims.list.filter(function (d) { return d.group !== "builder"; }).map(simCard)),
-        h("p", { class: "cta" }, Sims.list.filter(function (d) { return d.group === "builder"; }).map(function (d) { return h("a", { class: "btn", href: "#/sim/" + d.id, text: "Build a circuit" }); }), " ", h("a", { class: "btn", href: "#/teacher", text: "Teacher pack: worksheets and keys" }))),
+      h("section", null, h("h2", { text: "The labs" }), h("div", { class: "grid" }, Sims.list.map(simCard))),
       h("section", { class: "two" },
         h("div", { class: "card flat" }, h("h3", { text: "Meet the people" }), h("p", { text: "Nikola Tesla and 26 other scientists and engineers, with accurate dates, what each did and where the stories are disputed or myth." }), h("a", { class: "btn", href: "#/history", text: "Open the timeline" })),
         h("div", { class: "card flat" }, h("h3", { text: "Beyond silicon: what is real" }), h("p", { text: "Memristors, spintronics, photonic and neuromorphic computing, each with an honest status: established, experimental or speculative." }), h("a", { class: "btn", href: "#/frontier", text: "Open the frontier" }))),
@@ -120,10 +116,9 @@
         h("p", { text: "Stark Resonance is a set of simulations. It does not make electricity, add memory to your computer, speed up your PC or replace any hardware, and it is not a replacement for RAM or for semiconductors. It claims no free energy: the Possible or Impossible lab exists to show why not. Names such as " + tesla.name + " are used only to describe the history of science." })));
   }
   function labsView() {
-    var g1 = Sims.list.filter(function (d) { return d.group === "tesla"; }), g2 = Sims.list.filter(function (d) { return d.group === "frontier"; }), g3 = Sims.list.filter(function (d) { return d.group === "builder"; });
+    var g1 = Sims.list.filter(function (d) { return d.group === "tesla"; }), g2 = Sims.list.filter(function (d) { return d.group === "frontier"; });
     return h("div", { class: "page" }, h("h1", { text: "The labs" }), h("p", { class: "lead", text: "Eight real-time simulations. Each has sliders with units, a panel on what you are seeing with the governing equation, and a short guided experiment." }), TRIAL ? trialNote() : null,
-      h("h2", { text: "Tesla's world: resonance, fields and power" }), h("div", { class: "grid" }, g1.map(simCard)), h("h2", { text: "Frontier model" }), h("div", { class: "grid" }, g2.map(simCard)),
-      g3.length ? h("div", null, h("h2", { text: "Circuit builder" }), h("p", { class: "fine", text: "Not one of the eight: a general tool. Write a circuit as lines of text and solve it." }), h("div", { class: "grid" }, g3.map(simCard))) : null);
+      h("h2", { text: "Tesla's world: resonance, fields and power" }), h("div", { class: "grid" }, g1.map(simCard)), h("h2", { text: "Frontier model" }), h("div", { class: "grid" }, g2.map(simCard)));
   }
 
   // ---------- the simulation page ----------
@@ -137,20 +132,14 @@
     function applyShow() { def.controls.forEach(function (c) { var e = ctrlEls[c.id]; if (e && c.show) e.row.hidden = !c.show(p); }); }
     function setParam(id, v, fromUI) {
       var c = def.controls.filter(function (x) { return x.id === id; })[0]; if (!c) return; p[id] = v; var e = ctrlEls[id];
-      if (e && !fromUI) { if (c.type === "toggle") e.input.checked = !!v; else if (c.type === "select" || c.type === "text") e.input.value = v; else e.input.value = c.log ? Math.round(Math.log(v / c.min) / Math.log(c.max / c.min) * 1000) : v; }
-      if (e && e.out) e.out.textContent = fmtVal(c, v); if (e && e.input && c.type !== "toggle" && c.type !== "select" && c.type !== "text") e.input.setAttribute("aria-valuetext", fmtVal(c, v));
+      if (e && !fromUI) { if (c.type === "toggle") e.input.checked = !!v; else if (c.type === "select") e.input.value = v; else e.input.value = c.log ? Math.round(Math.log(v / c.min) / Math.log(c.max / c.min) * 1000) : v; }
+      if (e && e.out) e.out.textContent = fmtVal(c, v); if (e && e.input && c.type !== "toggle" && c.type !== "select") e.input.setAttribute("aria-valuetext", fmtVal(c, v));
       applyShow(); if (def.resetOnChange && inst.reset) inst.reset();
-      if (c.apply) { var patch = c.apply(v, p) || {}; Object.keys(patch).forEach(function (k) { setParam(k, patch[k]); }); }
     }
     function controlRow(c) {
       var id = "c-" + def.id + "-" + c.id, row, input, out;
       if (c.type === "button") { input = h("button", { type: "button", class: "btn", id: id, text: c.label, onclick: function () { var patch = inst.act && inst.act(c.id); if (patch) Object.keys(patch).forEach(function (k) { setParam(k, patch[k]); }); if (!playing) draw(); } }); row = h("div", { class: "ctl btnrow" }, input); }
       else if (c.type === "toggle") { input = h("input", { type: "checkbox", id: id, checked: p[c.id] ? true : null, onchange: function () { setParam(c.id, input.checked, true); } }); row = h("div", { class: "ctl toggle" }, input, h("label", { for: id, text: c.label })); }
-      else if (c.type === "text") {
-        input = h("textarea", { id: id, rows: 8, spellcheck: "false", autocomplete: "off", autocapitalize: "off", maxlength: c.max || 1000, class: "netedit" }); input.value = p[c.id];
-        input.addEventListener("input", function () { setParam(c.id, input.value, true); if (c.edits && p[c.edits] !== "custom") setParam(c.edits, "custom"); if (!playing) draw(); });
-        row = h("div", { class: "ctl wide" }, h("label", { for: id, text: c.label }), input);
-      }
       else if (c.type === "select") { input = h("select", { id: id, onchange: function () { setParam(c.id, input.value, true); } }, c.options.map(function (o) { return h("option", { value: o[0], text: o[1], selected: o[0] === p[c.id] ? true : null }); })); row = h("div", { class: "ctl" }, h("label", { for: id, text: c.label }), input); }
       else {
         out = h("output", { for: id, text: fmtVal(c, p[c.id]) });
@@ -281,8 +270,7 @@
 
   // ---------- about ----------
   function aboutView() {
-    var pg, tpl = doc.getElementById("stark-notice-tpl");
-    pg = h("div", { class: "page" }, h("h1", { text: "About Stark Resonance" }), h("p", { class: "lead", text: "Version " + VERSION + (TRIAL ? " (Free trial)" : "") + ". An offline lab of the real physics behind Nikola Tesla's work and the scientists around him, by Stark." }),
+    return h("div", { class: "page" }, h("h1", { text: "About Stark Resonance" }), h("p", { class: "lead", text: "Version " + VERSION + (TRIAL ? " (Free trial)" : "") + ". An offline lab of the real physics behind Nikola Tesla's work and the scientists around him, by Stark." }),
       h("section", { class: "card honest" }, h("h3", { text: "Independent and educational" }), h("p", { text: "Independent educational product by Stark. Not affiliated with, endorsed by or sponsored by Tesla, Inc., Nikola Corporation, the Nikola Tesla Museum or the Tesla estate. Names are used only to describe the history of science. Simulations are simplified models for learning." })),
       h("section", { class: "panel" }, h("h2", { text: "What it is, and is not" }), h("ul", null, [
         "It is a simulation. It does not make electricity, add memory to your computer, speed up your PC or replace any hardware.",
@@ -298,10 +286,7 @@
         "PNG and SVG: the graph is drawn again by this app from the table, on a white background, at the size you choose. Lines differ by dash pattern as well as colour, so they survive a black-and-white printer.",
         "Print this lab makes one layout with the graph, the settings used, the readouts and the data table, for A4 or US Letter paper. Long tables are thinned to evenly spaced rows on paper; the CSV always holds every row.",
         "Time-based labs (the Tesla coil, the standing wave, the memristor) export the samples on screen at the moment you press the button. Pause first if you want the picture and the file to show the same instant."].map(function (t) { return h("li", { text: t }); }))),
-      aboutExtra(),
       h("section", { class: "panel" }, h("h2", { text: "Credits and sources" }), h("p", { text: "The physics follows standard textbook results (coupled-mode theory, the Kloss torque formula, the linear ion-drift memristor model of HP Labs, the one-dimensional wave equation, I squared R loss). History and frontier cards cite their sources. Treat the cited pages as the place to verify before you quote any date or claim." })));
-    if (tpl && tpl.content && tpl.content.firstElementChild) pg.appendChild(tpl.content.firstElementChild.cloneNode(true));
-    return pg;
   }
 
   // ---------- chrome ----------

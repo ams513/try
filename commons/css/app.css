@@ -25,7 +25,6 @@ nav { display: flex; flex-wrap: wrap; gap: .25rem; }
 nav a { text-decoration: none; color: var(--muted); padding: .4rem .8rem; border-radius: 999px; font-weight: 600; min-height: 40px; display: inline-flex; align-items: center; }
 nav a:hover { color: var(--text); } nav a.on { background: var(--green); color: var(--ink); }
 main { max-width: 1240px; margin: 0 auto; padding: 1.2rem 1rem 2.5rem; outline: none; }
-.stark-notice { color: var(--muted); font-size: .8rem; margin: 1rem 0 0; overflow-wrap: anywhere; } .stark-notice small { font-size: inherit; }
 .footer { text-align: center; color: var(--muted); font-size: .88rem; padding: 1rem 1rem 2rem; border-top: 1px solid var(--line); }
 .lede { color: var(--muted); max-width: 72ch; font-size: 1.05rem; } .muted { color: var(--muted); } .small { font-size: .88rem; }
 .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem 1.25rem; margin: 0 0 1rem; }
@@ -131,12 +130,3 @@ html:not([lang="en"]) .who label, html:not([lang="en"]) .filter label { white-sp
 html[lang="en"] .lang-note, html:not([lang]) .lang-note { display: none; }
 @media print { .lang-note, .lang-pick { display: none; } }
 /* end languages (apply_languages.py) */
-
-/* 1.2: references, Markdown, attachments, preregistration */
-.filelist { list-style: none; padding: 0; margin: .4rem 0; } .filelist li { display: flex; flex-wrap: wrap; gap: .4rem .7rem; align-items: center; padding: .3rem 0; border-bottom: 1px solid var(--line); }
-.fname { font-weight: 600; overflow-wrap: anywhere; }
-.files, .prereg { border-top: 1px solid var(--line); margin-top: 1rem; padding-top: .6rem; }
-.prereg .bad, p.bad { color: var(--bad); font-weight: 600; }
-#rb-text { font-family: ui-monospace, Consolas, monospace; font-size: .9rem; min-height: 180px; }
-details summary { cursor: pointer; font-weight: 600; }
-#md-preview table, #rf-preview table, #rx-diffs, #md-diffs { min-width: 420px; }

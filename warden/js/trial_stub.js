@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Warden"; T.buyUrl = "https://ams513.itch.io/stark-warden"; T.notIncluded = "Not in the free trial: evidence packet, call-pattern timeline and complaint drafts, letter builder (dispute, cease-contact, settlement and other letters), importable scam pattern packs and collector call practice (role-play with a coach). They are in the full version."; T.features = {
+  T.app = "Stark Warden"; T.buyUrl = "https://ams513.itch.io/stark-warden"; T.notIncluded = "Not in the free trial: evidence packet, call-pattern timeline and complaint drafts, letter builder (dispute, cease-contact, settlement and other letters) and collector call practice (role-play with a coach). They are in the full version."; T.features = {
  "evidence_packet": {
   "title": "Evidence packet and complaint drafts",
   "short": "evidence packet, call-pattern timeline and complaint drafts",
@@ -14,12 +14,6 @@
   "title": "Letter builder",
   "short": "letter builder (dispute, cease-contact, settlement and other letters)",
   "blurb": "Fill in the blanks and the letter writes itself: debt validation and dispute, stop-contact, settlement and pay-for-delete, hardship, medical bill and credit bureau letters, each with the law it relies on. Copy, save or print. Templates for general information, not legal advice.",
-  "shot": ""
- },
- "packs": {
-  "title": "Importable scam pattern packs",
-  "short": "importable scam pattern packs",
-  "blurb": "Load an extra set of dated scam warning signs from a file you choose, for example one on a USB stick. You see exactly what will be added before anything is saved, and every pack is marked unsigned: a checksum shows a file was not damaged or changed, not who made it. A pack can only add warning signs. The built-in patterns and their date stay in this trial, and a result with no warning signs never means a message is safe.",
   "shot": ""
  },
  "practice": {

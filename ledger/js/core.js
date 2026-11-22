@@ -3,7 +3,7 @@
 (function (root) {
   'use strict';
   const C = {};
-  C.VERSION = '1.7.0';
+  C.VERSION = '1.6.0';
 
   /* ---------- money (integer cents) ---------- */
   C.roundDiv = function (n, d) { // round half away from zero, integers only

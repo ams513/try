@@ -16,7 +16,7 @@ h1 { font-size: clamp(1.4rem, 3vw, 1.9rem); margin: 0; line-height: 1.2; } h2 { 
 p { margin: .4em 0 .7em; } a { color: var(--accent); } [hidden] { display: none !important; }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
 .sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.muted { color: var(--muted); } .small { font-size: .86rem; } .fine { font-size: .8rem; color: var(--muted); } .stark-notice { font-size: .8rem; color: var(--muted); overflow-wrap: anywhere; } .stark-notice small { font-size: inherit; } .neg { color: var(--bad); } .dim { opacity: .55; }
+.muted { color: var(--muted); } .small { font-size: .86rem; } .fine { font-size: .8rem; color: var(--muted); } .neg { color: var(--bad); } .dim { opacity: .55; }
 .c-red { color: var(--coral); } .c-amber { color: var(--warn); } .c-green { color: var(--good); }
 .stack { display: flex; flex-direction: column; gap: 14px; } .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; } .row.end { justify-content: flex-end; } .grow { flex: 1; }
 .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; } .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 12px; } .grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 12px; }
@@ -183,7 +183,7 @@ details.talk { background: var(--bg2); border: 1px solid var(--line); border-rad
   .check { min-height: 44px; } input[type="checkbox"] { width: 22px; height: 22px; flex: none; }
   .brand, .sidenav a, .tab, .jchip, .pbar, .jcard, .pal-item { min-height: 44px; } .brand { min-width: 44px; } .sidenav a, .tab, .jchip { display: inline-flex; align-items: center; }
   summary { min-height: 44px; padding: 10px 0; }
-  .tbl a:not(.btn), .crumb a, .alerts a, .comp-list a, .log a, .note a, .fine a, .muted a, .stark-notice a, .cal .slot { display: inline-flex; flex-direction: column; justify-content: center; min-height: 44px; min-width: 44px; }
+  .tbl a:not(.btn), .crumb a, .alerts a, .comp-list a, .log a, .note a, .fine a, .muted a, .cal .slot { display: inline-flex; flex-direction: column; justify-content: center; min-height: 44px; min-width: 44px; }
   .cal td { height: auto; } .tbl.lines input { min-width: 56px; } .trow input[type="time"] { width: 9rem; } .tabs { flex-wrap: nowrap; overflow-x: auto; } .tab { white-space: nowrap; }
 }
 @media (max-width: 480px) { .brand-text { display: none; } .search-btn { width: 44px; min-width: 44px; height: 44px; } .search-btn::before { left: 14px; top: 13px; } .search-btn::after { left: 24px !important; top: 25px !important; } .topbar { gap: 6px; } }

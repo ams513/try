@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   var C = BaselineContent, L = BaselineLogic, U = BaselineUI, A = BaselineApp, h = U.h, S = A.S;
-  var WHAT = "A self-check aid, not a certification. Not legal advice. ";
+  var WHAT = "A self-check aid, not a certification. ";
   var NOT_SCHEME = "Stark Baseline is not affiliated with the Cyber Essentials scheme, the UK National Cyber Security Centre (NCSC) or IASME, and none of them has reviewed or endorsed it. "
     + "Passing Baseline's checks does not mean meeting Cyber Essentials: every theme has requirements that Baseline does not check, and they are listed under each theme. "
     + "The five theme names are the NCSC's. The descriptions, and the mapping of checklist items onto the themes, are our own, reviewed against the NCSC's \"Requirements for IT Infrastructure\" " + C.UKCE.reqVersion + "; they are not the scheme's requirements or its question set. "

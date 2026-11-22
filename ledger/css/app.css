@@ -198,5 +198,3 @@ a.btn { text-decoration: none; display: inline-block; }
   .tbl.lines td { display: block; padding: 0; min-width: 0; } .tbl.lines td:first-child, .tbl.lines td:last-child { grid-column: 1 / -1; } .tbl.lines td:last-child { text-align: right; }
   .tbl.lines .ld { min-width: 0; width: 100%; } .tbl.lines .lq, .tbl.lines .lu, .tbl.lines td select, .tbl.lines td input { width: 100%; box-sizing: border-box; } .tbl.lines td.num { text-align: right; align-self: center; }
 }
-.trial-banner { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 0 0 12px; font-size: .85rem; }
-.stark-notice { font-size: .78rem; color: var(--muted); margin: 8px 0 0; overflow-wrap: anywhere; } .stark-notice a { color: var(--muted); } .stark-mark { font-size: inherit; }

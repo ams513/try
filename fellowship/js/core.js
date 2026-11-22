@@ -4,7 +4,7 @@
    the part keys their role allows, so a role that may not read care notes cannot decrypt them at all. */
 (function (root) {
   "use strict";
-  var VERSION = "1.3.0", KDF_ITER = 600000, MIN_ITER = 300000, MAX_ITER = 2000000, FORMAT = "StarkFellowship";
+  var VERSION = "1.2.0", KDF_ITER = 600000, MIN_ITER = 300000, MAX_ITER = 2000000, FORMAT = "StarkFellowship";
   var PUBLIC_PASSES = ["example only: river stones lantern"]; // the example community's published passphrase
   var PARTS = ["core", "contact", "giving", "care", "notes", "help"];
   var enc = new TextEncoder(), dec = new TextDecoder();
@@ -12,20 +12,20 @@
 
   /* ---- roles: which part keys a role receives, and which screens it may use ---- */
   var ROLES = {
-    leader: { label: "Leader", parts: PARTS, areas: ["people", "edit", "teams", "groups", "checkin", "giving", "care", "help", "users", "settings"],
+    leader: { label: "Leader", parts: PARTS, areas: ["people", "edit", "teams", "checkin", "giving", "care", "help", "users", "settings"],
       desc: "Everything, including private care notes. Adds and removes users." },
-    admin: { label: "Administrator", parts: ["core", "contact", "giving", "care", "help"], areas: ["people", "edit", "teams", "groups", "checkin", "giving", "care", "help", "users", "settings"],
+    admin: { label: "Administrator", parts: ["core", "contact", "giving", "care", "help"], areas: ["people", "edit", "teams", "checkin", "giving", "care", "help", "users", "settings"],
       desc: "Everything except private care notes. Adds and removes users." },
-    care: { label: "Care team", parts: ["core", "contact", "care", "notes", "help"], areas: ["people", "edit", "groups", "checkin", "care", "help"],
+    care: { label: "Care team", parts: ["core", "contact", "care", "notes", "help"], areas: ["people", "edit", "checkin", "care", "help"],
       desc: "Directory, care visits with private notes, and help requests." },
     finance: { label: "Treasurer", parts: ["core", "contact", "giving"], areas: ["people", "giving"],
       desc: "Directory, giving records, books and year-end statements." },
-    teams: { label: "Team coordinator", parts: ["core", "contact"], areas: ["people", "teams", "groups", "checkin"],
+    teams: { label: "Team coordinator", parts: ["core", "contact"], areas: ["people", "teams", "checkin"],
       desc: "Directory, teams and rotas, gatherings and check-in." },
     checkin: { label: "Check-in helper", parts: ["core"], areas: ["checkin"],
       desc: "Check-in only. Sees names and households, never contact details." }
   };
-  var AREA_PART = { people: "core", edit: "core", teams: "core", groups: "core", checkin: "core", giving: "giving", care: "care", help: "help", users: "core", settings: "core" };
+  var AREA_PART = { people: "core", edit: "core", teams: "core", checkin: "core", giving: "giving", care: "care", help: "help", users: "core", settings: "core" };
 
   function b64(buf) {
     var b = new Uint8Array(buf), s = "", i;
@@ -151,7 +151,7 @@
   }
   // Expected shape of each decrypted part: lists must be arrays of records, maps must be objects.
   var SHAPES = {
-    core: { arr: ["households", "people", "teams", "slots", "events", "log"], obj: ["settings", "away"], opt: ["groups"] },   // groups (1.3): absent in older books, a list of records when present
+    core: { arr: ["households", "people", "teams", "slots", "events", "log"], obj: ["settings", "away"] },
     contact: { obj: ["hh", "people"] },
     giving: { arr: ["accounts", "funds", "entries", "gifts"] },
     care: { arr: ["visits"] }, notes: { obj: ["byVisit"] }, help: { arr: ["requests"] }
@@ -161,7 +161,6 @@
     if (!s || !isObj(d) || d.v !== 1) return "The " + name + " data is not in a shape this app understands.";
     (s.arr || []).forEach(function (k) { if (!Array.isArray(d[k]) || !d[k].every(isObj)) bad = true; });
     (s.obj || []).forEach(function (k) { if (!isObj(d[k])) bad = true; });
-    (s.opt || []).forEach(function (k) { if (own(d, k) && (!Array.isArray(d[k]) || !d[k].every(isObj))) bad = true; });
     if (bad) return "The " + name + " data has the wrong shape.";
     if (!plainOk(d, 0, { n: 0 })) return "The " + name + " data is too large or contains unsafe content.";
     return null;

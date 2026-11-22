@@ -5,7 +5,7 @@
   "use strict";
   var CAP = 15, BUY = "https://ams513.itch.io/stark-career", NOT = (window.StarkTrial || {}).notIncluded || "";
   SC.trial = { capApps: CAP, buyUrl: BUY, onLimit: function () {
-    SC.toast("Free trial: the tracker holds " + CAP + " applications. Nothing was deleted and the rest of the trial still works. Download a backup any time to carry your data into the full version, or buy it once on itch.io to remove this limit.", true);
+    SC.toast("Free trial: the tracker holds " + CAP + " applications. Nothing was deleted and the rest of the trial still works. Download a backup any time to carry your data into the full app, or buy it once on itch.io to remove this limit.", true);
   } };
   SC.trialUsed = function () { return Math.min(SC.S.apps.length, CAP); };
 
@@ -16,7 +16,7 @@
   var by = $(".brand-by");
   if (by) { var bd = document.createElement("span"); bd.className = "trial-badge"; bd.textContent = "Free trial"; by.parentNode.appendChild(bd); }
   var foot = $(".side-foot"); if (foot) foot.appendChild(buyLink("btn small primary", "Own it forever: buy on itch.io"));
-  var f = $(".footer p"); if (f) f.appendChild(document.createTextNode(" Free trial: up to " + CAP + " tracked applications, no time limit. " + NOT + " Your data is never deleted, and a backup from here restores in the full version."));
+  var f = $(".footer p"); if (f) f.appendChild(document.createTextNode(" Free trial: up to " + CAP + " tracked applications, no time limit. " + NOT + " Your data is never deleted, and a backup from here restores in the full app."));
   document.title = "Stark Career (free trial)";
 
   var base = SC.views.tracker;
@@ -25,7 +25,7 @@
     var c = document.createElement("div"); c.className = "card trial-card";
     function paint() {
       var n = SC.S.apps.length;
-      c.innerHTML = "<h2>Free trial</h2><p><b>" + n + " of " + CAP + "</b> applications used" + (n >= CAP ? ". The tracker is full; your records stay safe and editable." : ".") + '</p><div class="trial-bar" aria-hidden="true"><i style="width:' + Math.min(100, Math.round(n * 100 / CAP)) + '%"></i></div><p class="fine">' + NOT + ' Download a backup to carry your data into the full version.</p>';
+      c.innerHTML = "<h2>Free trial</h2><p><b>" + n + " of " + CAP + "</b> applications used" + (n >= CAP ? ". The tracker is full; your records stay safe and editable." : ".") + '</p><div class="trial-bar" aria-hidden="true"><i style="width:' + Math.min(100, Math.round(n * 100 / CAP)) + '%"></i></div><p class="fine">' + NOT + ' Download a backup to carry your data into the full app.</p>';
       c.appendChild(buyLink("btn primary", "Own it forever: buy on itch.io"));
     }
     paint();
@@ -37,7 +37,7 @@
   SC.views.backup = function (root) {
     bb(root);
     var c = document.createElement("div"); c.className = "card trial-card";
-    c.innerHTML = "<h2>Free trial: take your data with you</h2><p>Download a backup here, then use Restore in the full version. Everything you entered, including all " + CAP + " applications, comes across.</p>";
+    c.innerHTML = "<h2>Free trial: take your data with you</h2><p>Download a backup here, then use Restore in the full app. Everything you entered, including all " + CAP + " applications, comes across.</p>";
     c.appendChild(buyLink("btn primary", "Own it forever: buy on itch.io"));
     var head = root.querySelector(".view-head"); if (head) head.parentNode.insertBefore(c, head.nextSibling);
   };

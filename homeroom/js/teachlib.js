@@ -4,7 +4,7 @@
 (function (root) {
   'use strict';
   const SHR = root.SHR = root.SHR || {};
-  const VERSION = '1.3.0';
+  const VERSION = '1.2.0';
   const LIM = { standards: 300, units: 60, plans: 600, days: 400, notes: 3000, rubrics: 100 };
   /* a family register: a school day counts 1, a half day 0.5, a field trip 1; absent counts 0 */
   const MARKS = { P: 'School day', H: 'Half day', T: 'Field trip', A: 'Absent' };

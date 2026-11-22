@@ -251,7 +251,7 @@
 "No": "Tidak",
 "No backup file saved yet": "Belum ada file cadangan tersimpan",
 "No backup yet.": "Belum ada cadangan.",
-
+"No checksum, validated.": "Tanpa checksum, tervalidasi.",
 "No date": "Tanpa tanggal",
 "No expired documents or policies": "Tidak ada dokumen atau polis yang kedaluwarsa",
 "No expiry": "Tanpa kedaluwarsa",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "Premi dicatat tanpa tanggal pembaruan",
 "Premiums only.": "Hanya premi.",
 "Prepaid plans or arrangements": "Paket atau pengaturan prabayar",
-"Prepared": "Disiapkan",
+
 "Preview": "Pratinjau",
 "Preview and print": "Pratinjau dan cetak",
 "Print": "Cetak",

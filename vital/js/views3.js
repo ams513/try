@@ -122,23 +122,19 @@
       U.toast("Encrypted backup saved. It opens only with your passphrase.");
     }).catch(function (x) { U.toast("Could not make the backup: " + x.message, true); });
   }
-  function importEnv(env, from) {   // from: the file name, or where a beamed copy came from
-      A.askPass("Import a backup", "Enter the passphrase of " + from + ". Then choose to add what is missing, or replace everything here.", function (pw) {
-        return V.openData(env, pw).then(function (r) {
+  function importBackup() {
+    U.pickFile(".starkvital,.json,application/json").then(function (f) {
+      if (!f) return; var rb = A.readBackup(f); if (rb.error) return U.toast(rb.error, true);
+      A.askPass("Import a backup", "Enter the passphrase of " + f.name + ". Then choose to add what is missing, or replace everything here.", function (pw) {
+        return V.openData(rb.env, pw).then(function (r) {
           var nd = D.sanitize(r.data), n = Object.keys(nd.days).length, dlg = U.modal("Import " + n + " days?", h("div", { class: "dlg-body" }, h("p", { text: "The backup holds " + n + " days, " + nd.labs.length + " lab results and " + nd.experiments.length + " experiments" + (nd.custom && nd.custom.items.length ? " and " + nd.custom.items.length + " of your own items" : "") + "." }),
             h("div", { class: "row end" }, btn("Cancel", "", function () { dlg.close(); }),
               btn("Replace everything here", "danger-o", function () { dlg.close(); mergeBackup(r, "replace").then(function () { A.render(); U.toast("Replaced with the backup."); }, function (x) { U.toast(x.message, true); }); }),
               btn("Add what is missing", "primary", function () { dlg.close(); mergeBackup(r, "merge").then(function () { A.render(); U.toast("Imported. Existing days were kept."); }, function (x) { U.toast(x.message, true); }); }))));
         });
       });
-  }
-  function importBackup() {
-    U.pickFile(".starkvital,.json,application/json").then(function (f) {
-      if (!f) return; var rb = A.readBackup(f); if (rb.error) return U.toast(rb.error, true);
-      importEnv(rb.env, f.name);
     });
   }
-  A.importEnv = importEnv;
   function csvDialog() {
     var inp = h("input", { type: "text", id: "csv-ok", autocomplete: "off", "aria-label": "Type I understand" }), dlg, b = h("button", { type: "submit", class: "btn primary", text: "Save CSV", disabled: true });
     inp.addEventListener("input", function () { b.disabled = inp.value.trim().toLowerCase() !== "i understand"; });
@@ -157,7 +153,6 @@
     wrap.appendChild(h("div", { class: "stats" }, h("div", { class: "stat" }, h("b", { text: String(n) }), h("span", { text: "days logged" })), h("div", { class: "stat" }, h("b", { text: String(d.labs.length) }), h("span", { text: "lab results" })), h("div", { class: "stat" }, h("b", { text: String(d.experiments.length) }), h("span", { text: "experiments" })), D.customItems(d, true).length ? h("div", { class: "stat" }, h("b", { text: String(D.customItems(d, true).length) }), h("span", { text: "own items" })) : null));
     wrap.appendChild(h("div", { class: "card" }, h("h2", { text: "Encrypted backup" }), h("p", { class: "muted", text: "One file with everything, still encrypted. It opens only with your passphrase." }), h("div", { class: "row" }, btn("Save a backup file", "primary", downloadBackup), btn("Import a backup file", "", importBackup)),
       h("p", { class: "fine", text: "Browsers can clear stored data, especially in a private window or an embedded player. The downloaded app and a backup file are the safe way. Save a backup now and then." })));
-    if (A.beamCard) wrap.appendChild(A.beamCard());
     wrap.appendChild(h("div", { class: "card" }, h("h2", { text: "Plain CSV file" }), h("p", { class: "muted", text: "Days, lab results, experiments and your own items as a spreadsheet file. This one is not encrypted." }), btn("Save a CSV file", "", csvDialog)));
     wrap.appendChild(h("div", { class: "card danger-zone" }, h("h2", { text: "Delete everything" }), h("p", { class: "muted", text: "Erases this notebook and its key from this browser." }), btn("Delete everything", "danger-o", deleteDialog)));
     return wrap;
@@ -214,10 +209,8 @@
     wrap.appendChild(card("How it learns", ["For each habit and each result, it pairs your days (a habit on one day with the result that day, or the next day or night where that makes sense) and measures how closely they move together with Spearman rank correlation.", "It leaves out days you marked unwell or travelling and your first 3 days, removes weekday differences, and needs at least 21 paired days and 5 days that differ before it will say anything.", "It reports how sure it is from a resampling range that respects day-to-day carry-over, and corrects for many comparisons at once so that chance findings are rarer.", "Experiments set the change yourself: two weeks of one habit against the two weeks before, judged by rules fixed before you start.", "Nothing is trained on anyone else's data. Nothing leaves your computer."]));
     wrap.appendChild(card("Limits to keep in mind", ["Self-ratings are noisy, and 14 to 90 days is a small sample.", "A pattern is not a cause. Many things you cannot see affect your days.", "An experiment runs one at a time and cannot separate a habit from other things that changed in the same weeks.", "Sleep length comes from the clock times you type. On the night the clocks change it can be an hour off.", "The library summarises published research about groups of people. Your own results may differ."]));
     wrap.appendChild(card("How your data is kept", ["Stored in this browser only, as one encrypted record (AES-256-GCM, key from your passphrase with PBKDF2-SHA256, 600,000 rounds). A new random value is used for every save, and the last good copy is kept.", "Protects against someone reading the files or a stolen drive. It does not protect a computer with malware, someone watching you type, or a weak passphrase.", "If you lose your passphrase your data cannot be recovered. Keep an encrypted backup file somewhere safe.", "Free-trial limits are a local counter on the honour system. No licence server exists."]));
-    wrap.appendChild(card("Moving your notebook to another device (Beam)", ["One device shows a moving sequence of codes and the other reads them with its camera. No network is used: the page has no way to connect, and nothing of your notebook is readable on the screen. Only your encrypted backup is shown, in pieces that look like noise.", "Receiving still needs your passphrase, and the same preview as a backup file where you choose to add or replace. A six-digit pairing code appears on both screens so you can see you are reading the right device; press Cancel if they differ.", "Limits: camera quality and light matter, so hold the camera steady about 20 to 30 cm away. A very large notebook takes longer: a year of daily entries is about 500 codes, roughly a minute. A browser without its own code reader uses a slower built-in one. It moves a copy; it does not keep two devices in sync, so changes made on one device after the copy are not on the other.", "Receiving from another device is in the free trial. Sending is in the full version."]));
     wrap.appendChild(card("Keyboard", ["Ctrl+K (or Cmd+K) opens search and jump. g then h, c, t, p, e or l jumps to Home, Check-in, Trends, What helps, Experiments or Labs.", "On the check-in, the keys 1 to 5 choose an answer and move to the next question. Ctrl+Enter saves."]));
     wrap.appendChild(h("p", { class: "fine", text: "Stark Vital " + V.VERSION + ". Not medical advice. If something worries you, talk to a doctor or pharmacist. In an emergency, call your local emergency number." }));
-    var tpl = document.getElementById("stark-notice-tpl"); if (tpl && tpl.content) wrap.appendChild(tpl.content.cloneNode(true));
     return wrap;
   };
 })();

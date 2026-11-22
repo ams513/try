@@ -76,7 +76,7 @@
     var main = U.clear($("#main")), box = h("div", { class: "lock card" });
     document.body.classList.add("locked");
     $("#topbar-tools").hidden = true; $("#nav").hidden = true;
-    main.appendChild(box); main.appendChild(starkNotice());
+    main.appendChild(box);
     U.storeGet().then(function (env) { env ? (env.corrupt ? safeView(box, env.raw, "The stored care record could not be read and there is no earlier copy.") : unlockView(box, env)) : createView(box); });
   }
   function honest() {
@@ -533,7 +533,7 @@
   /* ---------- Settings ---------- */
   function vSettings() {
     var wrap = h("div", null, section("Settings", "Security and housekeeping."));
-    if (ro() || S.demo) { wrap.appendChild(h("p", { class: "muted", text: S.demo ? "Settings are not available with example data." : "Settings are not available in a read-only view." })); wrap.appendChild(h("div", { class: "card" }, h("h2", { text: "About" }), h("p", { text: "Stark Caregiver " + V.VERSION + ", by Stark." }), starkNotice())); return wrap; }
+    if (ro() || S.demo) { wrap.appendChild(h("p", { class: "muted", text: S.demo ? "Settings are not available with example data." : "Settings are not available in a read-only view." })); return wrap; }
     wrap.appendChild(h("div", { class: "card" }, h("h2", { text: "Auto-lock" }), h("p", { class: "muted", text: "The care record locks when there has been no mouse, keyboard or touch activity for this long. Unsaved work is saved first." }),
       h("div", { class: "field" }, h("label", { for: "lockmin", text: "Lock after" }), h("select", { id: "lockmin", onchange: function (e) { S.vault.settings.lockMin = +e.target.value; save(); tick(); } },
         [1, 2, 5, 10, 15, 30].map(function (m) { return h("option", { value: m, text: m + (m === 1 ? " minute" : " minutes"), selected: m === (S.vault.settings.lockMin || 5) }); })))));
@@ -549,15 +549,10 @@
     var mb = K.vaultSize(S.vault) / 1048576;
     wrap.appendChild(h("div", { class: "card" }, h("h2", { text: "About" }), h("p", { text: "Stark Caregiver " + V.VERSION + ", by Stark. Works offline; nothing is ever sent anywhere." }), h("p", { class: "lang-note", text: "This translation is a machine draft, not yet reviewed by a native speaker. To suggest a correction, use the Send feedback button." }),
       h("p", { class: "fine", text: C.DISCLAIMER + " Stark Caregiver is a record-keeping tool. It is not a medical device: it gives no dosing advice, does not check medicines against each other and does not diagnose." }),
-      h("p", { class: "fine", text: "Record size: " + (mb < 0.1 ? "under 0.1" : mb.toFixed(1)) + " MB." }), starkNotice()));
+      h("p", { class: "fine", text: "Record size: " + (mb < 0.1 ? "under 0.1" : mb.toFixed(1)) + " MB." })));
     wrap.appendChild(h("div", { class: "card danger-zone" }, h("h2", { text: "Erase" }), h("p", { class: "muted", text: "Deletes the care record from this computer. Make a backup first if you might want it again." }),
       btn("Erase care record", "danger", function () { U.confirmBox("Erase everything?", "Your care record will be deleted from this computer. This cannot be undone without a backup file.", "Erase everything", true).then(function (ok) { if (ok) U.storeClear().then(function () { S.vault = null; S.session = null; lock(); }); }); })));
     return wrap;
-  }
-  // The licence line and build mark live in index.html (a template); apply_protect.py swaps the mark word at stamp time.
-  function starkNotice() {
-    var t = document.getElementById("stark-notice-tpl");
-    return t && t.content.firstElementChild ? t.content.firstElementChild.cloneNode(true) : document.createComment("");
   }
   function changePass() {
     var cur = h("input", { id: "cur-pass", type: "password", autocomplete: "current-password" }), st = false, pf = U.passField("new-pass", "New passphrase", function (s) { st = s; }), msg = h("p", { class: "form-err", hidden: true, role: "alert" });

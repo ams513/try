@@ -31,29 +31,6 @@
     return s.replace(/^https?:\/\//, '').replace(/[\/>].*$/, '');
   }
 
-  /* Extension point: a registered matcher can only ADD warning signs. Each flag it returns is re-checked here (text clipped, weight
-     whole number 1 to 5), so nothing a matcher returns can lower a score or change a level downward. */
-  var matchers = [], TAGS = ['collector', 'invoice', 'debtrelief'];
-  function addMatcher(m) { if (m && typeof m.run === 'function') { matchers.push(m); } }
-  function extraAsOf() {
-    var best = null;
-    matchers.forEach(function (m) { var d; try { d = typeof m.asOf === 'function' ? m.asOf() : null; } catch (e) { d = null; } if (typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d) && (!best || d > best)) { best = d; } });
-    return best;
-  }
-  function patternsAsOf() { return { builtin: SW.data.meta.patternsAsOf, label: SW.data.meta.patternsAsOfLabel, newest: extraAsOf() }; }
-  function takeMatcherFlags(clean, hits, push) {
-    matchers.forEach(function (m) {
-      var out;
-      try { out = m.run(clean, hits); } catch (e) { out = null; }
-      (Array.isArray(out) ? out : []).forEach(function (f) {
-        var w = f && Math.floor(Number(f.weight));
-        if (!f || typeof f.id !== 'string' || typeof f.title !== 'string' || !(w >= 1)) { return; }
-        push({ id: U.clip(f.id, 80), cat: 'pack', title: U.clip(f.title, 120), why: U.clip(String(f.why || ''), 420), weight: Math.min(5, w), evidence: U.clip(String(f.evidence || ''), 90),
-          tags: (Array.isArray(f.tags) ? f.tags : []).filter(function (t) { return TAGS.indexOf(t) >= 0; }), note: typeof f.note === 'string' ? U.clip(f.note, 400) : '' });
-      });
-    });
-  }
-
   function analyze(text, opts) {
     opts = opts || {};
     var original = String(text || ''), clean = stripAdvice(original), hits = {}, flags = [], score = 0, urls, links = [], linkFlag, worst, i, claimed, sd, sinsp, letters, upper, bangs, ev;
@@ -76,8 +53,6 @@
         push({ id: rule.id, cat: rule.cat, title: rule.title, why: rule.why, weight: rule.weight, evidence: ev, tags: rule.tags || [] });
       }
     });
-
-    takeMatcherFlags(clean, hits, push);
 
     urls = SW.links.extract(clean);
     for (i = 0; i < urls.length; i++) { links.push(SW.links.inspect(urls[i])); }
@@ -137,7 +112,6 @@
 
     return {
       score: score, level: U.levelFor(score), flags: flags, links: links, claimed: claimed, empty: !original.trim(),
-      patternsAsOf: patternsAsOf(),
       steps: nextSteps(hits, U.levelFor(score)), disclaimer: SW.analysisDisclaimer
     };
   }
@@ -156,6 +130,6 @@
   }
 
   SW.analysisDisclaimer = 'This is a pattern check done on your device. It cannot see who really sent a message and it cannot tell you something is safe. When in doubt, verify with the organisation using contact details you already trust.';
-  SW.analyzer = { analyze: analyze, stripAdvice: stripAdvice, claimedBrands: claimedBrands, addMatcher: addMatcher, patternsAsOf: patternsAsOf };
+  SW.analyzer = { analyze: analyze, stripAdvice: stripAdvice, claimedBrands: claimedBrands };
   if (typeof module !== 'undefined' && module.exports) { module.exports = SW.analyzer; }
 })(typeof window !== 'undefined' ? window : globalThis);

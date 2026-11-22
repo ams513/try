@@ -16,7 +16,7 @@
   const avg = a => a.length ? Math.round(sum(a) / a.length) : null;
   const inRange = (d, from, to) => C.isDate(d) && d >= from && d <= to;
   const ACTIVE = ['scheduled', 'progress', 'inspection'];
-  C.VERSION = '2.6.0';
+  C.VERSION = '2.5.1';
   N('draft'); N('sent'); N('partial'); N('received'); N('cancelled'); N('Shop'); N('Van 1'); N('Van 2');
 
   /* ---------- state: new collections and defaults (older workspaces gain them on unlock) ---------- */

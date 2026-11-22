@@ -53,7 +53,7 @@
   L.bad = (el, msg) => { const e = new Error(msg); e.el = el; return e; };
   L.input = attrs => h('input', Object.assign({ type: 'text', autocomplete: 'off' }, attrs));
   L.date = (value, attrs) => h('input', Object.assign({ type: 'date', value: value || '' }, attrs));
-  L.money = (value, attrs) => h('input', Object.assign({ type: 'text', inputmode: 'decimal', autocomplete: 'off', value: value == null || value === '' ? '' : C.fmtPlain(value), placeholder: C.fmtPlain(0) }, attrs));
+  L.money = (value, attrs) => h('input', Object.assign({ type: 'text', inputmode: 'decimal', autocomplete: 'off', value: value == null || value === '' ? '' : (value / 100).toFixed(2), placeholder: '0.00' }, attrs));
   L.area = (value, attrs) => h('textarea', Object.assign({ rows: 3 }, attrs), value || '');
   L.select = function (opts, value, attrs) { const s = h('select', attrs); opts.forEach(o => s.appendChild(h('option', { value: o[0] }, o[1]))); if (value != null) s.value = value; return s; };
   L.check = (label, checked, attrs) => h('label', { class: 'check' }, h('input', Object.assign({ type: 'checkbox', checked: !!checked }, attrs)), h('span', null, label));

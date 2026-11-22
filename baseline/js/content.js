@@ -29,16 +29,6 @@
       status: "Crown copyright. The NCSC website's terms allow reuse under the Open Government Licence v3.0 with the source acknowledged: contains public sector information licensed under the Open Government Licence v3.0. Stark Baseline uses no logo and claims no association with or endorsement by the NCSC.",
       statusUrl: "https://www.ncsc.gov.uk/section/about-this-website/terms-and-conditions",
       use: "We read the requirements for each of the five technical controls to decide which checklist items belong under which theme, and wrote the 'Baseline does not check' lists in our own words. The document is not reproduced here. Read the current version before you apply; the scheme's rules change each April." },
-    { id: "gdpr", name: "General Data Protection Regulation (GDPR)", by: "European Parliament and Council of the European Union",
-      ref: "Regulation (EU) 2016/679 of 27 April 2016, OJ L 119, 4.5.2016, p. 1. Read on 2026-11-22.", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679", checked: "2026-11-22",
-      status: "EU law published on EUR-Lex. The EUR-Lex legal notice (read 2026-11-22) says the Commission's document reuse policy is based on Decision 2011/833/EU and that, unless otherwise specified, legal documents published in EUR-Lex can be re-used. Stark Baseline uses no EU logo and claims no association with or endorsement by any EU body.",
-      statusUrl: "https://eur-lex.europa.eu/content/legal-notice/legal-notice.html",
-      use: "The GDPR view and the incident and retention policies cite article numbers and short quotations from this text. The grouping, the descriptions, the mapping of checklist items onto articles and the lists of what Baseline does not check are our own. Every article number and quotation was checked against the text on 2026-11-22. It is the EU regulation; the United Kingdom has its own version, which we did not use." },
-    { id: "nis2", name: "NIS 2 Directive", by: "European Parliament and Council of the European Union",
-      ref: "Directive (EU) 2022/2555 of 14 December 2022, OJ L 333, 27.12.2022, p. 80. Read on 2026-11-22.", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32022L2555", checked: "2026-11-22",
-      status: "EU law published on EUR-Lex, on the same reuse terms as the GDPR entry above. A directive binds each member state through its own national law, which is what an organisation must follow.",
-      statusUrl: "https://eur-lex.europa.eu/content/legal-notice/legal-notice.html",
-      use: "The NIS2 view cites Articles 20, 21 and 23 and recital 89 with short quotations. The grouping, the descriptions, the mapping and the lists of what Baseline does not check are our own; every article number and quotation was checked against the text on 2026-11-22. Whether the directive reaches an organisation is set by its Article 2 and by national law." },
     { id: "warden", name: "Stark Warden scam-pattern library", by: "Stark", ref: "Warden's red-flag rules and practice messages", url: "", checked: "2026-11-20",
       status: "Our own work, reused here.", statusUrl: "", use: "The staff lessons quote Warden's warning-sign descriptions and practice messages, with small edits for the workplace." }
   ];

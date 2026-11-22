@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Baseline"; T.buyUrl = "https://starkapps.gumroad.com/l/stark-baseline"; T.notIncluded = "Not in the free trial: Path to green planner, exposure map and Ctrl+K search, recovery simulator, UK Cyber Essentials view and readiness report, GDPR and NIS2 views and policy template pack. They are in the full version."; T.features = {
+  T.app = "Stark Baseline"; T.buyUrl = "https://starkapps.gumroad.com/l/stark-baseline"; T.notIncluded = "Not in the free trial: Path to green planner, exposure map and Ctrl+K search, recovery simulator and UK Cyber Essentials view and readiness report. They are in the full version."; T.features = {
  "path_to_green": {
   "title": "Path to green, exposure map and Ctrl+K search",
   "short": "Path to green planner, exposure map and Ctrl+K search",
@@ -20,18 +20,6 @@
   "title": "UK Cyber Essentials view and readiness report",
   "short": "UK Cyber Essentials view and readiness report",
   "blurb": "Your checklist grouped under the five technical control themes of the UK Cyber Essentials scheme, with a readiness summary per theme and a printable self-check readiness report that lists what Baseline does not check. A self-check aid, not a certification.",
-  "shot": ""
- },
- "eu_views": {
-  "title": "GDPR and NIS2 views",
-  "short": "GDPR and NIS2 views",
-  "blurb": "Your checklist grouped under the articles of the GDPR and the NIS2 Directive that each step relates to, with short quotations from the published texts, a readiness summary per group, what Baseline does not check, and a printable readiness report for each. A self-check aid, not a certification. Not legal advice.",
-  "shot": ""
- },
- "policy_pack": {
-  "title": "Policy template pack",
-  "short": "policy template pack",
-  "blurb": "Six plain-language policies (acceptable use, passwords and multifactor sign-in, backups, incident response, access control, data retention) filled in from your answers and printable on A4 or Letter paper. A self-check aid, not a certification. Not legal advice.",
   "shot": ""
  }
 };

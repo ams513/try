@@ -6,7 +6,4 @@
   window.SC_LAB_EDITOR = function () { return document.createElement('div'); };
   window.SC_LAB_VIEW = function (ctx) { ctx.clear(ctx.main); ctx.main.appendChild(T.card('lab')); };
   window.SC_LAB_FINDER = { install: function () {}, open: function () { T.show('lab'); } };
-  window.SC_REFS_VIEW = function (ctx) { ctx.clear(ctx.main); ctx.main.appendChild(T.card('refs')); };
-  window.SC_MD_VIEW = function (ctx) { ctx.clear(ctx.main); ctx.main.appendChild(T.card('markdown')); };
-  window.SC_FILES_EDITOR = function () { return document.createElement('div'); };
 })();

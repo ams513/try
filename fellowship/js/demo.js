@@ -92,7 +92,6 @@
     if (ktry[1]) { C.people[ktry[1].id].notes = "Asthma: inhaler is in his backpack."; D.households.filter(function (g) { return g.id === ktry[1].hh; })[0].careOnLabel = true; }
     if (ktry[2]) C.people[ktry[2].id].notes = "Dairy allergy. Family has not agreed to print this on a label.";
     if (ktry[3]) M.markCollected(kidsGroup, ktry[3].id, today + "T18:20:00.000Z", "Sam Rivera (example)");
-    if (M.groupsExample) M.groupsExample(D, adults, today);   // adults only, no random draws: everything after this is unchanged
     // giving: last full year and this year to date, typed in by hand
     var givers = [], f = G.funds, hhs = D.households.slice(0, 260);
     hhs.forEach(function (h, k) { givers.push({ key: k % 13 === 0 ? "p:" + D.people.filter(function (p) { return p.hh === h.id; })[0].id : "h:" + h.id, base: n(2, 40) * 500, every: pick([7, 14, 30, 30, 30]), method: pick(["Check", "Bank transfer", "Bank transfer", "Cash", "Card (taken elsewhere)"]) }); });

@@ -244,4 +244,3 @@ html:not([lang="en"]) .who label, html:not([lang="en"]) .filter label { white-sp
 html[lang="en"] .lang-note, html:not([lang]) .lang-note { display: none; }
 @media print { .lang-note, .lang-pick { display: none; } }
 /* end languages (apply_languages.py) */
-.stark-notice { font-size: .8rem; color: var(--muted); margin: .2em 0; max-width: 75ch; overflow-wrap: anywhere; }

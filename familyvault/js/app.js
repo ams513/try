@@ -2,10 +2,10 @@
 (function () {
   "use strict";
   var V = StarkVault, C = VaultContent, U = VaultUI, K = VaultKit, h = U.h, $ = U.$;
-  var S = { vault: null, session: null, readonly: false, person: "all", route: "home", last: 0, saveTimer: null, saving: Promise.resolve(), rev: 0, savedRev: 0, locking: false, shareInfo: null, q: "", prints: null };
+  var S = { vault: null, session: null, readonly: false, person: "all", route: "home", last: 0, saveTimer: null, saving: Promise.resolve(), rev: 0, savedRev: 0, locking: false, shareInfo: null, q: "" };
   var NAV = [["home", "Home"], ["insights", "Insights"], ["reminders", "Reminders"], ["docs", "Documents"], ["insurance", "Insurance"], ["health", "Health"], ["money", "Money and contacts"], ["digital", "Digital"],
     ["plan", "Planning"], ["emergency", "Emergency"], ["inventory", "Home inventory"], ["share", "Sharing"], ["recovery", "Recovery kit"], ["family", "Family"], ["settings", "Settings"]];
-  var ROUTES = NAV.map(function (n) { return n[0]; }).concat(["search", "pack"]);
+  var ROUTES = NAV.map(function (n) { return n[0]; }).concat(["search"]);
   // Views added by views2.js register here (window.VaultApp.views) before anything renders.
   var A = window.VaultApp = { views: {}, ext: {} };
 
@@ -39,7 +39,6 @@
   }
   function save() {
     if (S.readonly || !S.vault) return;
-    if (S.prints) S.prints = V.stampMods(S.vault, S.prints, new Date().toISOString());   // edit times, for a later merge by record
     $("#save-state").textContent = "Saving..."; S.rev++;
     clearTimeout(S.saveTimer);
     S.saveTimer = setTimeout(function () { persist().catch(function () { return null; }); }, 350);
@@ -136,9 +135,7 @@
     return h("details", { class: "other" }, h("summary", { text: "Other ways in" }),
       h("div", { class: "row wrap" },
         btn("Open a share file someone sent me", "", openShare),
-        btn("Open an emergency access pack", "", function () { if (A.svPackOpenDialog) A.svPackOpenDialog(); }),
         btn("Restore from a backup file", "", restoreBackup),
-        A.beamReceive ? btn("Receive from another device", "", function () { A.beamReceive(function (env) { restoreFrom(env, "the vault on the other device"); }); }) : null,
         btn("Rebuild my passphrase from recovery shares", "", function () { if (A.recoverDialog) A.recoverDialog(); }),
         env ? btn("Erase this vault from this computer", "danger-o", function () {
           U.confirmBox("Erase this vault?", "This deletes the encrypted vault stored on this computer. Without a backup file and your passphrase it cannot be brought back.", "Erase everything", true).then(function (ok) { if (ok) U.storeClear().then(lockScreen); });
@@ -178,27 +175,23 @@
       askPass("Open shared file", "Enter the passphrase the sender gave you for " + f.name + ".", function (pw) {
         return V.openVault(f.env, pw).then(function (r) {
           if (r.legacy) U.toast("This file has no checksum, validated.");
-          openReadonly(r.data, f.name, f.env.kind);
+          S.vault = r.data; S.session = null; S.readonly = true; S.shareInfo = { name: f.name, kind: f.env.kind };
+          migrate(); enter();
         });
       });
     });
   }
-  // Show an opened share file or emergency access pack. Read-only: nothing is saved on this computer.
-  function openReadonly(data, name, kind) { S.vault = data; S.session = null; S.readonly = true; S.shareInfo = { name: name, kind: kind }; migrate(); enter(); }
-  // Swap in a vault built by a merge (or put the earlier one back). Edit times set by the merge are kept as they are.
-  function adoptMerged(next) { if (S.readonly || !S.session) return; S.vault = next; migrate(); S.prints = V.prints(next); save(); render(); }
   function restoreBackup() {
-    U.pickFile().then(function (f) { if (f) restoreFrom(f.env); });
-  }
-  // The restore flow for a backup envelope that came from a file or from Beam (another device's screen). Same checks, same passphrase prompt.
-  function restoreFrom(env, name) {
-    if (!env || env.format !== V.FORMAT || env.kind !== "vault") return U.toast("That is not a full vault backup file.", true);
-    askPass("Restore backup", "Enter the passphrase for this backup" + (name ? " (" + name + ")" : "") + ". It becomes the passphrase of the restored vault. This replaces any vault on this computer.", function (pw) {
-      return V.openVault(env, pw, { upgrade: true }).then(function (r) {
-        return U.storeHigh().then(function (hw) {
-          r.session.n = Math.max(r.session.n || 0, hw);
-          return V.seal(r.session, r.data).then(U.storePut).then(function () { S.vault = r.data; S.session = r.session; S.readonly = false; migrate(); enter(); if (r.legacy) U.toast("Restored: no checksum, validated."); });
-        }).catch(function (x) { throw new Error(x && x.message && x.message.indexOf("passphrase") === -1 ? "Not restored: " + x.message + " Nothing on this computer was changed." : x.message); });
+    U.pickFile().then(function (f) {
+      if (!f) return;
+      if (!f.env || f.env.format !== V.FORMAT || f.env.kind !== "vault") return U.toast("That is not a full vault backup file.", true);
+      askPass("Restore backup", "Enter the passphrase for this backup. It becomes the passphrase of the restored vault. This replaces any vault on this computer.", function (pw) {
+        return V.openVault(f.env, pw, { upgrade: true }).then(function (r) {
+          return U.storeHigh().then(function (hw) {
+            r.session.n = Math.max(r.session.n || 0, hw);
+            return V.seal(r.session, r.data).then(U.storePut).then(function () { S.vault = r.data; S.session = r.session; S.readonly = false; migrate(); enter(); if (r.legacy) U.toast("Restored: no checksum, validated."); });
+          }).catch(function (x) { throw new Error(x && x.message && x.message.indexOf("passphrase") === -1 ? "Not restored: " + x.message + " Nothing on this computer was changed." : x.message); });
+        });
       });
     });
   }
@@ -207,7 +200,7 @@
   function enter() {
     document.body.classList.remove("locked"); document.body.classList.toggle("readonly", S.readonly);
     $("#topbar-tools").hidden = false; $("#nav").hidden = false;
-    S.person = "all"; S.last = Date.now(); S.prints = S.readonly ? null : V.prints(S.vault);
+    S.person = "all"; S.last = Date.now();
     var hash = (location.hash || "").replace("#/", ""); S.route = NAV.some(function (n) { return n[0] === hash; }) ? hash : "home"; S.q = "";
     $("#q").value = "";
     $("#lock-btn").textContent = S.readonly ? "Close" : "Lock now";
@@ -222,7 +215,7 @@
     S.locking = true;
     done.then(function () {
       S.locking = false;
-      S.vault = null; S.session = null; S.readonly = false; S.shareInfo = null; S.prints = null; S.savedRev = S.rev; if (A.ext.onLock) A.ext.onLock(); U.closeAllDialogs(); U.clear($("#print-root")); U.clear($("#main"));
+      S.vault = null; S.session = null; S.readonly = false; S.shareInfo = null; S.savedRev = S.rev; if (A.ext.onLock) A.ext.onLock(); U.closeAllDialogs(); U.clear($("#print-root")); U.clear($("#main"));
       lockScreen(); if (why) U.toast(why);
     }, function () {
       // Unsaved changes would be lost: stay open, say so plainly, and try again on the next idle period.
@@ -234,9 +227,6 @@
     if (!S.vault) return;
     var main = U.clear($("#main")), views = { home: vHome, docs: vDocs, health: vHealth, money: vMoney, plan: vPlan, inventory: vInventory, share: vShare, family: vFamily, settings: vSettings }, view = views[S.route] || A.views[S.route] || vHome;
     Array.prototype.forEach.call(document.querySelectorAll("#nav a"), function (a) { a.classList.toggle("on", a.dataset.nav === S.route); a.toggleAttribute("aria-current", a.dataset.nav === S.route); });
-    var pk = S.readonly && S.vault.settings && S.vault.settings.pack;
-    if (pk && typeof pk === "object") main.appendChild(h("div", { class: "banner warn" }, h("strong", { text: "Emergency access pack" + (pk["for"] ? " for " + pk["for"] : "") + "." }),
-      " " + (pk.from ? "Prepared by " + pk.from : "Prepared") + (pk.made ? " on " + pk.made : "") + ". This is a copy from that date: it does not update itself, and it is not a legal document."));
     if (S.readonly) main.appendChild(h("div", { class: "banner" }, h("strong", { text: "Read-only view of a shared file." }), " Opened from " + S.shareInfo.name + (S.vault.shared ? ", shared " + S.vault.shared : "") + ". Nothing here is saved to this computer. ",
       S.vault.note ? h("em", { text: "Note from the sender: " + S.vault.note }) : null));
     main.appendChild(view());
@@ -532,8 +522,17 @@
     if (ro()) { wrap.appendChild(h("p", { class: "muted", text: "Sharing is turned off in a read-only view." })); return wrap; }
     wrap.appendChild(h("div", { class: "card" }, h("h2", { text: "Export a share file" }),
       h("p", { class: "muted", text: "Choose what to include. The file is encrypted with its own passphrase, so you can send it by email or USB. Give the passphrase over a different channel, such as a phone call." }), shareForm()));
-    if (A.ext.shareCards) A.ext.shareCards(wrap);   // emergency access pack and merge-in (views5.js)
-    if (A.beamCard) wrap.appendChild(A.beamCard());   // Beam: move a sealed copy to another device with no network (beam_vault.js)
+    wrap.appendChild(h("div", { class: "card" }, h("h2", { text: "Open or import a share file" }),
+      h("p", { class: "muted", text: "Add what a family member shared with you into your own vault. People are matched by name and everything gets new entries, so nothing is overwritten." }),
+      btn("Choose a share file", "", function () {
+        U.pickFile().then(function (f) {
+          if (!f) return; if (!f.env || f.env.format !== V.FORMAT) return U.toast("That file is not a Stark Family Vault file.", true);
+          if (f.env.kind !== "share") return U.toast("That is a full backup. Restore it from the lock screen instead.", true);
+          askPass("Import shared file", "Enter the passphrase for " + f.name + ".", function (pw) {
+            return V.openVault(f.env, pw).then(function (r) { var a = V.mergeInto(S.vault, r.data); save(); render(); U.toast((r.legacy ? "No checksum, validated. " : "") + "Imported " + a.docs + " documents, " + a.people + " new people, " + (a.contacts + a.accounts + a.inventory) + " other entries."); });
+          });
+        });
+      })));
     wrap.appendChild(h("div", { class: "card" }, h("h2", { text: "Backup of the whole vault" }),
       h("p", { class: "muted", text: "The vault lives only in this browser's storage. Clearing site data, a new computer or a reinstall would lose it. Save a backup file to a USB drive or another safe place. It is encrypted with your current passphrase." }),
       h("p", { class: "fine", text: S.vault.settings.lastBackup ? "Last backup: " + S.vault.settings.lastBackup : "No backup yet." }),
@@ -610,17 +609,10 @@
     if (A.ext.settingsCards) A.ext.settingsCards(wrap);
     var mb = K.vaultSize(S.vault) / 1048576;
     wrap.appendChild(h("div", { class: "card" }, h("h2", { text: "About" }), h("p", { text: "Stark Family Vault " + V.VERSION + ", by Stark. Works offline; nothing is ever sent anywhere." }), h("p", { class: "lang-note", text: "This translation is a machine draft, not yet reviewed by a native speaker. To suggest a correction, use the Send feedback button." }),
-      h("p", { class: "fine", text: "Vault size: " + (mb < 0.1 ? "under 0.1" : mb.toFixed(1)) + " MB, most of it scans and photos. Large vaults save and back up more slowly, so keep scans to what you need." + (mb > 80 ? " Your vault is large: consider removing old scans." : "") }), starkNotice()));
-    wrap.appendChild(h("div", { class: "card" }, h("h2", { text: "Moving your vault to another device (Beam)" }),
-      h("p", { text: "One device shows a moving sequence of codes and the other reads them with its camera. No network is used: the page has no way to connect, and nothing of your vault is readable on the screen. Only your encrypted backup is shown, in pieces that look like noise. Receiving still needs your passphrase. A six-digit pairing code appears on both screens so you can see you are reading the right device; press Cancel if they differ." }),
-      h("p", { class: "fine", text: "Limits: camera quality and light matter, so hold the camera steady about 20 to 30 cm away. A vault without scans or photos is usually 10 to 40 KB, which is 10 to 25 seconds of codes at the slower speed; each MB of scans and photos adds about 12 minutes, so for a vault full of scans a backup file on a USB drive is the better way. It moves a copy and does not keep two devices in sync: changes made on one device after the copy are not on the other, and receiving to replace overwrites the vault on the receiving computer. Receiving from another device is in the free trial. Sending is in the full version." })));
+      h("p", { class: "fine", text: "Vault size: " + (mb < 0.1 ? "under 0.1" : mb.toFixed(1)) + " MB, most of it scans and photos. Large vaults save and back up more slowly, so keep scans to what you need." + (mb > 80 ? " Your vault is large: consider removing old scans." : "") })));
     wrap.appendChild(h("div", { class: "card danger-zone" }, h("h2", { text: "Erase" }), h("p", { class: "muted", text: "Deletes the vault from this computer. Make a backup first if you might want it again." }),
       btn("Erase vault", "danger", function () { U.confirmBox("Erase everything?", "Your vault will be deleted from this computer. This cannot be undone without a backup file.", "Erase everything", true).then(function (ok) { if (ok) U.storeClear().then(function () { S.vault = null; S.session = null; lock(); }); }); })));
     return wrap;
-  }
-  function starkNotice() {
-    var t = document.getElementById("stark-notice-tpl");
-    return t && t.content ? t.content.firstElementChild.cloneNode(true) : document.createTextNode("");
   }
   function changePass() {
     var cur = h("input", { id: "cur-pass", type: "password", autocomplete: "current-password" }), st = false, pf = U.passField("new-pass", "New passphrase", function (s) { st = s; }), msg = h("p", { class: "form-err", id: "cp-err", hidden: true, role: "alert" });
@@ -642,7 +634,6 @@
   /* ---------- boot ---------- */
   window.__vault = { state: S, lock: lock, render: render };
   // Shared helpers for the views in views2.js (same closure rules: build with textContent, never markup).
-  A.openReadonly = openReadonly; A.adoptMerged = adoptMerged; A.restoreFrom = restoreFrom; A.flush = flush;
   A.S = S; A.btn = btn; A.section = section; A.empty = empty; A.badge = badge; A.save = save; A.render = render; A.row = row; A.pname = pname; A.peopleOpts = peopleOpts;
   A.visible = visible; A.ro = ro; A.personFilterBar = personFilterBar; A.actions = actions; A.upsert = upsert; A.byId = byId; A.printNode = printNode; A.money = money; A.stamp = stamp; A.remList = remList;
   // Boot once every script (including views2.js) has run.

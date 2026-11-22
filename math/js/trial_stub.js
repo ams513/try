@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Math"; T.buyUrl = "https://ams513.itch.io/stark-math"; T.notIncluded = "Not in the free trial: the larger curriculum: calculus, chemistry, linear algebra, statistics, computer science and engineering skills, printable worksheets with answer keys, offline contests with organiser packs, country curriculum maps for India, Australia, Brazil and the IB and parent and carer progress report. They are in the full version."; T.features = {
+  T.app = "Stark Math"; T.buyUrl = "https://ams513.itch.io/stark-math"; T.notIncluded = "Not in the free trial: the larger curriculum: calculus, chemistry, linear algebra, statistics, computer science and engineering skills, printable worksheets with answer keys, offline contests with organiser packs and parent and carer progress report. They are in the full version."; T.features = {
  "science_skills": {
   "title": "Calculus, chemistry and more subjects",
   "short": "the larger curriculum: calculus, chemistry, linear algebra, statistics, computer science and engineering skills",
@@ -20,12 +20,6 @@
   "title": "Offline contests",
   "short": "offline contests with organiser packs",
   "blurb": "An organiser makes an event pack with levels, rounds and time limits. Everyone who plays it at the same level gets the same problems, and players export a signed result file the organiser can check and rank.",
-  "shot": ""
- },
- "country_maps": {
-  "title": "Country curriculum maps",
-  "short": "country curriculum maps for India, Australia, Brazil and the IB",
-  "blurb": "Pick a country and a grade and see which topics Stark Math practises, which it practises in part and which it does not have, with a one-page A4 print and a CSV.",
   "shot": ""
  },
  "report": {

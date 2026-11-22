@@ -251,7 +251,7 @@
 "No": "No",
 "No backup file saved yet": "Nessun file di backup ancora salvato",
 "No backup yet.": "Nessun backup finora.",
-
+"No checksum, validated.": "Nessun checksum, convalidato.",
 "No date": "Nessuna data",
 "No expired documents or policies": "Nessun documento o polizza scaduti",
 "No expiry": "Nessuna scadenza",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "Premio registrato senza data di rinnovo",
 "Premiums only.": "Solo premi.",
 "Prepaid plans or arrangements": "Piani o accordi prepagati",
-"Prepared": "Preparato",
+
 "Preview": "Anteprima",
 "Preview and print": "Anteprima e stampa",
 "Print": "Stampa",

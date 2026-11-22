@@ -251,7 +251,7 @@
 "No": "नहीं",
 "No backup file saved yet": "अभी तक कोई बैकअप फ़ाइल सहेजी नहीं गई",
 "No backup yet.": "अभी तक कोई बैकअप नहीं है।",
-
+"No checksum, validated.": "कोई चेकसम नहीं, सत्यापित।",
 "No date": "कोई तारीख़ नहीं",
 "No expired documents or policies": "कोई समाप्त दस्तावेज़ या पॉलिसी नहीं",
 "No expiry": "कोई समाप्ति नहीं",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "प्रीमियम दर्ज है, पर रिन्यू की तारीख़ नहीं",
 "Premiums only.": "केवल प्रीमियम।",
 "Prepaid plans or arrangements": "पहले से भुगतान की गई योजनाएँ या व्यवस्थाएँ",
-"Prepared": "तैयार किया गया",
+
 "Preview": "पूर्वावलोकन",
 "Preview and print": "पूर्वावलोकन और प्रिंट",
 "Print": "प्रिंट करें",

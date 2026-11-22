@@ -4,7 +4,7 @@
 (function () {
   'use strict';
   const SM = window.SM;
-  const APP = 'stark-math', VERSION = '1.5.0';
+  const APP = 'stark-math', VERSION = '1.4.0';
   SM.APP = APP; SM.VERSION = VERSION;
 
   /* ---------- DOM helpers ---------- */

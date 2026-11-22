@@ -3,8 +3,8 @@
    contacts another site, and never sees a family's records: they live in the browser's storage, not in requests.
    tools/build_web_zip.py writes the two lists from the files that ship, and tests/test_homeroom.py checks them. */
 'use strict';
-const CACHE = /* BUILD */'stark-homeroom-trial-1.3.0-2107a542e6d50a4f'/* END */;   /* tools/build_web_zip.py renames it from the content hash of every shipped file */
-const CORE = /* CORE */["css/app.css", "css/beam.css", "css/trial_stub.css", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png", "index.html", "js/app.js", "js/beam/beam.js", "js/beam/beam_qrdec.js", "js/beam/beam_ui.js", "js/beam_homeroom.js", "js/catalog.js", "js/demo.js", "js/feedback.js", "js/homelib.js", "js/homeviews.js", "js/hublib.js", "js/i18n.js", "js/insightlib.js", "js/insightviews.js", "js/reportlib.js", "js/states.js", "js/teachlib.js", "js/trial.js", "js/trial_glue.js", "js/trial_stub.js", "js/vaultlib.js", "js/views.js", "manifest.webmanifest"]/* END */;
+const CACHE = 'stark-homeroom-trial-1.2.0';
+const CORE = /* CORE */["css/app.css", "css/trial_stub.css", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png", "index.html", "js/app.js", "js/catalog.js", "js/demo.js", "js/feedback.js", "js/homelib.js", "js/homeviews.js", "js/hublib.js", "js/i18n.js", "js/insightlib.js", "js/insightviews.js", "js/reportlib.js", "js/states.js", "js/teachlib.js", "js/trial.js", "js/trial_glue.js", "js/trial_stub.js", "js/vaultlib.js", "js/views.js", "manifest.webmanifest"]/* END */;
 const LANGS = /* LANGS */["i18n/ar.js", "i18n/de.js", "i18n/es.js", "i18n/fr.js", "i18n/hi.js", "i18n/id.js", "i18n/it.js", "i18n/ja.js", "i18n/ko.js", "i18n/pl.js", "i18n/pt-BR.js", "i18n/ru.js", "i18n/tr.js", "i18n/vi.js", "i18n/zh-Hans.js"]/* END */;
 const BASE = new URL('./', self.location.href);
 

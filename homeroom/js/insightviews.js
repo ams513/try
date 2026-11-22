@@ -238,47 +238,35 @@
         go.disabled = false;
       });
       const rp = h('input', { type: 'password', id: 'vault-open-pass', autocomplete: 'current-password' });
-      /* a vault object (from a file, or from Beam: js/beam_homeroom.js) is opened with the typed passphrase, checked, and shown in the restore preview; nothing is replaced yet */
-      let held = null;
-      const openVault = async (o, name, again) => {
-        try {
-          if (!L.vaultLooksLike(o)) throw new Error('That file is not a Stark Homeroom vault.');
-          say('Opening on this computer...');
-          if (!rp.value) { say('Type the vault passphrase first, then ' + again, true, rp); return; }
-          const r = await L.vaultOpen(o, rp.value); if (!r.ok) { say(r.error, true, /passphrase/i.test(r.error) ? rp : null); return; }
-          let b; try { b = JSON.parse(r.text); } catch (er) { throw new Error('The vault opened but holds no backup.'); }
-          const rb = L.readBackup(b); if (!rb.ok) throw new Error(rb.error);
-          rp.value = ''; ui.restore = { name: name, state: rb.state, note: rb.note + '; from an encrypted vault' + (r.headerBound ? ', header sealed' : ''), saved: r.saved }; say(''); render();
-        } catch (err) { say(err.message, true); }
-      };
       const pick = h('input', { type: 'file', id: 'vaultpick', accept: '.shrvault,.json', 'aria-label': 'Choose a vault file', onchange: async e => {
         const f = e.target.files[0]; if (!f) return;
         try {
           if (f.size > 40 * 1024 * 1024) throw new Error('That file is too big.');
           let o; try { o = JSON.parse(await f.text()); } catch (er) { throw new Error('That file is not a vault.'); }
-          await openVault(o, f.name, 'choose the file again.');
+          if (!L.vaultLooksLike(o)) throw new Error('That file is not a Stark Homeroom vault.');
+          say('Opening on this computer...');
+          if (!rp.value) { say('Type the vault passphrase first, then choose the file again.', true, rp); e.target.value = ''; return; }
+          const r = await L.vaultOpen(o, rp.value); if (!r.ok) { say(r.error, true, /passphrase/i.test(r.error) ? rp : null); e.target.value = ''; return; }
+          let b; try { b = JSON.parse(r.text); } catch (er) { throw new Error('The vault opened but holds no backup.'); }
+          const rb = L.readBackup(b); if (!rb.ok) throw new Error(rb.error);
+          rp.value = ''; ui.restore = { name: f.name, state: rb.state, note: rb.note + '; from an encrypted vault' + (r.headerBound ? ', header sealed' : ''), saved: r.saved }; say(''); render();
         } catch (err) { say(err.message, true); }
         e.target.value = '';
       } });
-      const heldBtn = btn('Open the received vault', () => { if (held) openVault(held, 'the vault on the other device', 'press Open the received vault again.'); }, '', { id: 'beam-open', hidden: true });
-      const arrived = v => { held = v; heldBtn.hidden = false; say('Received from the other device. Nothing has changed yet: type the vault passphrase above, then press Open the received vault.'); rp.focus(); };
       const persist = h('div', { class: 'row' }), pstat = h('span', { class: 'small muted', role: 'status' }, '');
       if (root.navigator && navigator.storage && navigator.storage.persist) {
         const ask1 = btn('Ask the browser to keep my records', async () => { try { const ok = await navigator.storage.persist(); pstat.textContent = ok ? 'Done: the browser will not clear this site\'s data on its own.' : 'The browser did not agree. Keep saving backups.'; } catch (e) { pstat.textContent = 'Not available here.'; } }, 'btn-ghost btn-small');
         persist.append(ask1, pstat);
         if (navigator.storage.persisted) navigator.storage.persisted().then(v => { if (v) pstat.textContent = 'Already protected from automatic clearing.'; }).catch(() => {});
       } else persist.append(h('span', { class: 'small muted' }, 'This browser cannot be asked to protect stored data.'));
-      const vaultEl = h('div', { class: 'card', id: 'vault-card' }, h('h2', null, 'Encrypted vault'),
+      return h('div', { class: 'card', id: 'vault-card' }, h('h2', null, 'Encrypted vault'),
         h('p', { class: 'muted', id: 'vault-help' }, 'The same backup, locked with a passphrase before it leaves the page. Good for a cloud folder or a shared drive: without the passphrase the file is unreadable. The passphrase is never stored, and it cannot be recovered if you lose it.'),
         status,
         h('div', { class: 'row' }, h('div', { class: 'grow' }, field('Passphrase', p1, 'vault-pass')), h('div', { class: 'grow' }, field('Type it again', p2, 'vault-pass2'))), meter,
         h('div', { class: 'row' }, go),
         h('h3', null, 'Open a vault'), h('div', { class: 'row' }, h('div', { class: 'grow' }, field('Vault passphrase', rp, 'vault-open-pass')), h('div', { class: 'grow2' }, field('Vault file', pick, 'vaultpick'))),
-        h('div', { class: 'row' }, heldBtn),
         h('p', { class: 'small muted' }, 'Encrypted with AES-256-GCM; the key comes from your passphrase by PBKDF2-SHA-256 (600,000 rounds), using the browser\'s own cryptography. The header, including the date it was sealed, is sealed too. A wrong passphrase or a changed file is refused without restoring anything, and a vault older than your records here is flagged before it can replace them.'),
         h('h3', null, 'Keep stored records'), persist);
-      if (!SHR.beamCard) return vaultEl;
-      const both = document.createDocumentFragment(); both.append(vaultEl, SHR.beamCard(X, arrived)); return both;   /* Beam (js/beam_homeroom.js): its card after the vault card */
     }
 
     return { insights: vInsights, palette, vaultCard };

@@ -3,7 +3,7 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Caregiver"; T.buyUrl = "https://starkforall.com/caregiver.html"; T.notIncluded = "Not in the free trial: Care Radar and the Care Clock, Ask the record, the medicine runway and the emergency QR card, the printable in-case-of-emergency binder, the calendar file (.ics) of refills, appointments and checks and dose alarms as a repeating calendar file and the medicine list import. They are in the full version."; T.features = {
+  T.app = "Stark Caregiver"; T.buyUrl = "https://starkforall.com/caregiver.html"; T.notIncluded = "Not in the free trial: Care Radar and the Care Clock, Ask the record, the medicine runway and the emergency QR card, the printable in-case-of-emergency binder and the calendar file (.ics) of refills, appointments and checks. They are in the full version."; T.features = {
  "radar_ask": {
   "title": "Care Radar, Ask the record and the emergency QR card",
   "short": "Care Radar and the Care Clock, Ask the record, the medicine runway and the emergency QR card",
@@ -20,12 +20,6 @@
   "title": "Calendar file for reminders",
   "short": "the calendar file (.ics) of refills, appointments and checks",
   "blurb": "Save refills, appointments, renewals and checks as calendar events with an alert, for Google, Apple, Outlook or any calendar that imports a file. The file holds titles, dates and times only, never notes or doses. The reminders list itself stays in the trial.",
-  "shot": ""
- },
- "dose_tools": {
-  "title": "Dose alarms and medicine list import",
-  "short": "dose alarms as a repeating calendar file and the medicine list import",
-  "blurb": "Save each medicine's times as repeating calendar events with an alarm, made by your own calendar app, and bring in a medicine list from a CSV file or pasted lines with a preview before anything is added. Not medical advice. Ask your doctor or pharmacist. Adding medicines one by one, the dose log and the printed medicine list stay in the trial.",
   "shot": ""
  }
 };

@@ -6,11 +6,9 @@
   SW.data = SW.data || {};
 
   SW.data.meta = {
-    version: '2.3.0',
+    version: '2.2.1',
     asOf: '2026-11-20',
     asOfLabel: 'November 20, 2026',
-    patternsAsOf: '2026-11-20',   /* the built-in warning-sign patterns: the app records one date for its information, and these rules carry no separate date or source */
-    patternsAsOfLabel: 'November 20, 2026',
     check: 'Check the date on this information. It was written from the federal rules in force when this version was built (see the date above) and was not re-checked against live websites. Laws, deadlines, dollar limits and agency practices change. Before you rely on any rule, confirm it with the official source listed on the Sources page, your state attorney general, legal aid, or a consumer-protection attorney.',
     notLegal: 'Stark Warden gives general information, not legal advice, and it is not a law firm or a credit counselor. Using it does not create a lawyer-client relationship. Rules differ by state and by facts. No tool can promise that a debt will go away, a score will rise, or a scam will be caught: be careful of anyone who promises those things.',
     scope: 'United States federal rules, with state data where the tool says so.'

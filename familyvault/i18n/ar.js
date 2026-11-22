@@ -251,7 +251,7 @@
 "No": "لا",
 "No backup file saved yet": "لم يُحفظ ملف نسخ احتياطي بعد",
 "No backup yet.": "لا توجد نسخة احتياطية بعد.",
-
+"No checksum, validated.": "بلا مجموع اختباري، تم التحقق.",
 "No date": "بلا تاريخ",
 "No expired documents or policies": "لا توجد مستندات أو وثائق منتهية الصلاحية",
 "No expiry": "بلا تاريخ انتهاء",
@@ -346,7 +346,7 @@
 "Premium recorded without a renewal date": "تم تسجيل قسط بلا تاريخ تجديد",
 "Premiums only.": "الأقساط فقط.",
 "Prepaid plans or arrangements": "خطط أو ترتيبات مدفوعة مسبقًا",
-"Prepared": "تم الإعداد",
+
 "Preview": "معاينة",
 "Preview and print": "معاينة وطباعة",
 "Print": "طباعة",

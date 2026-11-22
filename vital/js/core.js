@@ -1,6 +1,6 @@
 (function (root) {
   "use strict";
-  var VERSION = "1.2.0";
+  var VERSION = "1.1.0";
   var KDF_ITER = 600000;            // PBKDF2-SHA256 iterations (OWASP 2023 guidance)
   var MIN_ITER = 100000, MAX_ITER = 2000000;   // accepted from a file: higher is a UI-freeze trap; lower is upgraded on unlock
   var FORMAT = "StarkVital", BUNDLE = "StarkVitalBackup";

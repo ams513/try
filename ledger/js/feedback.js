@@ -24,22 +24,10 @@
 
   L.trialNote = () => trial() ? h('p', { class: 'fine', id: 'trial-lock-note' }, h('b', null, 'Free trial.'), ' New invoices stop at ' + trial().invoiceLimit + '. ' + ((window.StarkTrial || {}).notIncluded || '') + ' Your data is never deleted or locked. ', buyLink('ghost sm')) : null;
 
-  /* Trial banner: says once, visibly, what the trial leaves out (the sentence generated from the manifest). Dismissal is remembered. It is drawn from
-     shellExtras, which runs only after the books are unlocked, so it never sits on the lock screen. */
-  const DISMISS_KEY = 'stark-ledger-trial-banner';
-  const dismissed = () => { try { return localStorage.getItem(DISMISS_KEY) === '1'; } catch (e) { return false; } };
-  function trialBanner(e) {
-    const T = window.StarkTrial, main = L.$('#main'), old = L.$('#trial-banner'); if (old) old.remove();
-    if (!e || !T || !T.notIncluded || dismissed() || !main) return;
-    const close = h('button', { type: 'button', class: 'btn ghost sm', id: 'trial-banner-x', 'aria-label': 'Dismiss', onclick: () => { try { localStorage.setItem(DISMISS_KEY, '1'); } catch (x) { /* storage blocked: hidden until reload */ } const b = L.$('#trial-banner'); if (b) b.remove(); } }, 'Dismiss');
-    main.insertBefore(h('div', { class: 'note trial-banner', id: 'trial-banner', role: 'note' }, h('span', null, T.notIncluded), close), main.firstChild);
-  }
-
   L.shellExtras = function () {
     const f = L.$('.footer'), e = trial(), top = L.$('.topbar');
     f.appendChild(document.createTextNode(' ')); f.appendChild(h('a', { href: '#/feedback', id: 'footer-feedback' }, 'Send feedback'));
     const old = L.$('#trial-bar'); if (old) old.remove();
-    Promise.resolve().then(() => trialBanner(e)); // after the page body is drawn, so it sits at the top of the page
     if (!e || !top) return;
     const n = L.st ? L.st.invoices.length : 0, anchor = L.$('#search-btn');
     top.insertBefore(h('span', { id: 'trial-bar', class: 'trial-bar' }, h('span', { class: 'chip amber', id: 'trial-badge', title: 'Free trial: new invoices stop at ' + e.invoiceLimit + '. Nothing is deleted.' }, 'Free trial ' + Math.min(n, e.invoiceLimit) + '/' + e.invoiceLimit + ' invoices'), buyLink('primary sm')), anchor);

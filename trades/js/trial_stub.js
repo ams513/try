@@ -3,11 +3,11 @@
 (function (g) {
   'use strict';
   var T = g.StarkTrial = g.StarkTrial || {};
-  T.app = "Stark Trades"; T.buyUrl = "https://ams513.itch.io/stark-trades"; T.notIncluded = "Not in the free trial: customer quotes and invoices (print or PDF, with a how-to-pay block and QR code, and a region setting for currency, tax lines, units, date order and paper), supplier price-list import and accounting export (CSV and a QuickBooks layout) and 1099-NEC totals for your subs, with a CSV. They are in the full version."; T.features = {
+  T.app = "Stark Trades"; T.buyUrl = "https://ams513.itch.io/stark-trades"; T.notIncluded = "Not in the free trial: customer quotes and invoices (print or PDF, with a how-to-pay block and QR code), supplier price-list import and accounting export (CSV and a QuickBooks layout) and 1099-NEC totals for your subs, with a CSV. They are in the full version."; T.features = {
  "documents": {
   "title": "Customer quotes and invoices",
-  "short": "customer quotes and invoices (print or PDF, with a how-to-pay block and QR code, and a region setting for currency, tax lines, units, date order and paper)",
-  "blurb": "Print or save as PDF a quote and an invoice with your business header, a tax line at a rate you set, terms, an acceptance block and a how-to-pay block with your own payment details. Quote to invoice in one step, with statuses and dates. A region setting (US, UK, Canada, Australia, euro area, Spain) sets the money look, tax line names, units, date order and paper. Nothing is sent and no payment is taken.",
+  "short": "customer quotes and invoices (print or PDF, with a how-to-pay block and QR code)",
+  "blurb": "Print or save as PDF a quote and an invoice with your business header, a tax line at a rate you set, terms, an acceptance block and a how-to-pay block with your own payment details. Quote to invoice in one step, with statuses and dates. Nothing is sent and no payment is taken.",
   "shot": ""
  },
  "exchange": {

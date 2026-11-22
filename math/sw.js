@@ -2,7 +2,7 @@
    It caches this app's own files only (no other site is ever contacted) and answers from that cache, so the
    installed app opens with no connection. A new build changes VERSION and replaces the old cache. */
 'use strict';
-const VERSION = '28b878f8999aa173', PREFIX = 'stark-math-trial-', CACHE = PREFIX + VERSION;
+const VERSION = '0f390857ff92c29d', PREFIX = 'stark-math-trial-', CACHE = PREFIX + VERSION;
 const FILES = ["css/app.css","css/trial_stub.css","data/constants.js","i18n/ar.js","i18n/de.js","i18n/es.js","i18n/fr.js","i18n/hi.js","i18n/id.js","i18n/it.js","i18n/ja.js","i18n/ko.js","i18n/pl.js","i18n/pt-BR.js","i18n/ru.js","i18n/tr.js","i18n/vi.js","i18n/zh-Hans.js","icons/icon-192.png","icons/icon-512.png","index.html","js/algebra.js","js/app.js","js/check.js","js/core.js","js/curriculum.js","js/edition.js","js/exact.js","js/fluency.js","js/graph.js","js/i18n.js","js/lab.js","js/learn.js","js/madeline.js","js/mathkb.js","js/notebook.js","js/placement.js","js/pwa.js","js/reading.js","js/render.js","js/safety.js","js/shell.js","js/sim.js","js/skills.js","js/skills/math1.js","js/skills/math2.js","js/skills/physics.js","js/skills/words.js","js/study.js","js/trial_glue.js","js/trial_stub.js","js/tutor.js","js/views.js","js/wordprob.js","manifest.webmanifest"];
 const BASE = new URL('./', self.location).pathname, OWN = new Set(FILES);
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });
