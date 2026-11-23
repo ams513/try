@@ -29,4 +29,12 @@
     });
     var ff = rc.feedFrame; rc.feedFrame = function (f) { if (f.seq < minSeq) minSeq = f.seq; if (f.seq > maxSeq) maxSeq = f.seq; seqs.add(f.seq); return ff.call(this, f); };
     $('v').hidden = false;
-    rc.startCamera($('v')).then(function (c) { if (mine !== run) { c.stop(); return; } cam = c; res.path = c.path; $('rdr').textContent = c.path === 'js' ? 'built-in
+    rc.startCamera($('v')).then(function (c) {
+      if (mine !== run) { c.stop(); return; }
+      cam = c; res.path = c.path; $('rdr').textContent = c.path === 'js' ? 'built-in' : 'browser'; msg('Point the camera at the moving codes.');
+      tick = setInterval(function () { $('secs').textContent = secs().toFixed(1); counts(); }, 200);
+    }, function () { $('v').hidden = true; $('again').hidden = false; });
+  }
+  $('go').onclick = begin; $('again').onclick = begin;
+  if (!B.support().camera) msg('This browser has no camera access here. Open this page in Safari or Chrome over https.', 'fail');
+})();
