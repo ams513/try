@@ -6,7 +6,7 @@
   function pairFmt(p) { return p.slice(0, 3) + ' ' + p.slice(3); }
   function msg(t, c) { var m = $('msg'); m.textContent = t; m.className = 'msg' + (c ? ' ' + c : ''); }
   function secs() { return tFirst ? ((Date.now() - tFirst) / 1000) : 0; }
-  function counts() { var seen = rc ? rc.stats.frames : 0, uniq = seqs ? seqs.size : 0, lost = uniq ? Math.max(0, (maxSeq - minSeq + 1) - uniq) : 0; $('seen').textContent = String(seen); $('lost').textContent = String(lost); res.seen = seen; res.lost = lost; }
+  function counts() { var uniq = seqs ? seqs.size : 0, seen = uniq, lost = uniq ? Math.max(0, (maxSeq - minSeq + 1) - uniq) : 0; $('seen').textContent = String(seen); $('lost').textContent = String(lost); res.seen = seen; res.lost = lost; }
   function stop() { clearInterval(tick); if (cam) { try { cam.stop(); } catch (e) { /* closed */ } cam = null; } $('v').hidden = true; }
   function hex(b) { return Array.prototype.map.call(new Uint8Array(b), function (x) { return ('0' + x.toString(16)).slice(-2); }).join(''); }
   function finish(bytes, info) {
