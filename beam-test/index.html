@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stark Beam receiver test</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer"><meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="beam-test.css?v=0-f35fa0d8">
+</head><body><main>
+<h1>Stark Beam receiver test</h1>
+<p class="mut">Free receiver check. Point the camera at the moving codes on the other screen. Nothing is recorded or sent; this page makes no network requests.</p>
+<button id="go" class="big" type="button">Start camera</button>
+<video id="v" muted playsinline hidden></video>
+<progress id="bar" max="100" value="0"></progress>
+<div class="grid">
+<div><span class="lbl">Progress</span><b id="pct">0%</b></div>
+<div><span class="lbl">Pairing code</span><b id="pair">------</b></div>
+<div><span class="lbl">Seconds</span><b id="secs">0.0</b></div>
+<div><span class="lbl">Codes seen</span><b id="seen">0</b></div>
+<div><span class="lbl">Codes lost</span><b id="lost">0</b></div>
+<div><span class="lbl">Reader</span><b id="rdr">-</b></div>
+</div>
+<p id="msg" class="msg" role="status">Press Start camera and allow it.</p>
+<button id="again" type="button" hidden>Start over</button>
+<p class="mut small">Expected: 40000 bytes, CRC-32 258DA5AE, SHA-256 8980e578...04fc6 (a fixed test file, nothing personal). The pairing code must match the one on the sender screen. Hold the phone steady, 20 to 30 cm from the screen. Codes lost counts codes that went by while the camera did not read them; some loss is normal.</p>
+</main>
+<script src="beam.js?v=0-b7aa84cd"></script><script src="beam_qrdec.js?v=0-cfe14239"></script><script src="beam-test.js?v=0-a6f37608"></script>
+</body></html>
