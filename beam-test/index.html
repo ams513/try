@@ -3,10 +3,11 @@
 <title>Stark Beam receiver test</title>
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<meta name="referrer" content="no-referrer"><meta name="color-scheme" content="dark light">
-<link rel="stylesheet" href="beam-test.css?v=0-f35fa0d8">
+<meta name="referrer" content="no-referrer"><meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="beam-test.css?v=0-0663911b">
 </head><body><main>
 <h1>Stark Beam receiver test</h1>
+<p class="fear">Do not be afraid.</p>
 <p class="mut">Free receiver check. Point the camera at the moving codes on the other screen. Nothing is recorded or sent; this page makes no network requests.</p>
 <button id="go" class="big" type="button">Start camera</button>
 <video id="v" muted playsinline hidden></video>
@@ -22,6 +23,7 @@
 <p id="msg" class="msg" role="status">Press Start camera and allow it.</p>
 <button id="again" type="button" hidden>Start over</button>
 <p class="mut small">Expected: 40000 bytes, CRC-32 258DA5AE, SHA-256 8980e578...04fc6 (a fixed test file, nothing personal). The pairing code must match the one on the sender screen. Hold the phone steady, 20 to 30 cm from the screen. Codes lost counts codes that went by while the camera did not read them; some loss is normal.</p>
+<span class="dry">This page has no tracker. Check the source.</span>
 </main>
 <script src="beam.js?v=0-b7aa84cd"></script><script src="beam_qrdec.js?v=0-cfe14239"></script><script src="beam-test.js?v=0-c62c3843"></script>
 </body></html>
